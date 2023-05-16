@@ -7,4 +7,4 @@ You will always be renting your main home which has its rent rise exponentially 
 
 You can choose to buy properties and rent them out, but the prices of these properties will rise from the beginning of the game. If you don't buy early you may never afford property. You can hire a property manager or manage rents yourself for potentially higher gains
 
-Periodic recessions or construction booms have an impact on both supply and demand, thereby affecting rental income. Maintenance is a reaccuring cost that properties will generate. You have a reputation, and if you fail to provide maintenance for your properties, people will be less willing to rent from you, resulting in lower rental rates.
+Periodic recessions or construction booms have an impact on both supply and demand, thereby affecting rental income. Maintenance is a reoccurring cost that properties will generate. You have a reputation, and if you fail to provide maintenance for your properties, people will be less willing to rent from you, resulting in lower rental rates.
