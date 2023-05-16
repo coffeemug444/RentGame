@@ -1,3 +1,6 @@
 .vscode
-.obj/*
-bin/*
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+rentGame

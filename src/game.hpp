@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "ui.hpp"
+#include "display/ui.hpp"
 #include <future>
 
 class Game
