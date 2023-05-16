@@ -6,7 +6,7 @@ IDIR=include
 ODIR=.obj
 SRCDIR=src
 
-_DEPS = game.hpp ui.hpp
+_DEPS = game.hpp ui.hpp util.hpp
 DEPS = Makefile $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = main.o game.o ui.o

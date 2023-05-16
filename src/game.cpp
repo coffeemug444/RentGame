@@ -2,6 +2,7 @@
 
 Game::Game()
 :m_window(sf::VideoMode(200, 200), "Rent game")
+,m_ui(*this, m_window.getSize())
 {
 }
 
@@ -29,6 +30,7 @@ void Game::loop()
       m_window.clear();
 
       // draw scene
+      m_window.draw(m_ui);
 
       m_window.display();
    }
