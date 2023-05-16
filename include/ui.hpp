@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include <mutex>
 
 class Game;
 
@@ -11,6 +12,7 @@ public:
 
 private:
    Game& m_game;
+   mutable std::mutex m_data_mutex;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_toolbar;
 };

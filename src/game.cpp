@@ -1,7 +1,7 @@
 #include "game.hpp"
 
 Game::Game()
-:m_window(sf::VideoMode(200, 200), "Rent game")
+:m_window(sf::VideoMode(800, 800), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
 }
@@ -22,16 +22,24 @@ void Game::pollEvents()
    }
 }
 
-void Game::loop()
+void Game::displayLoop()
 {
    while (m_window.isOpen())
    {
-      pollEvents();
       m_window.clear();
 
       // draw scene
       m_window.draw(m_ui);
 
       m_window.display();
+   }
+}
+
+void Game::mainLoop()
+{
+   m_display_thread = std::async(&Game::displayLoop, this);
+   while (m_window.isOpen())
+   {
+      pollEvents();
    }
 }
