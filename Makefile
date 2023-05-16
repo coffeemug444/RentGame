@@ -1,5 +1,6 @@
 CC=g++
 CFLAGS = -g -std=c++20 -I$(IDIR)
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 IDIR=include
 ODIR=.obj
@@ -15,7 +16,7 @@ $(ODIR)/%.o: $(SRCDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 bin/main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 clean:

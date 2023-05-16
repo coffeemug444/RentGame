@@ -1,14 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-
-using namespace std;
-
+#include "game.hpp"
 
 int main() {
-
-   cout << "Hello, World!" << endl;
+   Game game;
+   game.loop();
 
    return 0;
 }
