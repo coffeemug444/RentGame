@@ -11,7 +11,9 @@ public:
 private:
    void displayLoop();
    void pollEvents();
+   void closeWindow();
    std::future<void> m_display_thread;
+   mutable std::mutex m_window_mutex;
    sf::RenderWindow m_window;
    Ui m_ui;
 };

@@ -6,6 +6,12 @@ Game::Game()
 {
 }
 
+void Game::closeWindow()
+{
+   std::lock_guard lock(m_window_mutex);
+   m_window.close();
+}
+
 void Game::pollEvents()
 {
    sf::Event event;
@@ -14,7 +20,7 @@ void Game::pollEvents()
       switch (event.type)
       {
       case sf::Event::Closed:
-         m_window.close();
+         closeWindow();
          break;
       default:
          break;
@@ -24,8 +30,11 @@ void Game::pollEvents()
 
 void Game::displayLoop()
 {
-   while (m_window.isOpen())
+   while (1)
    {
+      std::lock_guard lock(m_window_mutex);
+      if (not m_window.isOpen()) return;
+      
       m_window.clear();
 
       // draw scene
@@ -42,4 +51,6 @@ void Game::mainLoop()
    {
       pollEvents();
    }
+
+   m_display_thread.wait();
 }
