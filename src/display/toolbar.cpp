@@ -63,10 +63,10 @@ sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos)
    if (mouse_pos.y < m_bar.getPosition().y) return sf::Cursor::Arrow;
 
    auto button_center = m_button.getPosition() 
-                      + sf::Vector2f{m_button.getRadius() / 2.f,
-                                     m_button.getRadius() / 2.f};
+                      + sf::Vector2f{m_button.getRadius(),
+                                     m_button.getRadius()};
    sf::Vector2f d = button_center - mouse_pos;
-   if ((d.x*d.x+d.y+d.y) < m_button.getRadius()*m_button.getRadius()) return sf::Cursor::Hand;
+   if ((d.x*d.x+d.y*d.y) < m_button.getRadius()*m_button.getRadius()) return sf::Cursor::Hand;
 
    return sf::Cursor::Arrow;
 }
