@@ -9,6 +9,7 @@ Ui::Ui(Game& game, sf::Vector2u screen_size)
 :m_game(game)
 ,m_screen_size(screen_size)
 ,m_toolbar(*this, screen_size)
+,m_loan_screen(*this, screen_size)
 ,m_current_cursor(sf::Cursor::Arrow)
 {
 }
@@ -29,6 +30,7 @@ void Ui::mouseMoved(sf::Vector2u mouse_pos)
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(m_data_mutex);
+   target.draw(m_loan_screen);
    target.draw(m_toolbar);
 }
 

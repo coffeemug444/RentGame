@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "toolbar.hpp"
+#include "loanScreen.hpp"
 #include <mutex>
 
 namespace Game
@@ -21,6 +22,7 @@ private:
    mutable std::mutex m_data_mutex;
    sf::Vector2u m_screen_size;
    Toolbar m_toolbar;
+   LoanScreen m_loan_screen;
    sf::Cursor::Type m_current_cursor;
 };
 
