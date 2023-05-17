@@ -1,4 +1,9 @@
 #include "game.hpp"
+#include <chrono>
+#include <thread>
+
+using namespace std::chrono;
+using namespace std::this_thread;
 
 Game::Game()
 :m_window(sf::VideoMode(800, 800), "Rent game")
@@ -32,7 +37,9 @@ void Game::displayLoop()
 {
    while (1)
    {
+      {
       std::lock_guard lock(m_window_mutex);
+
       if (not m_window.isOpen()) return;
       
       m_window.clear();
@@ -41,6 +48,9 @@ void Game::displayLoop()
       m_window.draw(m_ui);
 
       m_window.display();
+      }
+
+      sleep_for(16ms);
    }
 }
 

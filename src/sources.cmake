@@ -1,4 +1,4 @@
-include(${CMAKE_CURRENT_LIST_DIR}/display/CMakeLists.txt)
+include(${CMAKE_CURRENT_LIST_DIR}/display/sources.cmake)
 
 list(APPEND rentGame_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/game.cpp
