@@ -9,7 +9,7 @@ namespace Game
 {
 
 Game::Game()
-:m_window(sf::VideoMode(800, 800), "Rent game")
+:m_window(sf::VideoMode(400, 400), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
 }
@@ -18,6 +18,15 @@ void Game::closeWindow()
 {
    std::lock_guard lock(m_window_mutex);
    m_window.close();
+}
+
+void Game::resizeWindow()
+{
+   std::lock_guard lock(m_window_mutex);
+   float width = static_cast<float>(m_window.getSize().x);
+   float height = static_cast<float>(m_window.getSize().y);
+   m_window.setView(sf::View(sf::FloatRect{0.f,0.f,width, height}));
+   m_ui.setScreenSize(m_window.getSize());
 }
 
 void Game::pollEvents()
@@ -29,6 +38,9 @@ void Game::pollEvents()
       {
       case sf::Event::Closed:
          closeWindow();
+         break;
+      case sf::Event::Resized:
+         resizeWindow();
          break;
       default:
          break;

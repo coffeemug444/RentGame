@@ -15,6 +15,7 @@ private:
    void displayLoop();
    void pollEvents();
    void closeWindow();
+   void resizeWindow();
    std::future<void> m_display_thread;
    mutable std::mutex m_window_mutex;
    sf::RenderWindow m_window;

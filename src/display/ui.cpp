@@ -11,6 +11,11 @@ Ui::Ui(Game& game, sf::Vector2u screen_size)
 {
 }
 
+void Ui::setScreenSize(sf::Vector2u screen_size)
+{
+   m_toolbar.setScreenSize(screen_size);
+}
+
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(m_data_mutex);
