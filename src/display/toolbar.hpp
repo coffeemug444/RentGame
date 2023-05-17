@@ -11,7 +11,7 @@ class Toolbar : public sf::Drawable
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size);
-   sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos);
+   sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
    Ui& m_ui;

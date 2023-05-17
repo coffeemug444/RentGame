@@ -58,7 +58,7 @@ void Toolbar::setScreenSize(sf::Vector2u screen_size)
    
 }
 
-sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos)
+sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos) const
 {
    if (mouse_pos.y < m_bar.getPosition().y) return sf::Cursor::Arrow;
 
