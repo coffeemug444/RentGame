@@ -29,6 +29,26 @@ void Game::resizeWindow()
    m_ui.setScreenSize(m_window.getSize());
 }
 
+void Game::mouseMoved(sf::Vector2i mouse_pos)
+{
+   if (mouse_pos.x < 0 || mouse_pos.y < 0) return;
+   
+   auto window_size = m_window.getSize();
+   if (mouse_pos.x > window_size.x) return;
+   if (mouse_pos.y > window_size.y) return;
+
+   m_ui.mouseMoved({static_cast<unsigned>(mouse_pos.x), 
+                    static_cast<unsigned>(mouse_pos.y)});
+}
+
+void Game::setCursor(sf::Cursor::Type cursor_type)
+{
+   std::lock_guard lock(m_window_mutex);
+   sf::Cursor cursor;
+   cursor.loadFromSystem(cursor_type);
+   m_window.setMouseCursor(cursor);
+}
+
 void Game::pollEvents()
 {
    sf::Event event;
@@ -41,6 +61,9 @@ void Game::pollEvents()
          break;
       case sf::Event::Resized:
          resizeWindow();
+         break;
+      case sf::Event::MouseMoved:
+         mouseMoved({event.mouseMove.x,event.mouseMove.y});
          break;
       default:
          break;
