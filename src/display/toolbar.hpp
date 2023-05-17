@@ -22,9 +22,6 @@ private:
    sf::Text m_capital_display;
    sf::Text m_debt_display;
    sf::Text m_net_income_display;
-   unsigned m_capital = 123;
-   unsigned m_debt = 456;
-   unsigned m_net_income = 789;
 };
 
 } // namespace Game

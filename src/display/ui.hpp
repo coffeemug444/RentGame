@@ -19,7 +19,6 @@ public:
 
 private:
    Game& m_game;
-   mutable std::mutex m_data_mutex;
    sf::Vector2u m_screen_size;
    Toolbar m_toolbar;
    LoanScreen m_loan_screen;

@@ -1,6 +1,7 @@
 #include "ui.hpp"
 #include "util/util.hpp"
 #include "game.hpp"
+#include "observableData.hpp"
 
 namespace Game
 {
@@ -29,7 +30,7 @@ void Ui::mouseMoved(sf::Vector2u mouse_pos)
 
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   std::lock_guard lock(m_data_mutex);
+   std::lock_guard lock(OD::data_mutex);
    target.draw(m_loan_screen);
    target.draw(m_toolbar);
 }

@@ -1,6 +1,7 @@
 #include "toolbar.hpp"
 #include "util/util.hpp"
 #include <string>
+#include "observableData.hpp"
 
 namespace Game
 {
@@ -15,9 +16,9 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 
    m_button.setFillColor(sf::Color::Blue);
 
-   m_capital_display.setString(std::to_string(m_capital));
-   m_debt_display.setString(std::to_string(m_debt));
-   m_net_income_display.setString(std::to_string(m_net_income));
+   m_capital_display.setString(std::to_string(OD::capital));
+   m_debt_display.setString(std::to_string(OD::debt));
+   m_net_income_display.setString(std::to_string(OD::net_income));
 
    m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
 
