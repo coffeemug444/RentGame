@@ -1,7 +1,7 @@
 #include "game.hpp"
 
 int main() {
-   Game game;
+   Game::Game game;
    game.mainLoop();
 
    return 0;

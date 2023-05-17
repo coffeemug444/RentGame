@@ -5,6 +5,9 @@
 using namespace std::chrono;
 using namespace std::this_thread;
 
+namespace Game
+{
+
 Game::Game()
 :m_window(sf::VideoMode(800, 800), "Rent game")
 ,m_ui(*this, m_window.getSize())
@@ -63,4 +66,6 @@ void Game::mainLoop()
    }
 
    m_display_thread.wait();
+}
+
 }

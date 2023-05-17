@@ -3,6 +3,9 @@
 #include "display/ui.hpp"
 #include <future>
 
+namespace Game
+{
+
 class Game
 {
 public:
@@ -17,3 +20,5 @@ private:
    sf::RenderWindow m_window;
    Ui m_ui;
 };
+
+}

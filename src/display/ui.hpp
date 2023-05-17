@@ -2,6 +2,9 @@
 #include "SFML/Graphics.hpp"
 #include <mutex>
 
+namespace Game
+{
+
 class Game;
 
 class Ui : public sf::Drawable
@@ -16,3 +19,5 @@ private:
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_toolbar;
 };
+
+}

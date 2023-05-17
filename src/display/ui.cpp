@@ -1,7 +1,8 @@
 #include "ui.hpp"
 #include "util/util.hpp"
 
-
+namespace Game
+{
 
 Ui::Ui(Game& game, sf::Vector2u screen_size)
 :m_game(game)
@@ -16,4 +17,6 @@ void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(m_data_mutex);
    target.draw(m_toolbar);
+}
+
 }
