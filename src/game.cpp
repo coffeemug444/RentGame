@@ -52,8 +52,7 @@ void Game::displayLoop()
 {
    while (1)
    {
-      {
-      std::lock_guard lock(m_window_mutex);
+      { std::lock_guard lock(m_window_mutex);
 
       if (not m_window.isOpen()) return;
       
@@ -63,8 +62,9 @@ void Game::displayLoop()
       m_window.draw(m_ui);
 
       m_window.display();
-      }
 
+      } // end mutex lock
+   
       sleep_for(16ms);
    }
 }
