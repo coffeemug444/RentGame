@@ -21,4 +21,4 @@ private:
    Ui m_ui;
 };
 
-}
+} // namespace Game

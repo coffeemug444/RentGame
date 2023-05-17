@@ -68,4 +68,4 @@ void Game::mainLoop()
    m_display_thread.wait();
 }
 
-}
+} // namespace Game

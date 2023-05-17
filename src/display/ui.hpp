@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "toolbar.hpp"
 #include <mutex>
 
 namespace Game
@@ -17,7 +18,7 @@ private:
    Game& m_game;
    mutable std::mutex m_data_mutex;
    sf::Vector2u m_screen_size;
-   sf::RectangleShape m_toolbar;
+   Toolbar m_toolbar;
 };
 
-}
+} // namespace Game

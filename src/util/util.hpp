@@ -21,4 +21,4 @@ auto operator/ (const sf::Vector2<A>& l, const sf::Vector2<B>& r)
    return {l.x/r.x,l.y/r.y};
 }
 
-}
+} // namespace Game
