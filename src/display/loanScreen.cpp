@@ -55,6 +55,7 @@ void LoanScreen::bankScreenButtonCallback()
 void LoanScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
+   m_bank_screen.setScreenSize(screen_size);
    m_bank_screen_button.setPosition({screen_size.x-2*m_bank_screen_button.getRadius(),0});
 }
 
@@ -67,6 +68,8 @@ void LoanScreen::setActive(bool active)
 
 void LoanScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+   if (not m_active) return;
+   
    if (m_bank_screen_open)
    {
       target.draw(m_bank_screen);
