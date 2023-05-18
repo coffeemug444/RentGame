@@ -17,7 +17,7 @@ class Ui : public sf::Drawable
 public:
    Ui(Game& game, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size);
-   void mouseMoved(sf::Vector2u mouse_pos);
+   sf::Cursor::Type mouseMoved(sf::Vector2u mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void selectScreen(ToolbarScreen screen);
 

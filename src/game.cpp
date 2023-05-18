@@ -16,13 +16,13 @@ Game::Game()
 
 void Game::closeWindow()
 {
-   std::lock_guard lock(m_window_mutex);
+   std::lock_guard lock(m_ui_mutex);
    m_window.close();
 }
 
 void Game::resizeWindow()
 {
-   std::lock_guard lock(m_window_mutex);
+   std::lock_guard lock(m_ui_mutex);
    float width = static_cast<float>(m_window.getSize().x);
    float height = static_cast<float>(m_window.getSize().y);
    m_window.setView(sf::View(sf::FloatRect{0.f,0.f,width, height}));
@@ -37,17 +37,24 @@ void Game::mouseMoved(sf::Vector2i mouse_pos)
    if (mouse_pos.x > window_size.x) return;
    if (mouse_pos.y > window_size.y) return;
 
-   m_ui.mouseMoved({static_cast<unsigned>(mouse_pos.x), 
-                    static_cast<unsigned>(mouse_pos.y)});
-}
-
-void Game::setCursor(sf::Cursor::Type cursor_type)
-{
-   std::lock_guard lock(m_window_mutex);
+   std::lock_guard lock(m_ui_mutex);
+   auto cursor_type = m_ui.mouseMoved({static_cast<unsigned>(mouse_pos.x), 
+                      static_cast<unsigned>(mouse_pos.y)});
    sf::Cursor cursor;
    cursor.loadFromSystem(cursor_type);
    m_window.setMouseCursor(cursor);
 }
+
+void Game::mouseDown(sf::Vector2i mouse_pos)
+{
+
+}
+
+void Game::mouseUp(sf::Vector2i mouse_pos)
+{
+
+}
+
 
 void Game::pollEvents()
 {
@@ -65,6 +72,14 @@ void Game::pollEvents()
       case sf::Event::MouseMoved:
          mouseMoved({event.mouseMove.x,event.mouseMove.y});
          break;
+      case sf::Event::MouseButtonPressed:
+         if (event.mouseButton.button != sf::Mouse::Button::Left) break;
+         mouseDown({event.mouseMove.x,event.mouseMove.y});
+         break;
+      case sf::Event::MouseButtonReleased:
+         if (event.mouseButton.button != sf::Mouse::Button::Left) break;
+         mouseDown({event.mouseMove.x,event.mouseMove.y});
+         break;
       default:
          break;
       }
@@ -75,7 +90,7 @@ void Game::displayLoop()
 {
    while (1)
    {
-      { std::lock_guard lock(m_window_mutex);
+      { std::lock_guard lock(m_ui_mutex);
 
       if (not m_window.isOpen()) return;
       
@@ -95,8 +110,12 @@ void Game::displayLoop()
 void Game::mainLoop()
 {
    m_display_thread = std::async(&Game::displayLoop, this);
-   while (m_window.isOpen())
+   while (1)
    {
+      {std::lock_guard lock(m_ui_mutex);
+      
+      if (not m_window.isOpen()) break;
+      }
       pollEvents();
    }
 

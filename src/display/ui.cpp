@@ -68,11 +68,9 @@ void Ui::selectScreen(ToolbarScreen screen)
 }
 
 
-void Ui::mouseMoved(sf::Vector2u mouse_pos)
+sf::Cursor::Type Ui::mouseMoved(sf::Vector2u mouse_pos) const
 {
-   sf::Cursor::Type bar_type = m_toolbar.getCursorType(mouse_pos);
-
-   m_game.setCursor(bar_type);
+   return m_toolbar.getCursorType(mouse_pos);
 }
 
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
