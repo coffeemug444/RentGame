@@ -16,6 +16,12 @@ Ui::Ui(Game& game, sf::Vector2u screen_size)
 ,m_property_screen(*this, screen_size)
 ,m_market_screen(*this, screen_size)
 ,m_current_cursor(sf::Cursor::Arrow)
+,m_screen_map{
+   {FINANCE, &m_finance_screen},
+   {PROPERTIES, &m_property_screen},
+   {LOANS, &m_loan_screen},
+   {MARKET, &m_market_screen}
+}
 {
    m_finance_screen.setActive(true);
 }
@@ -32,39 +38,10 @@ void Ui::setScreenSize(sf::Vector2u screen_size)
 void Ui::selectScreen(ToolbarScreen screen)
 {
    if (screen == m_selected_screen) return;
-   
-   switch (m_selected_screen)
-   {
-   case FINANCE:
-      m_finance_screen.setActive(false);
-      break;
-   case PROPERTIES:
-      m_property_screen.setActive(false);
-      break;
-   case LOANS:
-      m_loan_screen.setActive(false);
-      break;
-   case MARKET:
-      m_market_screen.setActive(false);
-      break;
-   }
 
+   m_screen_map[m_selected_screen]->setActive(false);
+   m_screen_map[screen]->setActive(true);
    m_selected_screen = screen;
-   switch (screen)
-   {
-   case FINANCE:
-      m_finance_screen.setActive(true);
-      break;
-   case PROPERTIES:
-      m_property_screen.setActive(true);
-      break;
-   case LOANS:
-      m_loan_screen.setActive(true);
-      break;
-   case MARKET:
-      m_market_screen.setActive(true);
-      break;
-   }
 }
 
 
@@ -72,6 +49,17 @@ sf::Cursor::Type Ui::mouseMoved(sf::Vector2u mouse_pos) const
 {
    return m_toolbar.getCursorType(mouse_pos);
 }
+
+void Ui::mouseDown(sf::Vector2i mouse_pos)
+{
+   
+}
+
+void Ui::mouseUp(sf::Vector2i mouse_pos)
+{
+   
+}
+
 
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

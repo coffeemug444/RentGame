@@ -47,12 +47,12 @@ void Game::mouseMoved(sf::Vector2i mouse_pos)
 
 void Game::mouseDown(sf::Vector2i mouse_pos)
 {
-
+   m_ui.mouseDown(mouse_pos);
 }
 
 void Game::mouseUp(sf::Vector2i mouse_pos)
 {
-
+   m_ui.mouseUp(mouse_pos);
 }
 
 
@@ -113,7 +113,7 @@ void Game::mainLoop()
    while (1)
    {
       {std::lock_guard lock(m_ui_mutex);
-      
+
       if (not m_window.isOpen()) break;
       }
       pollEvents();
