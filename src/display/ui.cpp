@@ -52,12 +52,12 @@ sf::Cursor::Type Ui::mouseMoved(sf::Vector2u mouse_pos) const
 
 void Ui::mouseDown(sf::Vector2i mouse_pos)
 {
-   
+   m_toolbar.mouseDown(mouse_pos);
 }
 
 void Ui::mouseUp(sf::Vector2i mouse_pos)
 {
-   
+   m_toolbar.mouseUp(mouse_pos);
 }
 
 

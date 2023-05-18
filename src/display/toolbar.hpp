@@ -21,6 +21,8 @@ public:
    void setScreenSize(sf::Vector2u screen_size);
    sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+   void mouseDown(sf::Vector2i mouse_pos);
+   void mouseUp(sf::Vector2i mouse_pos);
 private:
    Ui& m_ui;
    sf::Vector2u m_screen_size;

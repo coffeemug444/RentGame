@@ -1,6 +1,8 @@
 #include "toolbar.hpp"
 #include "util/util.hpp"
+#include "ui.hpp"
 #include <string>
+#include <tuple>
 #include "observableData.hpp"
 
 namespace Game
@@ -92,6 +94,31 @@ sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos) const
    } 
 
    return sf::Cursor::Arrow;
+}
+
+void Toolbar::mouseDown(sf::Vector2i mouse_pos)
+{
+   ToolbarScreen next_screen;
+   for (const auto& [button, page_type] : {
+      std::tuple{m_finance_button, FINANCE},
+      std::tuple{m_properties_button, PROPERTIES},
+      std::tuple{m_loans_button, LOANS},
+      std::tuple{m_market_button, MARKET}
+   }){
+      auto button_center = button.getPosition() 
+                         + sf::Vector2f{button.getRadius(),
+                                        button.getRadius()};
+      sf::Vector2f d = button_center - mouse_pos;
+      if ((d.x*d.x+d.y*d.y) < button.getRadius()*button.getRadius())
+      {
+         m_ui.selectScreen(page_type);
+      }
+   } 
+}
+
+void Toolbar::mouseUp(sf::Vector2i mouse_pos)
+{
+
 }
 
 

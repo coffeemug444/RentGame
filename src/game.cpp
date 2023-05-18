@@ -74,11 +74,11 @@ void Game::pollEvents()
          break;
       case sf::Event::MouseButtonPressed:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         mouseDown({event.mouseMove.x,event.mouseMove.y});
+         mouseDown({event.mouseButton.x,event.mouseButton.y});
          break;
       case sf::Event::MouseButtonReleased:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         mouseDown({event.mouseMove.x,event.mouseMove.y});
+         mouseDown({event.mouseButton.x,event.mouseButton.y});
          break;
       default:
          break;
