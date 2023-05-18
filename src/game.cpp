@@ -9,7 +9,8 @@ namespace Game
 {
 
 Game::Game()
-:m_window(sf::VideoMode(400, 400), "Rent game")
+:m_cursor_type(sf::Cursor::Arrow)
+,m_window(sf::VideoMode(400, 400), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
 }
@@ -40,6 +41,8 @@ void Game::mouseMoved(sf::Vector2i mouse_pos)
    std::lock_guard lock(m_ui_mutex);
    auto cursor_type = m_ui.mouseMoved({static_cast<unsigned>(mouse_pos.x), 
                       static_cast<unsigned>(mouse_pos.y)});
+   if (m_cursor_type == cursor_type) return;
+   m_cursor_type = cursor_type;
    sf::Cursor cursor;
    cursor.loadFromSystem(cursor_type);
    m_window.setMouseCursor(cursor);
