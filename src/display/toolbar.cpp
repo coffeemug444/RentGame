@@ -80,9 +80,9 @@ void Toolbar::setScreenSize(sf::Vector2u screen_size)
    
 }
 
-std::tuple<bool, sf::Cursor::Type> Toolbar::getCursorType(sf::Vector2i mouse_pos) const
+sf::Cursor::Type Toolbar::getCursorType(sf::Vector2i mouse_pos) const
 {
-   if (mouse_pos.y < m_bar.getPosition().y) return {false, sf::Cursor::Arrow};
+   if (mouse_pos.y < m_bar.getPosition().y) return sf::Cursor::Arrow;
 
    for (const auto& button : {
       m_finance_button,
@@ -90,10 +90,10 @@ std::tuple<bool, sf::Cursor::Type> Toolbar::getCursorType(sf::Vector2i mouse_pos
       m_loans_button,
       m_market_button
    }){
-      if (button.mouseIsOver(mouse_pos)) return {true, sf::Cursor::Hand};
+      if (button.mouseIsOver(mouse_pos)) return sf::Cursor::Hand;
    } 
 
-   return {true, sf::Cursor::Arrow};
+   return sf::Cursor::Arrow;
 }
 
 void Toolbar::mouseDown(sf::Vector2i mouse_pos)
@@ -111,6 +111,11 @@ void Toolbar::mouseDown(sf::Vector2i mouse_pos)
 void Toolbar::mouseUp(sf::Vector2i mouse_pos)
 {
 
+}
+
+bool Toolbar::mouseIsOver(sf::Vector2i mouse_pos) const
+{
+   return mouse_pos.y > m_bar.getPosition().y;
 }
 
 void Toolbar::finance_callback() { m_ui.selectScreen(FINANCE); }

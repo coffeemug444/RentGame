@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <tuple>
 #include "button.hpp"
 
 namespace Game
@@ -21,8 +20,9 @@ class Toolbar : public sf::Drawable
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size);
-   std::tuple<bool, sf::Cursor::Type> getCursorType(sf::Vector2i mouse_pos) const;
+   sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+   bool mouseIsOver(sf::Vector2i mouse_pos) const;
    void mouseDown(sf::Vector2i mouse_pos);
    void mouseUp(sf::Vector2i mouse_pos);
 private:

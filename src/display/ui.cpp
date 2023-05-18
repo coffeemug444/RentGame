@@ -2,6 +2,7 @@
 #include "util/util.hpp"
 #include "game.hpp"
 #include "observableData.hpp"
+#include <iostream>
 
 namespace Game
 {
@@ -47,18 +48,64 @@ void Ui::selectScreen(ToolbarScreen screen)
 
 sf::Cursor::Type Ui::mouseMoved(sf::Vector2i mouse_pos) const
 {
-   auto [toolbar_valid, cursor_type] = m_toolbar.getCursorType(mouse_pos);
-   return cursor_type;
+   if (m_toolbar.mouseIsOver(mouse_pos)) 
+   {
+      return m_toolbar.getCursorType(mouse_pos);
+   }
+
+   switch(m_selected_screen)
+   {
+      case FINANCE:
+         return m_finance_screen.getCursorType(mouse_pos);
+      case PROPERTIES:
+         return m_property_screen.getCursorType(mouse_pos);
+      case LOANS:
+         return m_loan_screen.getCursorType(mouse_pos);
+      case MARKET:
+         return m_market_screen.getCursorType(mouse_pos);
+   }
+
+   return sf::Cursor::Arrow;
 }
 
 void Ui::mouseDown(sf::Vector2i mouse_pos)
 {
-   m_toolbar.mouseDown(mouse_pos);
+   if (m_toolbar.mouseIsOver(mouse_pos)) 
+   {
+      return m_toolbar.mouseDown(mouse_pos);
+   }
+
+   switch(m_selected_screen)
+   {
+      case FINANCE:
+         return m_finance_screen.mouseDown(mouse_pos);
+      case PROPERTIES:
+         return m_property_screen.mouseDown(mouse_pos);
+      case LOANS:
+         return m_loan_screen.mouseDown(mouse_pos);
+      case MARKET:
+         return m_market_screen.mouseDown(mouse_pos);
+   }
 }
+
 
 void Ui::mouseUp(sf::Vector2i mouse_pos)
 {
-   m_toolbar.mouseUp(mouse_pos);
+   if (m_toolbar.mouseIsOver(mouse_pos)) 
+   {
+      m_toolbar.mouseUp(mouse_pos);
+   }
+   else switch(m_selected_screen)
+   {
+      case FINANCE:
+         m_finance_screen.mouseUp(mouse_pos); break;
+      case PROPERTIES:
+         m_property_screen.mouseUp(mouse_pos); break;
+      case LOANS:
+         m_loan_screen.mouseUp(mouse_pos); break;
+      case MARKET:
+         m_market_screen.mouseUp(mouse_pos); break;
+   }
 }
 
 

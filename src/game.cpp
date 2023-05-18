@@ -55,6 +55,7 @@ void Game::mouseDown(sf::Vector2i mouse_pos)
 void Game::mouseUp(sf::Vector2i mouse_pos)
 {
    m_ui.mouseUp(mouse_pos);
+   mouseMoved(mouse_pos);
 }
 
 
@@ -80,7 +81,7 @@ void Game::pollEvents()
          break;
       case sf::Event::MouseButtonReleased:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         mouseDown({event.mouseButton.x,event.mouseButton.y});
+         mouseUp({event.mouseButton.x,event.mouseButton.y});
          break;
       default:
          break;
