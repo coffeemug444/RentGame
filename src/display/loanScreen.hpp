@@ -1,6 +1,14 @@
 #pragma once
 #include "screen.hpp"
 
+/*
+
+This screen shows a list of all current loans. It shows the 
+total amount owed and a link to the bank screen to take out 
+another loan.
+
+*/
+
 namespace Game
 {
 

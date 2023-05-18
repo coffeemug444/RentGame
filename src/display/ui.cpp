@@ -11,6 +11,7 @@ Ui::Ui(Game& game, sf::Vector2u screen_size)
 ,m_screen_size(screen_size)
 ,m_toolbar(*this, screen_size)
 ,m_loan_screen(*this, screen_size)
+,m_finance_screen(*this, screen_size)
 ,m_current_cursor(sf::Cursor::Arrow)
 {
 }
@@ -32,6 +33,7 @@ void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(OD::data_mutex);
    target.draw(m_loan_screen);
+   target.draw(m_finance_screen);
    target.draw(m_toolbar);
 }
 
