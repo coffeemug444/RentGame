@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <tuple>
+#include "button.hpp"
 
 namespace Game
 {
@@ -19,18 +21,22 @@ class Toolbar : public sf::Drawable
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size);
-   sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const;
+   std::tuple<bool, sf::Cursor::Type> getCursorType(sf::Vector2i mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void mouseDown(sf::Vector2i mouse_pos);
    void mouseUp(sf::Vector2i mouse_pos);
 private:
+   void finance_callback();
+   void properties_callback();
+   void loans_callback();
+   void market_callback();
    Ui& m_ui;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;
-   sf::CircleShape m_finance_button;
-   sf::CircleShape m_properties_button;
-   sf::CircleShape m_loans_button;
-   sf::CircleShape m_market_button;
+   Button<Toolbar> m_finance_button;
+   Button<Toolbar> m_properties_button;
+   Button<Toolbar> m_loans_button;
+   Button<Toolbar> m_market_button;
    sf::Font m_font;
    sf::Text m_capital_display;
    sf::Text m_debt_display;

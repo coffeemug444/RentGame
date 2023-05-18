@@ -11,6 +11,10 @@ namespace Game
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 :m_ui(ui)
 ,m_screen_size(screen_size)
+,m_finance_button(*this, &Toolbar::finance_callback)
+,m_properties_button(*this, &Toolbar::properties_callback)
+,m_loans_button(*this, &Toolbar::loans_callback)
+,m_market_button(*this, &Toolbar::market_callback)
 {
    setScreenSize(screen_size);
 
@@ -76,9 +80,9 @@ void Toolbar::setScreenSize(sf::Vector2u screen_size)
    
 }
 
-sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos) const
+std::tuple<bool, sf::Cursor::Type> Toolbar::getCursorType(sf::Vector2i mouse_pos) const
 {
-   if (mouse_pos.y < m_bar.getPosition().y) return sf::Cursor::Arrow;
+   if (mouse_pos.y < m_bar.getPosition().y) return {false, sf::Cursor::Arrow};
 
    for (const auto& button : {
       m_finance_button,
@@ -86,33 +90,21 @@ sf::Cursor::Type Toolbar::getCursorType(sf::Vector2u mouse_pos) const
       m_loans_button,
       m_market_button
    }){
-      auto button_center = button.getPosition() 
-                         + sf::Vector2f{button.getRadius(),
-                                        button.getRadius()};
-      sf::Vector2f d = button_center - mouse_pos;
-      if ((d.x*d.x+d.y*d.y) < button.getRadius()*button.getRadius()) return sf::Cursor::Hand;
+      if (button.mouseIsOver(mouse_pos)) return {true, sf::Cursor::Hand};
    } 
 
-   return sf::Cursor::Arrow;
+   return {true, sf::Cursor::Arrow};
 }
 
 void Toolbar::mouseDown(sf::Vector2i mouse_pos)
 {
-   ToolbarScreen next_screen;
-   for (const auto& [button, page_type] : {
-      std::tuple{m_finance_button, FINANCE},
-      std::tuple{m_properties_button, PROPERTIES},
-      std::tuple{m_loans_button, LOANS},
-      std::tuple{m_market_button, MARKET}
+   for (auto button : {
+      m_finance_button,
+      m_properties_button,
+      m_loans_button,
+      m_market_button
    }){
-      auto button_center = button.getPosition() 
-                         + sf::Vector2f{button.getRadius(),
-                                        button.getRadius()};
-      sf::Vector2f d = button_center - mouse_pos;
-      if ((d.x*d.x+d.y*d.y) < button.getRadius()*button.getRadius())
-      {
-         m_ui.selectScreen(page_type);
-      }
+      if (button.mouseIsOver(mouse_pos)) button.click();
    } 
 }
 
@@ -121,6 +113,10 @@ void Toolbar::mouseUp(sf::Vector2i mouse_pos)
 
 }
 
+void Toolbar::finance_callback() { m_ui.selectScreen(FINANCE); }
+void Toolbar::properties_callback() { m_ui.selectScreen(PROPERTIES); }
+void Toolbar::loans_callback() { m_ui.selectScreen(LOANS); }
+void Toolbar::market_callback() { m_ui.selectScreen(MARKET); }
 
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
