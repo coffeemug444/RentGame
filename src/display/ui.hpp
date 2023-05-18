@@ -3,6 +3,7 @@
 #include "toolbar.hpp"
 #include "loanScreen.hpp"
 #include "financeScreen.hpp"
+#include "propertyScreen.hpp"
 #include <mutex>
 
 namespace Game
@@ -25,6 +26,7 @@ private:
    Toolbar m_toolbar;
    LoanScreen m_loan_screen;
    FinanceScreen m_finance_screen;
+   PropertyScreen m_property_screen;
    sf::Cursor::Type m_current_cursor;
 };
 
