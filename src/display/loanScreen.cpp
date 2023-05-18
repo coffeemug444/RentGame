@@ -5,7 +5,7 @@ namespace Game
 {
 
 LoanScreen::LoanScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Loans", sf::Color(OD::loan_color)) 
+:Screen(ui, screen_size, "Loans", OD::loan_color) 
 ,m_bank_screen_open(false)
 ,m_bank_screen_button(*this, &LoanScreen::bankScreenButtonCallback)
 ,m_bank_screen(ui, *this, screen_size)

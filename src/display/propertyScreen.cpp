@@ -5,7 +5,7 @@ namespace Game
 {
 
 PropertyScreen::PropertyScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Property", sf::Color(OD::property_color))
+:Screen(ui, screen_size, "Property", OD::property_color)
 ,m_individual_property_screen_open(false)
 ,m_individual_property_screen_button(*this, &PropertyScreen::individualPropertyScreenButtonCallback)
 ,m_individual_property_screen(ui, screen_size)

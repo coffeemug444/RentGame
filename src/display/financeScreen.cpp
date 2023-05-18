@@ -5,7 +5,7 @@ namespace Game
 {
 
 FinanceScreen::FinanceScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Finance", sf::Color(OD::finance_color))
+:Screen(ui, screen_size, "Finance", OD::finance_color)
 {
 }
 

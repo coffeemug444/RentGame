@@ -18,12 +18,12 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 {
    setScreenSize(screen_size);
 
-   m_bar.setFillColor(sf::Color{OD::toolbar_color});
+   m_bar.setFillColor(OD::toolbar_color);
 
-   m_finance_button.setFillColor(sf::Color{OD::finance_color});
-   m_properties_button.setFillColor(sf::Color{OD::property_color});
-   m_loans_button.setFillColor(sf::Color{OD::loan_color});
-   m_market_button.setFillColor(sf::Color{OD::market_color});
+   m_finance_button.setFillColor(OD::finance_color);
+   m_properties_button.setFillColor(OD::property_color);
+   m_loans_button.setFillColor(OD::loan_color);
+   m_market_button.setFillColor(OD::market_color);
 
    m_capital_display.setString(std::to_string(OD::capital));
    m_debt_display.setString(std::to_string(OD::debt));
