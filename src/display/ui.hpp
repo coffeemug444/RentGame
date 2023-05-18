@@ -24,6 +24,7 @@ public:
 private:
    Game& m_game;
    sf::Vector2u m_screen_size;
+   ToolbarScreen m_selected_screen;
    Toolbar m_toolbar;
    LoanScreen m_loan_screen;
    FinanceScreen m_finance_screen;

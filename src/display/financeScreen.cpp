@@ -1,10 +1,11 @@
 #include "financeScreen.hpp"
+#include "observableData.hpp"
 
 namespace Game
 {
 
 FinanceScreen::FinanceScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Finance", sf::Color(0x8ac97cff))
+:Screen(ui, screen_size, "Finance", sf::Color(OD::finance_color))
 ,m_bank_screen(ui, screen_size) 
 {
 }

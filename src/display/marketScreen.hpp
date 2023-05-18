@@ -1,5 +1,6 @@
 #pragma once
 #include "screen.hpp"
+#include "observableData.hpp"
 
 /*
 
@@ -14,7 +15,7 @@ namespace Game
 class MarketScreen : public Screen
 {
 public:
-   MarketScreen(Ui& ui, sf::Vector2u screen_size) : Screen(ui, screen_size, "Property Market", sf::Color(0x6775f3ff)) {}
+   MarketScreen(Ui& ui, sf::Vector2u screen_size) : Screen(ui, screen_size, "Property Market", sf::Color(OD::market_color)) {}
    virtual sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const override { return sf::Cursor::Type::Arrow; }
 };
 
