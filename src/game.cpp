@@ -39,8 +39,7 @@ void Game::mouseMoved(sf::Vector2i mouse_pos)
    if (mouse_pos.y > window_size.y) return;
 
    std::lock_guard lock(m_ui_mutex);
-   auto cursor_type = m_ui.mouseMoved({static_cast<unsigned>(mouse_pos.x), 
-                      static_cast<unsigned>(mouse_pos.y)});
+   auto cursor_type = m_ui.mouseMoved(mouse_pos);
    if (m_cursor_type == cursor_type) return;
    m_cursor_type = cursor_type;
    sf::Cursor cursor;

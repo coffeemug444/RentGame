@@ -45,9 +45,10 @@ void Ui::selectScreen(ToolbarScreen screen)
 }
 
 
-sf::Cursor::Type Ui::mouseMoved(sf::Vector2u mouse_pos) const
+sf::Cursor::Type Ui::mouseMoved(sf::Vector2i mouse_pos) const
 {
-   return m_toolbar.getCursorType(mouse_pos);
+   auto [toolbar_valid, cursor_type] = m_toolbar.getCursorType(mouse_pos);
+   return cursor_type;
 }
 
 void Ui::mouseDown(sf::Vector2i mouse_pos)
