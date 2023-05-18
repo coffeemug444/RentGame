@@ -1,6 +1,7 @@
 #pragma once
 #include "screen.hpp"
 #include "observableData.hpp"
+#include "bankScreen.hpp"
 
 /*
 
@@ -16,8 +17,14 @@ namespace Game
 class LoanScreen : public Screen
 {
 public:
-   LoanScreen(Ui& ui, sf::Vector2u screen_size) : Screen(ui, screen_size, "Loans", sf::Color(OD::loan_color)) {}
-   virtual sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const override { return sf::Cursor::Type::Arrow; }
+   LoanScreen(Ui& ui, sf::Vector2u screen_size);
+   sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const override;
+   void mouseDown(sf::Vector2i mouse_pos) override;
+   void mouseUp(sf::Vector2i mouse_pos) override;
+   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+private:
+   bool m_bank_screen_open;
+   BankScreen m_bank_screen;
 };
 
 } // namespace Game

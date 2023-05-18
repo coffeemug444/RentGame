@@ -18,6 +18,9 @@ public:
    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
    void setActive(bool active) { m_active = active; }
+
+   virtual void mouseDown(sf::Vector2i mouse_pos) {}
+   virtual void mouseUp(sf::Vector2i mouse_pos) {}
    
    
 protected:

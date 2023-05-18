@@ -12,11 +12,15 @@ repayment plan and loan size here.
 namespace Game
 {
 
+class LoanScreen;
+
 class BankScreen : public Screen
 {
 public:
-   BankScreen(Ui& ui, sf::Vector2u screen_size) : Screen(ui, screen_size, "Bank", sf::Color(OD::bank_color)) {}
+   BankScreen(Ui& ui, LoanScreen& loan_screen, sf::Vector2u screen_size);
    virtual sf::Cursor::Type getCursorType(sf::Vector2u mouse_pos) const override { return sf::Cursor::Type::Arrow; }
+private:
+   LoanScreen& m_loan_screen;
 };
 
 } // namespace Game
