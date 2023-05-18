@@ -5,6 +5,14 @@ namespace Game
 {
 
 class Ui;
+
+enum ToolbarScreen
+{
+   FINANCE,
+   PROPERTIES,
+   LOANS,
+   MARKET
+};
    
 class Toolbar : public sf::Drawable
 {
