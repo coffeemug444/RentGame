@@ -5,35 +5,10 @@
 
 /*
 
-never set the ui mutex on any public methods. Those get sent from
-the ui and will cause a deadlock if are blocked. 
-
-*/
-
-
-/*
-
-
-+---------+---------+          +---------+---------+ 
-|  logic  |  game   |          |   ui    | screen  | 
-+---------+---------+          +---------+---------+ 
-|        -->        |          |        <--        | 
-|         |        ------------->        |         |
-|         |         |          |         |         | 
-|         |        <-------------        |         | 
-|         |         |          |         |         | 
-|         |         |          |         |         | 
-|         |         |          |         |         | 
-+---------+---------+          +---------+---------+ 
-
-
-
-
-
-
-
-
-
+Only set the ui mutex when making changes to the window object, and ensure
+it's released immediately after. Methods like `mouseUp` and `mouseDown` may
+eventually go to methods that change the window object, but the mutex gets
+grabbed there, otherwise the program will deadlock
 
 */
 
