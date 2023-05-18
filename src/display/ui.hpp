@@ -4,6 +4,7 @@
 #include "loanScreen.hpp"
 #include "financeScreen.hpp"
 #include "propertyScreen.hpp"
+#include "marketScreen.hpp"
 #include <mutex>
 
 namespace Game
@@ -27,6 +28,7 @@ private:
    LoanScreen m_loan_screen;
    FinanceScreen m_finance_screen;
    PropertyScreen m_property_screen;
+   MarketScreen m_market_screen;
    sf::Cursor::Type m_current_cursor;
 };
 
