@@ -4,7 +4,7 @@ namespace Game
 {
 
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, sf::Color background_color)
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color)
 :m_ui(ui)
 ,m_screen_size(screen_size)
 ,m_background_color(background_color) 
@@ -12,6 +12,10 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, sf::Color background_color)
 {
    setScreenSize(screen_size);
    m_background.setFillColor(background_color);
+
+   m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
+   m_title.setFont(m_font);
+   m_title.setString(title);
 }
 
 void Screen::setScreenSize(sf::Vector2u screen_size)
@@ -26,6 +30,7 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    if (not m_active) return;
 
    target.draw(m_background);
+   target.draw(m_title);
 }
 
 
