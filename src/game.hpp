@@ -31,7 +31,6 @@ private:
    void mouseUp(sf::Vector2i mouse_pos);
    std::future<void> m_display_thread;
    mutable std::mutex m_ui_mutex;
-   sf::Cursor::Type m_cursor_type;
    sf::RenderWindow m_window;
    Ui m_ui;
 };
