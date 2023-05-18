@@ -10,7 +10,7 @@ LoanScreen::LoanScreen(Ui& ui, sf::Vector2u screen_size)
 ,m_bank_screen_button(*this, &LoanScreen::bankScreenButtonCallback)
 ,m_bank_screen(ui, *this, screen_size)
 {
-   m_bank_screen_button.setFillColor(sf::Color::Red);
+   m_bank_screen_button.setFillColor(OD::bank_color);
    m_bank_screen_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 }

@@ -10,7 +10,7 @@ PropertyScreen::PropertyScreen(Ui& ui, sf::Vector2u screen_size)
 ,m_individual_property_screen_button(*this, &PropertyScreen::individualPropertyScreenButtonCallback)
 ,m_individual_property_screen(ui, screen_size)
 {
-   m_individual_property_screen_button.setFillColor(sf::Color::Red);
+   m_individual_property_screen_button.setFillColor(OD::individual_property_color);
    m_individual_property_screen_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 }
