@@ -1,6 +1,7 @@
 #include "screen.hpp"
 #include "button.hpp"
 
+#include <iostream>
 namespace Game
 {
 
@@ -11,6 +12,7 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
 ,m_background_color(background_color) 
 ,m_active(false) 
 ,m_buttons(buttons)
+,m_last_button_id(0)
 {
    setScreenSize(screen_size);
    m_background.setFillColor(background_color);
@@ -43,6 +45,37 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    target.draw(m_background);
    target.draw(m_title);
 }
+
+
+void Screen::mouseDown(sf::Vector2i mouse_pos)
+{
+   for (auto button_ptr : m_buttons)
+   {
+      if (button_ptr->mouseIsOver(mouse_pos))
+      {
+         m_last_button_id = button_ptr->getId();
+         return;
+      }
+   }
+   m_last_button_id = 0;
+}
+
+void Screen::mouseUp(sf::Vector2i mouse_pos)
+{
+   if (m_active) for (auto button_ptr : m_buttons)
+   {
+      if (button_ptr->mouseIsOver(mouse_pos))
+      {
+         if (m_last_button_id == button_ptr->getId())
+         {
+            handleClick(m_last_button_id);
+            break;
+         }
+      }
+   }
+   m_last_button_id = 0;
+}
+
 
 
 

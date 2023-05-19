@@ -23,8 +23,8 @@ public:
 
    virtual void setActive(bool active) { m_active = active; }
 
-   virtual void mouseDown(sf::Vector2i mouse_pos) {}
-   virtual void mouseUp(sf::Vector2i mouse_pos) {}
+   virtual void mouseDown(sf::Vector2i mouse_pos);
+   virtual void mouseUp(sf::Vector2i mouse_pos);
    
    
 protected:
@@ -36,6 +36,7 @@ protected:
    sf::Color m_background_color;
    bool m_active;
    std::vector<Button*> m_buttons;
+   int m_last_button_id;
 };
 
 } // namespace Game

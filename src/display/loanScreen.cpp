@@ -33,7 +33,7 @@ void LoanScreen::mouseDown(sf::Vector2i mouse_pos)
       return;
    }
 
-   if (m_bank_screen_button.mouseIsOver(mouse_pos)) m_bank_screen_button.click();
+   Screen::mouseDown(mouse_pos);
 }
 
 void LoanScreen::mouseUp(sf::Vector2i mouse_pos) 
@@ -43,6 +43,8 @@ void LoanScreen::mouseUp(sf::Vector2i mouse_pos)
       m_bank_screen.mouseUp(mouse_pos);
       return;
    }
+
+   Screen::mouseUp(mouse_pos);
 }
 
 void LoanScreen::handleClick(int button_id)

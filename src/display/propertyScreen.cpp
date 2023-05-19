@@ -31,15 +31,17 @@ void PropertyScreen::mouseDown(sf::Vector2i mouse_pos)
       return m_individual_property_screen.mouseDown(mouse_pos);
    }
 
-   if (m_individual_property_screen_button.mouseIsOver(mouse_pos))
-   {
-      m_individual_property_screen_button.click();
-   }
+   Screen::mouseDown(mouse_pos);
 }
 
 void PropertyScreen::mouseUp(sf::Vector2i mouse_pos) 
 {
+   if (m_individual_property_screen_open)
+   {
+      return m_individual_property_screen.mouseUp(mouse_pos);
+   }
 
+   Screen::mouseUp(mouse_pos);
 }
 
 void PropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const 

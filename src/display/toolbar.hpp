@@ -8,13 +8,6 @@ namespace Game
 
 class Ui;
 
-enum ToolbarScreen
-{
-   FINANCE,
-   PROPERTIES,
-   LOANS,
-   MARKET
-};
    
 class Toolbar : public Screen
 {
@@ -23,10 +16,17 @@ public:
    void setScreenSize(sf::Vector2u screen_size);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
-   void mouseDown(sf::Vector2i mouse_pos) override;
-   void mouseUp(sf::Vector2i mouse_pos) override;
 private:
    void handleClick(int button_id) override;
+
+   enum ButtonId {
+      NONE = 0,
+      FINANCE,
+      PROPERTIES,
+      LOANS,
+      MARKET
+   };
+
    Ui& m_ui;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;

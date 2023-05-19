@@ -14,6 +14,7 @@ public:
       :m_callback_class(callback_class) 
       ,m_button_id(button_id){}
    void click() { m_callback_class.handleClick(m_button_id); }
+   int getId() const { return m_button_id; }
    virtual bool mouseIsOver(sf::Vector2i mouse_pos) const = 0;
 private:
    Screen& m_callback_class;

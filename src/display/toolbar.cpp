@@ -15,11 +15,13 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
                                                         ,&m_market_button})
 ,m_ui(ui)
 ,m_screen_size(screen_size)
-,m_finance_button(*this, 0)
-,m_properties_button(*this, 1)
-,m_loans_button(*this, 2)
-,m_market_button(*this, 3)
+,m_finance_button(*this, FINANCE)
+,m_properties_button(*this, PROPERTIES)
+,m_loans_button(*this, LOANS)
+,m_market_button(*this, MARKET)
 {
+   m_active = true;
+
    setScreenSize(screen_size);
 
    m_bar.setFillColor(OD::toolbar_color);
@@ -84,23 +86,6 @@ void Toolbar::setScreenSize(sf::Vector2u screen_size)
    
 }
 
-void Toolbar::mouseDown(sf::Vector2i mouse_pos)
-{
-   for (auto button : {
-      m_finance_button,
-      m_properties_button,
-      m_loans_button,
-      m_market_button
-   }){
-      if (button.mouseIsOver(mouse_pos)) button.click();
-   } 
-}
-
-void Toolbar::mouseUp(sf::Vector2i mouse_pos)
-{
-
-}
-
 bool Toolbar::mouseIsOver(sf::Vector2i mouse_pos) const
 {
    return mouse_pos.y > m_bar.getPosition().y;
@@ -110,10 +95,10 @@ void Toolbar::handleClick(int button_id)
 {
    switch(button_id)
    {
-      case 0: m_ui.selectScreen(FINANCE); break;
-      case 1: m_ui.selectScreen(PROPERTIES); break;
-      case 2: m_ui.selectScreen(LOANS); break;
-      case 3: m_ui.selectScreen(MARKET); break;
+      case FINANCE: m_ui.selectScreen(Ui::FINANCE); break;
+      case PROPERTIES: m_ui.selectScreen(Ui::PROPERTIES); break;
+      case LOANS: m_ui.selectScreen(Ui::LOANS); break;
+      case MARKET: m_ui.selectScreen(Ui::MARKET); break;
    }
 }
 

@@ -36,7 +36,7 @@ void Ui::setScreenSize(sf::Vector2u screen_size)
    m_toolbar.setScreenSize(screen_size);
 }
 
-void Ui::selectScreen(ToolbarScreen screen)
+void Ui::selectScreen(MainScreen screen)
 {
    if (screen == m_selected_screen) return;
 
@@ -91,21 +91,11 @@ void Ui::mouseDown(sf::Vector2i mouse_pos)
 
 void Ui::mouseUp(sf::Vector2i mouse_pos)
 {
-   if (m_toolbar.mouseIsOver(mouse_pos)) 
-   {
-      m_toolbar.mouseUp(mouse_pos);
-   }
-   else switch(m_selected_screen)
-   {
-      case FINANCE:
-         m_finance_screen.mouseUp(mouse_pos); break;
-      case PROPERTIES:
-         m_property_screen.mouseUp(mouse_pos); break;
-      case LOANS:
-         m_loan_screen.mouseUp(mouse_pos); break;
-      case MARKET:
-         m_market_screen.mouseUp(mouse_pos); break;
-   }
+   m_toolbar.mouseUp(mouse_pos);
+   m_finance_screen.mouseUp(mouse_pos);
+   m_property_screen.mouseUp(mouse_pos);
+   m_loan_screen.mouseUp(mouse_pos);
+   m_market_screen.mouseUp(mouse_pos);
 }
 
 
