@@ -22,6 +22,7 @@ public:
    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
    virtual void setActive(bool active) { m_active = active; }
+   virtual bool getActive() const { return m_active; }
 
    virtual void mouseDown(sf::Vector2i mouse_pos);
    virtual void mouseUp(sf::Vector2i mouse_pos);

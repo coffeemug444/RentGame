@@ -33,7 +33,6 @@ private:
 
    void handleClick(int button_id) override;
 
-   bool m_bank_screen_open;
    CircleButton m_bank_screen_button;
    BankScreen m_bank_screen;
 };
