@@ -2,7 +2,7 @@
 #include "screen.hpp"
 #include "observableData.hpp"
 #include "individualPropertyScreen.hpp"
-#include "button.hpp"
+#include "circleButton.hpp"
 
 /*
 
@@ -28,7 +28,7 @@ private:
    void individualPropertyScreenButtonCallback();
 
    bool m_individual_property_screen_open;
-   Button<PropertyScreen> m_individual_property_screen_button;
+   CircleButton<PropertyScreen> m_individual_property_screen_button;
    IndividualPropertyScreen m_individual_property_screen;
 };
 

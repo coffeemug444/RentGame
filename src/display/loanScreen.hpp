@@ -2,7 +2,7 @@
 #include "screen.hpp"
 #include "observableData.hpp"
 #include "bankScreen.hpp"
-#include "button.hpp"
+#include "circleButton.hpp"
 
 /*
 
@@ -29,7 +29,7 @@ private:
    void bankScreenButtonCallback();
 
    bool m_bank_screen_open;
-   Button<LoanScreen> m_bank_screen_button;
+   CircleButton<LoanScreen> m_bank_screen_button;
    BankScreen m_bank_screen;
 };
 

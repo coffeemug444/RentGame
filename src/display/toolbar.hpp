@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "button.hpp"
+#include "circleButton.hpp"
 
 namespace Game
 {
@@ -33,10 +33,10 @@ private:
    Ui& m_ui;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;
-   Button<Toolbar> m_finance_button;
-   Button<Toolbar> m_properties_button;
-   Button<Toolbar> m_loans_button;
-   Button<Toolbar> m_market_button;
+   CircleButton<Toolbar> m_finance_button;
+   CircleButton<Toolbar> m_properties_button;
+   CircleButton<Toolbar> m_loans_button;
+   CircleButton<Toolbar> m_market_button;
    sf::Font m_font;
    sf::Text m_capital_display;
    sf::Text m_debt_display;
