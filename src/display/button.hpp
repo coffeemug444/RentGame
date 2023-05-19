@@ -1,23 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "util/util.hpp"
+#include "screen.hpp"
 
 
 namespace Game
 {
 
-template <typename T>
 class Button
 {
 public:
-   Button(T& callback_class, void (T::*callback)())
-      :m_callback_class(callback_class)
-      ,m_callback(callback) {}
-   void click() { (m_callback_class.*m_callback)(); }
+   Button(Screen& callback_class, int button_id)
+      :m_callback_class(callback_class) 
+      ,m_button_id(button_id){}
+   void click() { m_callback_class.handleClick(m_button_id); }
    virtual bool mouseIsOver(sf::Vector2i mouse_pos) const = 0;
 private:
-   void (T::*m_callback)();
-   T& m_callback_class;
+   Screen& m_callback_class;
+   int m_button_id;
 };
 
 } // namespace Game

@@ -5,9 +5,9 @@ namespace Game
 {
 
 LoanScreen::LoanScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Loans", OD::loan_color) 
+:Screen(ui, screen_size, "Loans", OD::loan_color, {&m_bank_screen_button}) 
 ,m_bank_screen_open(false)
-,m_bank_screen_button(*this, &LoanScreen::bankScreenButtonCallback)
+,m_bank_screen_button(*this, 0)
 ,m_bank_screen(ui, *this, screen_size)
 {
    m_bank_screen_button.setFillColor(OD::bank_color);
@@ -22,8 +22,7 @@ sf::Cursor::Type LoanScreen::getCursorType(sf::Vector2i mouse_pos) const
       return m_bank_screen.getCursorType(mouse_pos);
    }
 
-   if (m_bank_screen_button.mouseIsOver(mouse_pos)) return sf::Cursor::Type::Hand;
-   return sf::Cursor::Type::Arrow; 
+   return Screen::getCursorType(mouse_pos);
 }
 
 void LoanScreen::mouseDown(sf::Vector2i mouse_pos) 
@@ -46,10 +45,16 @@ void LoanScreen::mouseUp(sf::Vector2i mouse_pos)
    }
 }
 
-void LoanScreen::bankScreenButtonCallback()
+void LoanScreen::handleClick(int button_id)
 {
-   m_bank_screen_open = true;
-   m_bank_screen.setActive(true);
+   switch(button_id)
+   {
+   case 0:
+      m_bank_screen_open = true;
+      m_bank_screen.setActive(true);
+      break;
+   default: break;
+   }
 }
 
 void LoanScreen::setScreenSize(sf::Vector2u screen_size)

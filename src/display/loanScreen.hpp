@@ -26,10 +26,10 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void setActive(bool active) override;
 private:
-   void bankScreenButtonCallback();
+   void handleClick(int button_id) override;
 
    bool m_bank_screen_open;
-   CircleButton<LoanScreen> m_bank_screen_button;
+   CircleButton m_bank_screen_button;
    BankScreen m_bank_screen;
 };
 

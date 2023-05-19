@@ -6,12 +6,11 @@
 namespace Game
 {
 
-template <typename T>
-class CircleButton : public Button<T>, public sf::CircleShape
+class CircleButton : public Button, public sf::CircleShape
 {
 public:
-   CircleButton(T& callback_class, void (T::*callback)())
-      :Button<T>(callback_class, callback) {}
+   CircleButton(Screen& callback_class, int button_id)
+      :Button(callback_class, button_id) {}
    bool mouseIsOver(sf::Vector2i mouse_pos) const override
    {
       auto button_center = getPosition() 

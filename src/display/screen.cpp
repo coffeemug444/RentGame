@@ -1,14 +1,16 @@
 #include "screen.hpp"
+#include "button.hpp"
 
 namespace Game
 {
 
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color)
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, std::vector<Button*> buttons)
 :m_ui(ui)
 ,m_screen_size(screen_size)
 ,m_background_color(background_color) 
 ,m_active(false) 
+,m_buttons(buttons)
 {
    setScreenSize(screen_size);
    m_background.setFillColor(background_color);
@@ -16,6 +18,15 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
    m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
    m_title.setFont(m_font);
    m_title.setString(title);
+}
+
+sf::Cursor::Type Screen::getCursorType(sf::Vector2i mouse_pos) const
+{
+   for (auto button_ptr : m_buttons)
+   {
+      if (button_ptr->mouseIsOver(mouse_pos)) return sf::Cursor::Hand;
+   }
+   return sf::Cursor::Arrow;
 }
 
 void Screen::setScreenSize(sf::Vector2u screen_size)

@@ -25,10 +25,10 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void setActive(bool active) override;
 private:
-   void individualPropertyScreenButtonCallback();
+   void handleClick(int button_id) override;
 
    bool m_individual_property_screen_open;
-   CircleButton<PropertyScreen> m_individual_property_screen_button;
+   CircleButton m_individual_property_screen_button;
    IndividualPropertyScreen m_individual_property_screen;
 };
 

@@ -9,12 +9,16 @@ namespace Game
 {
 
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
-:m_ui(ui)
+:Screen(ui, screen_size, "Toolbar", OD::toolbar_color, { &m_finance_button
+                                                        ,&m_properties_button
+                                                        ,&m_loans_button
+                                                        ,&m_market_button})
+,m_ui(ui)
 ,m_screen_size(screen_size)
-,m_finance_button(*this, &Toolbar::finance_callback)
-,m_properties_button(*this, &Toolbar::properties_callback)
-,m_loans_button(*this, &Toolbar::loans_callback)
-,m_market_button(*this, &Toolbar::market_callback)
+,m_finance_button(*this, 0)
+,m_properties_button(*this, 1)
+,m_loans_button(*this, 2)
+,m_market_button(*this, 3)
 {
    setScreenSize(screen_size);
 
@@ -80,22 +84,6 @@ void Toolbar::setScreenSize(sf::Vector2u screen_size)
    
 }
 
-sf::Cursor::Type Toolbar::getCursorType(sf::Vector2i mouse_pos) const
-{
-   if (mouse_pos.y < m_bar.getPosition().y) return sf::Cursor::Arrow;
-
-   for (const auto& button : {
-      m_finance_button,
-      m_properties_button,
-      m_loans_button,
-      m_market_button
-   }){
-      if (button.mouseIsOver(mouse_pos)) return sf::Cursor::Hand;
-   } 
-
-   return sf::Cursor::Arrow;
-}
-
 void Toolbar::mouseDown(sf::Vector2i mouse_pos)
 {
    for (auto button : {
@@ -118,10 +106,16 @@ bool Toolbar::mouseIsOver(sf::Vector2i mouse_pos) const
    return mouse_pos.y > m_bar.getPosition().y;
 }
 
-void Toolbar::finance_callback() { m_ui.selectScreen(FINANCE); }
-void Toolbar::properties_callback() { m_ui.selectScreen(PROPERTIES); }
-void Toolbar::loans_callback() { m_ui.selectScreen(LOANS); }
-void Toolbar::market_callback() { m_ui.selectScreen(MARKET); }
+void Toolbar::handleClick(int button_id)
+{
+   switch(button_id)
+   {
+      case 0: m_ui.selectScreen(FINANCE); break;
+      case 1: m_ui.selectScreen(PROPERTIES); break;
+      case 2: m_ui.selectScreen(LOANS); break;
+      case 3: m_ui.selectScreen(MARKET); break;
+   }
+}
 
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

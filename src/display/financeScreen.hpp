@@ -25,7 +25,6 @@ class FinanceScreen : public Screen
 {
 public:
    FinanceScreen(Ui& ui, sf::Vector2u screen_size);
-   virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const override { return sf::Cursor::Type::Arrow; }
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

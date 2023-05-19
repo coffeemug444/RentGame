@@ -5,9 +5,9 @@ namespace Game
 {
 
 PropertyScreen::PropertyScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Property", OD::property_color)
+:Screen(ui, screen_size, "Property", OD::property_color, {&m_individual_property_screen_button})
 ,m_individual_property_screen_open(false)
-,m_individual_property_screen_button(*this, &PropertyScreen::individualPropertyScreenButtonCallback)
+,m_individual_property_screen_button(*this, 0)
 ,m_individual_property_screen(ui, screen_size)
 {
    m_individual_property_screen_button.setFillColor(OD::individual_property_color);
@@ -21,9 +21,7 @@ sf::Cursor::Type PropertyScreen::getCursorType(sf::Vector2i mouse_pos) const
    {
       return m_individual_property_screen.getCursorType(mouse_pos);
    }
-   return m_individual_property_screen_button.mouseIsOver(mouse_pos)
-          ? sf::Cursor::Hand
-          : sf::Cursor::Arrow;
+   return Screen::getCursorType(mouse_pos);
 }
 
 void PropertyScreen::mouseDown(sf::Vector2i mouse_pos) 
@@ -59,10 +57,15 @@ void PropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates states) con
 
 }
 
-void PropertyScreen::individualPropertyScreenButtonCallback()
+void PropertyScreen::handleClick(int button_id)
 {
-   m_individual_property_screen_open = true;
-   m_individual_property_screen.setActive(true);
+   switch(button_id)
+   {
+      case 0:
+         m_individual_property_screen_open = true;
+         m_individual_property_screen.setActive(true);
+      default: break;
+   }
 }
 
 void PropertyScreen::setScreenSize(sf::Vector2u screen_size) 
