@@ -31,7 +31,6 @@ private:
    };
    void handleClick(int button_id) override;
 
-   bool m_individual_property_screen_open;
    CircleButton m_individual_property_screen_button;
    IndividualPropertyScreen m_individual_property_screen;
 };

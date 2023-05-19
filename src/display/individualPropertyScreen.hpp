@@ -1,6 +1,7 @@
 #pragma once
 #include "screen.hpp"
 #include "observableData.hpp"
+#include "circleButton.hpp"
 
 /*
 
@@ -13,10 +14,22 @@ manager etc.
 namespace Game
 {
 
+class PropertyScreen;
+
 class IndividualPropertyScreen : public Screen
 {
 public:
-   IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size) : Screen(ui, screen_size, "Property 2", OD::individual_property_color) {}
+   IndividualPropertyScreen(Ui& ui, PropertyScreen& property_screen, sf::Vector2u screen_size);
+   void setScreenSize(sf::Vector2u screen_size) override;
+   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+private:
+   void handleClick(int button_id) override;
+   enum ButtonId {
+      NONE = 0,
+      PROPERTY
+   };
+   PropertyScreen& m_property_screen;
+   CircleButton m_property_button;
 };
 
 } // namespace Game
