@@ -26,6 +26,11 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void setActive(bool active) override;
 private:
+   enum ButtonId {
+      NONE = 0,
+      BANK
+   };
+
    void handleClick(int button_id) override;
 
    bool m_bank_screen_open;

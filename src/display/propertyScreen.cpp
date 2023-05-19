@@ -7,7 +7,7 @@ namespace Game
 PropertyScreen::PropertyScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Property", OD::property_color, {&m_individual_property_screen_button})
 ,m_individual_property_screen_open(false)
-,m_individual_property_screen_button(*this, 0)
+,m_individual_property_screen_button(*this, INDIVIDUAL)
 ,m_individual_property_screen(ui, screen_size)
 {
    m_individual_property_screen_button.setFillColor(OD::individual_property_color);
@@ -63,7 +63,7 @@ void PropertyScreen::handleClick(int button_id)
 {
    switch(button_id)
    {
-      case 0:
+      case INDIVIDUAL:
          m_individual_property_screen_open = true;
          m_individual_property_screen.setActive(true);
       default: break;

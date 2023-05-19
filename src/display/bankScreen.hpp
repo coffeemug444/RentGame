@@ -18,7 +18,6 @@ class BankScreen : public Screen
 {
 public:
    BankScreen(Ui& ui, LoanScreen& loan_screen, sf::Vector2u screen_size);
-   virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const override { return sf::Cursor::Type::Arrow; }
 private:
    LoanScreen& m_loan_screen;
 };

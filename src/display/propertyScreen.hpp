@@ -25,6 +25,10 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void setActive(bool active) override;
 private:
+   enum ButtonId {
+      NONE = 0,
+      INDIVIDUAL
+   };
    void handleClick(int button_id) override;
 
    bool m_individual_property_screen_open;

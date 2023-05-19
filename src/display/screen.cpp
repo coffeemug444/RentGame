@@ -62,6 +62,7 @@ void Screen::mouseDown(sf::Vector2i mouse_pos)
 
 void Screen::mouseUp(sf::Vector2i mouse_pos)
 {
+   if (m_last_button_id == 0) return;
    if (m_active) for (auto button_ptr : m_buttons)
    {
       if (button_ptr->mouseIsOver(mouse_pos))
