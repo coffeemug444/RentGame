@@ -13,7 +13,7 @@ class Toolbar : public Screen
 {
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);
-   void setScreenSize(sf::Vector2u screen_size);
+   void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
 private:
