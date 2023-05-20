@@ -77,7 +77,9 @@ void Game::pollEvents()
       switch (event.type)
       {
       case sf::Event::Closed:
-         m_window.close();
+         {std::lock_guard lock(m_gametick_mutex);
+         m_game_logic.stop();
+         }
          break;
       case sf::Event::Resized:
          m_window_resized = true;
@@ -99,12 +101,20 @@ void Game::pollEvents()
    }
 }
 
+// not to be called from the gameLogic loop
+bool Game::gameRunning()
+{
+   {std::lock_guard lock(m_gametick_mutex);
+   return m_game_logic.running();
+   }
+}
+
 void Game::uiLoop()
 {
    while (1)
    {
       {std::lock_guard lock(m_ui_mutex);
-      if (not m_window.isOpen()) break;
+      if (not gameRunning()) break;
       resizeWindow();
       mouseMoved();
       mouseDown();
@@ -114,9 +124,22 @@ void Game::uiLoop()
    }
 }
 
+void Game::gametickLoop()
+{
+   while (1)
+   {
+      {std::lock_guard lock(m_gametick_mutex);
+      if (not m_game_logic.running()) break;
+      m_game_logic.advanceDay();
+      } // mutex lock
+      sleep_for(1s);
+   }
+}
+
 void Game::mainLoop()
 {
    m_ui_thread = std::async(&Game::uiLoop, this);
+   m_gametick_thread = std::async(&Game::gametickLoop, this);
    sf::Clock timer;
 
    // 1/60 seconds in microseconds, delay time for 60fps
@@ -127,7 +150,7 @@ void Game::mainLoop()
    while (1)
    {
       {std::lock_guard lock(m_ui_mutex);
-      if (not m_window.isOpen()) break;
+      if (not gameRunning()) break;
 
       pollEvents();
       sf::Int64 current_time = timer.getElapsedTime().asMicroseconds();
@@ -143,6 +166,9 @@ void Game::mainLoop()
    }
 
    m_ui_thread.wait();
+   m_gametick_thread.wait();
+
+   m_window.close();
 }
 
 } // namespace Game

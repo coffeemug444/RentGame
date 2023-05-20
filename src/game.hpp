@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "display/ui.hpp"
+#include "logic/gameLogic.hpp"
 #include <future>
 #include <deque>
 
@@ -37,7 +38,9 @@ public:
    Game();
    void mainLoop();
 private:
+   bool gameRunning();  // not to be called from the gameLogic loop
    void uiLoop();
+   void gametickLoop();
    void pollEvents();
    void closeWindow();
    void resizeWindow();
@@ -53,9 +56,12 @@ private:
    sf::Cursor m_cursor;
 
    std::future<void> m_ui_thread;
+   std::future<void> m_gametick_thread;
    mutable std::mutex m_ui_mutex;
+   mutable std::mutex m_gametick_mutex;
    sf::RenderWindow m_window;
-   Ui m_ui;
+   Ui m_ui; 
+   GameLogic m_game_logic;
 };
 
 } // namespace Game
