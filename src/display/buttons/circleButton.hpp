@@ -21,10 +21,10 @@ public:
       return ((d.x*d.x+d.y*d.y) < getRadius()*getRadius());
    }
    const sf::Vector2f& getPosition() const { return m_button_circle.getPosition(); }
-   float getRadius() const { return m_button_circle.getRadius(); }
-   void setPosition(const sf::Vector2f& pos) { m_button_circle.setPosition(pos); }
-   void setRadius(float radius) { m_button_circle.setRadius(radius); }
-   void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
+   virtual float getRadius() const { return m_button_circle.getRadius(); }
+   virtual void setPosition(const sf::Vector2f& pos) { m_button_circle.setPosition(pos); }
+   virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
+   virtual void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
 private:
    sf::CircleShape m_button_circle;
 };

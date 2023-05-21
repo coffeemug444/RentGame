@@ -105,10 +105,10 @@ void Toolbar::handleClick(int button_id)
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    target.draw(m_bar);
-   target.draw(m_finance_button);
-   target.draw(m_properties_button);
-   target.draw(m_loans_button);
-   target.draw(m_market_button);
+   for (auto button_ptr : m_buttons)
+   {
+      target.draw(*button_ptr);
+   }
    target.draw(m_capital_display);
    target.draw(m_debt_display);
    target.draw(m_net_income_display);

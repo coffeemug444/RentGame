@@ -1,5 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include <tuple>
+#include <cmath>
 
 namespace Game
 {
@@ -36,5 +38,9 @@ auto operator- (const sf::Vector2<A>& l, const sf::Vector2<B>& r)
 {
    return {l.x-r.x,l.y-r.y};
 }
+
+std::tuple<int, int, int, int> RGBAToHSVA(sf::Uint32 rgba);
+
+sf::Uint32 HSVAtoRGBA(int hue, int saturation, int value, int alpha);
 
 } // namespace Game
