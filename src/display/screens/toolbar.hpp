@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "display/buttons/circleButton.hpp"
+#include "display/buttons/speedButton.hpp"
 #include "screen.hpp"
 
 namespace Game
@@ -24,12 +25,20 @@ private:
       FINANCE,
       PROPERTIES,
       LOANS,
-      MARKET
+      MARKET,
+      PAUSE,
+      NORMAL,
+      FAST,
+      VERYFAST
    };
 
    Ui& m_ui;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;
+   SpeedButton m_speed_pause;
+   SpeedButton m_speed_normal;
+   SpeedButton m_speed_fast;
+   SpeedButton m_speed_veryfast;
    CircleButton m_finance_button;
    CircleButton m_properties_button;
    CircleButton m_loans_button;
