@@ -5,7 +5,7 @@ namespace Game
 
 GameLogic::GameLogic()
 :m_current_day_ticks(0)
-,m_current_speed(PAUSED)
+,m_current_speed(PAUSE)
 ,m_paused(false)
 ,m_stopgame(false)
 ,m_running(true) 
@@ -16,13 +16,13 @@ constexpr int GameLogic::gameSpeedTicks(GameSpeed speed) const
 {
    switch(speed)
    {
-   case PAUSED:
+   case PAUSE:
       return 0;
-   case HALF_SPEED:
+   case NORMAL:
       return TICKS_PER_SEC * 2;
-   case NORMAL_SPEED:
+   case FAST:
       return TICKS_PER_SEC;
-   case DOUBLE_SPEED:
+   case VERYFAST:
       return TICKS_PER_SEC;
    }
    return 0;
@@ -35,7 +35,7 @@ void GameLogic::gameTick()
       m_running = false;
       return;
    }
-   if (m_current_speed == PAUSED) return;
+   if (m_current_speed == PAUSE) return;
 
 
    m_current_day_ticks++;

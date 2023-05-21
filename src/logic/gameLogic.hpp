@@ -3,16 +3,18 @@
 namespace Game 
 {
 
-enum GameSpeed {
-   PAUSED,
-   HALF_SPEED,
-   NORMAL_SPEED,
-   DOUBLE_SPEED
-};
+
 
 class GameLogic
 {
 public:
+   enum GameSpeed {
+      PAUSE,
+      NORMAL,
+      FAST,
+      VERYFAST
+   };
+   
    GameLogic();
    void gameTick();
    bool running() const { return m_running; }
