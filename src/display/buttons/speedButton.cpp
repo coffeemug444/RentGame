@@ -50,6 +50,7 @@ void SpeedButton::setFillColor(const sf::Color& color)
 {
    auto [h,s,v,a] = RGBAToHSVA(color.toInteger());
    h = (h+180)%360;
+   v = 100 - v;
    sf::Color secondary{HSVAtoRGBA(h,s,v,a)};
 
    setFillColor(color, secondary);
