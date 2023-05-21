@@ -3,14 +3,15 @@
 #include "display/ui.hpp"
 #include <string>
 #include <tuple>
-#include "display/observableData.hpp"
+#include "observableData.hpp"
+#include "display/constColors.hpp"
 #include "logic/eventInterface.hpp"
 
 namespace Game
 {
 
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
-:Screen(ui, screen_size, "Toolbar", OD::toolbar_color, { &m_finance_button
+:Screen(ui, screen_size, "Toolbar", CC::toolbar_color, { &m_finance_button
                                                         ,&m_properties_button
                                                         ,&m_loans_button
                                                         ,&m_market_button
@@ -34,22 +35,22 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 
    setScreenSize(screen_size);
 
-   m_bar.setFillColor(OD::toolbar_color);
+   m_bar.setFillColor(CC::toolbar_color);
 
 
-   m_speed_pause.setFillColor(OD::green_primary, OD::green_secondary);
+   m_speed_pause.setFillColor(CC::green_primary, CC::green_secondary);
    m_speed_normal.setFillColor(sf::Color::Black);
    m_speed_fast.setFillColor(sf::Color::Black);
    m_speed_veryfast.setFillColor(sf::Color::Black);
 
-   m_finance_button.setFillColor(OD::finance_color);
-   m_properties_button.setFillColor(OD::property_color);
-   m_loans_button.setFillColor(OD::loan_color);
-   m_market_button.setFillColor(OD::market_color);
+   m_finance_button.setFillColor(CC::finance_color);
+   m_properties_button.setFillColor(CC::property_color);
+   m_loans_button.setFillColor(CC::loan_color);
+   m_market_button.setFillColor(CC::market_color);
 
-   m_capital_display.setString(std::to_string(OD::capital));
-   m_debt_display.setString(std::to_string(OD::debt));
-   m_net_income_display.setString(std::to_string(OD::net_income));
+   m_capital_display.setString(std::to_string(OD::Player::capital));
+   m_debt_display.setString(std::to_string(OD::Player::debt));
+   m_net_income_display.setString(std::to_string(OD::Player::net_income));
 
    m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
 
@@ -156,14 +157,14 @@ void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
       m_current_speed = OD::current_speed;
       switch (m_current_speed)
       {
-      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(OD::green_primary, OD::green_secondary); break;
-      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(OD::green_primary, OD::green_secondary); break;
-      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(OD::green_primary, OD::green_secondary); break;
-      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(OD::green_primary, OD::green_secondary); break;
+      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(CC::green_primary, CC::green_secondary); break;
       }
-      m_capital_display.setString(std::to_string(OD::capital));
-      m_debt_display.setString(std::to_string(OD::debt));
-      m_net_income_display.setString(std::to_string(OD::net_income));
+      m_capital_display.setString(std::to_string(OD::Player::capital));
+      m_debt_display.setString(std::to_string(OD::Player::debt));
+      m_net_income_display.setString(std::to_string(OD::Player::net_income));
    }
 
 

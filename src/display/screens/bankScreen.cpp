@@ -1,15 +1,17 @@
 #include "bankScreen.hpp"
 #include "display/ui.hpp"
+#include "display/constColors.hpp"
+
 
 namespace Game
 {
 
 BankScreen::BankScreen(Ui& ui, LoanScreen& loan_screen, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Bank", OD::bank_color, {&m_loan_button})
+:Screen(ui, screen_size, "Bank", CC::bank_color, {&m_loan_button})
 ,m_loan_screen(loan_screen) 
 ,m_loan_button(*this, LOAN)
 {
-   m_loan_button.setFillColor(OD::loan_color);
+   m_loan_button.setFillColor(CC::loan_color);
    m_loan_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 }

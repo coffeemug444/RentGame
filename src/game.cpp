@@ -105,8 +105,8 @@ void Game::pollEvents()
 // not to be called from the gameLogic loop
 bool Game::gameRunning()
 {
-   {std::lock_guard lock(m_gametick_mutex);
-   return m_game_logic.running();
+   {std::lock_guard lock(OD::data_mutex);
+   return OD::game_running;
    }
 }
 
@@ -129,8 +129,8 @@ void Game::gametickLoop()
 {
    while (1)
    {
-      {std::lock_guard lock(m_gametick_mutex);
-      if (not m_game_logic.running()) break;
+      {std::lock_guard lock(OD::data_mutex);
+      if (not OD::game_running) break;
       m_game_logic.gameTick();
       } // mutex lock
       sleep_for(50ms); // 20hz gameticks

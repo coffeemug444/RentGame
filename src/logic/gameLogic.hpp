@@ -17,8 +17,6 @@ public:
    
    GameLogic();
    void gameTick();
-   bool running() const { return m_running; }
-   void stop () { m_stopgame = true; }
    void changeSpeed(GameSpeed new_speed);
 
 private:
@@ -30,9 +28,6 @@ private:
    void advanceDay() {};
    int m_current_day_ticks;
    GameSpeed m_current_speed;
-   bool m_paused;
-   bool m_stopgame;
-   bool m_running;
 };
 
 

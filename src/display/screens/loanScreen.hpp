@@ -1,6 +1,5 @@
 #pragma once
 #include "screen.hpp"
-#include "display/observableData.hpp"
 #include "bankScreen.hpp"
 #include "display/buttons/circleButton.hpp"
 

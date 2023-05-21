@@ -1,6 +1,6 @@
 #pragma once
 #include "screen.hpp"
-#include "display/observableData.hpp"
+#include "observableData.hpp"
 #include "display/buttons/circleButton.hpp"
 
 /*

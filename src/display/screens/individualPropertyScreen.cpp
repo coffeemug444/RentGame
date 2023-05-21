@@ -1,16 +1,17 @@
 #include "individualPropertyScreen.hpp"
 #include "display/ui.hpp"
 #include "propertyScreen.hpp"
+#include "display/constColors.hpp"
 
 namespace Game
 {
 
 IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, PropertyScreen& property_screen, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Property 2",OD::individual_property_color,{&m_property_button})
+:Screen(ui, screen_size, "Property 2",CC::individual_property_color,{&m_property_button})
 ,m_property_screen(property_screen)
 ,m_property_button(*this, PROPERTY)
 {
-   m_property_button.setFillColor(OD::property_color);
+   m_property_button.setFillColor(CC::property_color);
    m_property_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 }

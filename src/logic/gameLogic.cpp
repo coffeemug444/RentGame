@@ -1,6 +1,6 @@
 #include "gameLogic.hpp"
 #include "eventInterface.hpp"
-#include "display/observableData.hpp"
+#include "observableData.hpp"
 
 namespace Game
 {
@@ -8,9 +8,6 @@ namespace Game
 GameLogic::GameLogic()
 :m_current_day_ticks(0)
 ,m_current_speed(PAUSE)
-,m_paused(false)
-,m_stopgame(false)
-,m_running(true) 
 {
 }
 
@@ -36,7 +33,7 @@ void GameLogic::handleEvents()
 
    if (EI::ev_stop_game.size() > 0)
    {
-      m_running = false;
+      OD::game_running = false;
       EI::ev_stop_game.clear();
    }
 
@@ -45,14 +42,13 @@ void GameLogic::handleEvents()
       m_current_speed = EI::ev_gamespeed_changed.back();
       EI::ev_gamespeed_changed.clear();
 
-      {std::lock_guard lock(OD::data_mutex);
-      OD::current_speed = m_current_speed;}
+      OD::current_speed = m_current_speed;
    }
 }
 
 void GameLogic::gameTick()
 {
-   if (not m_running) return;
+   if (not OD::game_running) return;
 
    handleEvents();
 

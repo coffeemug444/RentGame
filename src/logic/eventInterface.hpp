@@ -3,18 +3,21 @@
 #include "gameLogic.hpp"
 #include <mutex>
 
+#ifndef IL
+#define IL inline static
+#endif
+
 namespace Game
 {
-class EventInterface;
+struct EventInterface;
 using EI = EventInterface;
 
-class EventInterface
+struct EventInterface
 {
-public:
-static inline std::mutex gametick_mutex;
+IL std::mutex gametick_mutex;
 
-static inline std::deque<bool> ev_stop_game;
-static inline std::deque<GameLogic::GameSpeed> ev_gamespeed_changed;
+IL std::deque<bool> ev_stop_game;
+IL std::deque<GameLogic::GameSpeed> ev_gamespeed_changed;
 
 
 };
