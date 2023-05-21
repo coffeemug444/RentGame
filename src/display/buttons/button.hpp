@@ -7,7 +7,7 @@
 namespace Game
 {
 
-class Button
+class Button : public sf::Drawable
 {
 public:
    Button(Screen& callback_class, int button_id)

@@ -54,7 +54,6 @@ void PropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates states) con
    }
 
    Screen::draw(target, states);
-   target.draw(m_individual_property_screen_button);
 
 }
 

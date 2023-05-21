@@ -28,6 +28,7 @@ public:
    }
 
    void setRadius(float radius);
+   void setPosition(const sf::Vector2f& pos);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:

@@ -39,6 +39,12 @@ void SpeedButton::setRadius(float radius)
 
 }
 
+void SpeedButton::setPosition(const sf::Vector2f& pos)
+{
+   CircleButton::setPosition(pos);
+   setRadius(getRadius());
+}
+
 
 void SpeedButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

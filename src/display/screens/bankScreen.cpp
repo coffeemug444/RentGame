@@ -34,10 +34,7 @@ void BankScreen::handleClick(int button_id)
 
 void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   if (not m_active) return;
    Screen::draw(target, states);
-
-   target.draw(m_loan_button);
 }
 
 } // namespace Game

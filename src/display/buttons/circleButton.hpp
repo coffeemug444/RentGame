@@ -6,7 +6,7 @@
 namespace Game
 {
 
-class CircleButton : public Button, public sf::Drawable
+class CircleButton : public Button
 {
 public:
    CircleButton(Screen& callback_class, int button_id)

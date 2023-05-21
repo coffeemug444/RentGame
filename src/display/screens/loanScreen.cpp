@@ -81,7 +81,6 @@ void LoanScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    }
 
    Screen::draw(target, states);
-   target.draw(m_bank_screen_button);
 }
 
 

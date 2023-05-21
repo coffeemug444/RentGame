@@ -35,10 +35,7 @@ void IndividualPropertyScreen::handleClick(int button_id)
 
 void IndividualPropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   if (not m_active) return;
    Screen::draw(target, states);
-
-   target.draw(m_property_button);
 }
 
 

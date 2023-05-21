@@ -44,6 +44,11 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
    target.draw(m_background);
    target.draw(m_title);
+
+   for (auto button_ptr : m_buttons)
+   {
+      target.draw(*button_ptr);
+   }
 }
 
 
