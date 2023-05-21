@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "logic/eventInterface.hpp"
 #include <chrono>
 #include <thread>
 
@@ -77,8 +78,8 @@ void Game::pollEvents()
       switch (event.type)
       {
       case sf::Event::Closed:
-         {std::lock_guard lock(m_gametick_mutex);
-         m_game_logic.stop();
+         {std::lock_guard lock(EI::gametick_mutex);
+         EI::ev_stop_game.push_back(true);
          }
          break;
       case sf::Event::Resized:

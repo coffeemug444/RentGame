@@ -1,4 +1,5 @@
 #include "gameLogic.hpp"
+#include "eventInterface.hpp"
 
 namespace Game
 {
@@ -28,13 +29,29 @@ constexpr int GameLogic::gameSpeedTicks(GameSpeed speed) const
    return 0;
 }
 
-void GameLogic::gameTick()
+void GameLogic::handleEvents()
 {
-   if (m_stopgame) 
+   std::lock_guard lock(EI::gametick_mutex);
+
+   if (EI::ev_stop_game.size() > 0)
    {
       m_running = false;
-      return;
+      EI::ev_stop_game.clear();
    }
+
+   if (EI::ev_gamespeed_changed.size() > 0)
+   {
+      m_current_speed = EI::ev_gamespeed_changed.back();
+      EI::ev_gamespeed_changed.clear();
+   }
+}
+
+void GameLogic::gameTick()
+{
+   if (not m_running) return;
+
+   handleEvents();
+
    if (m_current_speed == PAUSE) return;
 
 

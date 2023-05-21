@@ -25,6 +25,7 @@ private:
    static inline const int TICKS_PER_SEC = 20;
 
    constexpr int gameSpeedTicks(GameSpeed speed) const;
+   void handleEvents();
 
    void advanceDay() {};
    int m_current_day_ticks;
