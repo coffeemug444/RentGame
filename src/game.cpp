@@ -10,7 +10,7 @@ namespace Game
 {
 
 Game::Game()
-:m_window(sf::VideoMode(400, 400), "Rent game")
+:m_window(sf::VideoMode(800, 600), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
    m_cursor.loadFromSystem(sf::Cursor::Arrow);
