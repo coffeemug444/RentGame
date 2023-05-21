@@ -130,9 +130,9 @@ void Game::gametickLoop()
    {
       {std::lock_guard lock(m_gametick_mutex);
       if (not m_game_logic.running()) break;
-      m_game_logic.advanceDay();
+      m_game_logic.gameTick();
       } // mutex lock
-      sleep_for(1s);
+      sleep_for(50ms); // 20hz gameticks
    }
 }
 
