@@ -1,5 +1,5 @@
 #include "screen.hpp"
-#include "button.hpp"
+#include "display/buttons/button.hpp"
 
 #include <iostream>
 namespace Game

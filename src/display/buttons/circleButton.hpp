@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "button.hpp"
+#include "display/buttons/button.hpp"
 
 
 namespace Game

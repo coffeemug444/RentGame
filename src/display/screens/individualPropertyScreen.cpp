@@ -1,5 +1,5 @@
 #include "individualPropertyScreen.hpp"
-#include "ui.hpp"
+#include "display/ui.hpp"
 #include "propertyScreen.hpp"
 
 namespace Game

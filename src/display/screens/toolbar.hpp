@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "circleButton.hpp"
+#include "display/buttons/circleButton.hpp"
 #include "screen.hpp"
 
 namespace Game

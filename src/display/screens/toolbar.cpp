@@ -1,9 +1,9 @@
 #include "toolbar.hpp"
 #include "util/util.hpp"
-#include "ui.hpp"
+#include "display/ui.hpp"
 #include <string>
 #include <tuple>
-#include "observableData.hpp"
+#include "display/observableData.hpp"
 
 namespace Game
 {

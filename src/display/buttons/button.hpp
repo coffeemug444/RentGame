@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "util/util.hpp"
-#include "screen.hpp"
+#include "display/screens/screen.hpp"
 
 
 namespace Game

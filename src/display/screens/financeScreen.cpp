@@ -1,5 +1,5 @@
 #include "financeScreen.hpp"
-#include "observableData.hpp"
+#include "display/observableData.hpp"
 
 namespace Game
 {

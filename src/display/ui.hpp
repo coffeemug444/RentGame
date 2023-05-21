@@ -1,10 +1,10 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "toolbar.hpp"
-#include "loanScreen.hpp"
-#include "financeScreen.hpp"
-#include "propertyScreen.hpp"
-#include "marketScreen.hpp"
+#include "screens/toolbar.hpp"
+#include "screens/loanScreen.hpp"
+#include "screens/financeScreen.hpp"
+#include "screens/propertyScreen.hpp"
+#include "screens/marketScreen.hpp"
 #include <mutex>
 #include <map>
 

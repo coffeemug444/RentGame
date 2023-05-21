@@ -1,23 +1,24 @@
 #pragma once
 #include "screen.hpp"
-#include "observableData.hpp"
-#include "individualPropertyScreen.hpp"
-#include "circleButton.hpp"
+#include "display/observableData.hpp"
+#include "bankScreen.hpp"
+#include "display/buttons/circleButton.hpp"
 
 /*
 
-This screen displays a list of all owned properties, with links
-to manage each one 
+This screen shows a list of all current loans. It shows the 
+total amount owed and a link to the bank screen to take out 
+another loan.
 
 */
 
 namespace Game
 {
 
-class PropertyScreen : public Screen
+class LoanScreen : public Screen
 {
 public:
-   PropertyScreen(Ui& ui, sf::Vector2u screen_size);
+   LoanScreen(Ui& ui, sf::Vector2u screen_size);
    sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const override;
    void mouseDown(sf::Vector2i mouse_pos) override;
    void mouseUp(sf::Vector2i mouse_pos) override;
@@ -27,12 +28,13 @@ public:
 private:
    enum ButtonId {
       NONE = 0,
-      INDIVIDUAL
+      BANK
    };
+
    void handleClick(int button_id) override;
 
-   CircleButton m_individual_property_screen_button;
-   IndividualPropertyScreen m_individual_property_screen;
+   CircleButton m_bank_screen_button;
+   BankScreen m_bank_screen;
 };
 
 } // namespace Game
