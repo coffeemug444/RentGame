@@ -1,5 +1,6 @@
 #include "gameLogic.hpp"
 #include "eventInterface.hpp"
+#include "display/observableData.hpp"
 
 namespace Game
 {
@@ -43,6 +44,9 @@ void GameLogic::handleEvents()
    {
       m_current_speed = EI::ev_gamespeed_changed.back();
       EI::ev_gamespeed_changed.clear();
+
+      {std::lock_guard lock(OD::data_mutex);
+      OD::current_speed = m_current_speed;}
    }
 }
 

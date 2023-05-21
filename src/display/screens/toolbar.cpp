@@ -28,6 +28,7 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 ,m_properties_button(*this, PROPERTIES)
 ,m_loans_button(*this, LOANS)
 ,m_market_button(*this, MARKET)
+,m_current_speed(GameLogic::GameSpeed::PAUSE)
 {
    m_active = true;
 
@@ -36,7 +37,7 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
    m_bar.setFillColor(OD::toolbar_color);
 
 
-   m_speed_pause.setFillColor(sf::Color::Black);
+   m_speed_pause.setFillColor(OD::green_primary, OD::green_secondary);
    m_speed_normal.setFillColor(sf::Color::Black);
    m_speed_fast.setFillColor(sf::Color::Black);
    m_speed_veryfast.setFillColor(sf::Color::Black);
@@ -143,6 +144,29 @@ void Toolbar::handleClick(int button_id)
 
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+   if (OD::current_speed != m_current_speed)
+   {
+      switch (m_current_speed)
+      {
+      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(sf::Color::Black); break;
+      };
+      m_current_speed = OD::current_speed;
+      switch (m_current_speed)
+      {
+      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(OD::green_primary, OD::green_secondary); break;
+      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(OD::green_primary, OD::green_secondary); break;
+      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(OD::green_primary, OD::green_secondary); break;
+      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(OD::green_primary, OD::green_secondary); break;
+      }
+      m_capital_display.setString(std::to_string(OD::capital));
+      m_debt_display.setString(std::to_string(OD::debt));
+      m_net_income_display.setString(std::to_string(OD::net_income));
+   }
+
+
    target.draw(m_bar);
    for (auto button_ptr : m_buttons)
    {

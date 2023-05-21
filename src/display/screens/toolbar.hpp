@@ -3,6 +3,7 @@
 #include "display/buttons/circleButton.hpp"
 #include "display/buttons/speedButton.hpp"
 #include "screen.hpp"
+#include "logic/gameLogic.hpp"
 
 namespace Game
 {
@@ -35,18 +36,19 @@ private:
    Ui& m_ui;
    sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;
-   SpeedButton m_speed_pause;
-   SpeedButton m_speed_normal;
-   SpeedButton m_speed_fast;
-   SpeedButton m_speed_veryfast;
+   mutable SpeedButton m_speed_pause;
+   mutable SpeedButton m_speed_normal;
+   mutable SpeedButton m_speed_fast;
+   mutable SpeedButton m_speed_veryfast;
    CircleButton m_finance_button;
    CircleButton m_properties_button;
    CircleButton m_loans_button;
    CircleButton m_market_button;
    sf::Font m_font;
-   sf::Text m_capital_display;
-   sf::Text m_debt_display;
-   sf::Text m_net_income_display;
+   mutable sf::Text m_capital_display;
+   mutable sf::Text m_debt_display;
+   mutable sf::Text m_net_income_display;
+   mutable GameLogic::GameSpeed m_current_speed;
 };
 
 } // namespace Game

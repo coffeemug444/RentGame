@@ -29,12 +29,12 @@ void SpeedButton::setRadius(float radius)
    m_veryfast_tri.append(sf::Vertex{base_pos + sf::Vector2f{-0.4f*radius,-0.4f*radius}, m_symbol_color });
    m_veryfast_tri.append(sf::Vertex{base_pos + sf::Vector2f{-0.4f*radius, 0.4f*radius}, m_symbol_color });
    m_veryfast_tri.append(sf::Vertex{base_pos + sf::Vector2f{ 0.2f*radius, 0          }, m_symbol_color });
-   m_veryfast_rec = sf::RectangleShape{{0.1f*radius, 0.8f*radius}};
+   m_veryfast_rec.setSize({0.1f*radius, 0.8f*radius});
    m_veryfast_rec.setPosition(base_pos + sf::Vector2f{0.2f*radius, -0.4f*radius});
 
-   m_pause_rec_1 = sf::RectangleShape{{0.1f*radius, 0.8f*radius}};
+   m_pause_rec_1.setSize({0.1f*radius, 0.8f*radius});
    m_pause_rec_1.setPosition(base_pos + sf::Vector2f{0.2f*radius, -0.4f*radius});
-   m_pause_rec_2 = sf::RectangleShape{{0.1f*radius, 0.8f*radius}};
+   m_pause_rec_2.setSize({0.1f*radius, 0.8f*radius});
    m_pause_rec_2.setPosition(base_pos + sf::Vector2f{-0.3f*radius, -0.4f*radius});
 
 }
@@ -50,7 +50,7 @@ void SpeedButton::setFillColor(const sf::Color& color)
 {
    auto [h,s,v,a] = RGBAToHSVA(color.toInteger());
    h = (h+180)%360;
-   v = 100 - v;
+   if (s == 0) v = 100 - v;
    sf::Color secondary{HSVAtoRGBA(h,s,v,a)};
 
    setFillColor(color, secondary);
