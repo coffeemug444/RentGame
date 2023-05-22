@@ -133,13 +133,13 @@ void Toolbar::handleClick(int button_id)
       case LOANS: m_ui.selectScreen(Ui::LOANS); break;
       case MARKET: m_ui.selectScreen(Ui::MARKET); break;
       case PAUSE: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push_back(GameLogic::PAUSE); break;}
+         EI::ev_gamespeed_changed.push(GameLogic::PAUSE); break;}
       case NORMAL: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push_back(GameLogic::NORMAL); break;}
+         EI::ev_gamespeed_changed.push(GameLogic::NORMAL); break;}
       case FAST: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push_back(GameLogic::FAST); break;}
+         EI::ev_gamespeed_changed.push(GameLogic::FAST); break;}
       case VERYFAST: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push_back(GameLogic::VERYFAST); break;}
+         EI::ev_gamespeed_changed.push(GameLogic::VERYFAST); break;}
    }
 }
 

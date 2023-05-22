@@ -32,7 +32,8 @@ void Game::mouseMoved()
    while (m_ev_mouse_moved.size() > 0)
    {
       sf::Vector2i mouse_pos = m_ev_mouse_moved.front();
-      m_ev_mouse_moved.pop_front();
+      m_ev_mouse_moved.pop();
+
 
       if (mouse_pos.x < 0 || mouse_pos.y < 0) return;
       
@@ -51,7 +52,7 @@ void Game::mouseDown()
    while (m_ev_mouse_down.size() > 0)
    {
       sf::Vector2i mouse_pos = m_ev_mouse_down.front();
-      m_ev_mouse_down.pop_front();
+      m_ev_mouse_down.pop();
 
       m_ui.mouseDown(mouse_pos);
    }
@@ -62,10 +63,10 @@ void Game::mouseUp()
    while (m_ev_mouse_up.size() > 0)
    {
       sf::Vector2i mouse_pos = m_ev_mouse_up.front();
-      m_ev_mouse_up.pop_front();
+      m_ev_mouse_up.pop();
       
       m_ui.mouseUp(mouse_pos);
-      m_ev_mouse_moved.push_back(mouse_pos);
+      m_ev_mouse_moved.push(mouse_pos);
    }
 }
 
@@ -79,22 +80,22 @@ void Game::pollEvents()
       {
       case sf::Event::Closed:
          {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_stop_game.push_back(true);
+         EI::ev_stop_game.push(true);
          }
          break;
       case sf::Event::Resized:
          m_window_resized = true;
          break;
       case sf::Event::MouseMoved:
-         m_ev_mouse_moved.push_back({event.mouseMove.x,event.mouseMove.y});
+         m_ev_mouse_moved.push({event.mouseMove.x,event.mouseMove.y});
          break;
       case sf::Event::MouseButtonPressed:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         m_ev_mouse_down.push_back({event.mouseButton.x,event.mouseButton.y});
+         m_ev_mouse_down.push({event.mouseButton.x,event.mouseButton.y});
          break;
       case sf::Event::MouseButtonReleased:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         m_ev_mouse_up.push_back({event.mouseButton.x,event.mouseButton.y});
+         m_ev_mouse_up.push({event.mouseButton.x,event.mouseButton.y});
          break;
       default:
          break;

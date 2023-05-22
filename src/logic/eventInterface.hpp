@@ -1,5 +1,5 @@
 #pragma once
-#include <deque>
+#include <queue>
 #include "gameLogic.hpp"
 #include <mutex>
 
@@ -16,8 +16,8 @@ struct EventInterface
 {
 IL std::mutex gametick_mutex;
 
-IL std::deque<bool> ev_stop_game;
-IL std::deque<GameLogic::GameSpeed> ev_gamespeed_changed;
+IL std::queue<bool> ev_stop_game;
+IL std::queue<GameLogic::GameSpeed> ev_gamespeed_changed;
 
 
 };

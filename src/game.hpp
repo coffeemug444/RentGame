@@ -3,7 +3,7 @@
 #include "display/ui.hpp"
 #include "logic/gameLogic.hpp"
 #include <future>
-#include <deque>
+#include <queue>
 
 /*
 
@@ -30,7 +30,8 @@ there are 3 global mutex's:
    access ui elements and must stay synchronized (X11 gets very upset if you don't)
 2. data_mutex
    this is located in the ObservableData global struct. 
-     - While the UI is rendered, the Ui class will hold this mutex
+     - While the UI is rendered, the Ui class will hold this mutex. Note that it is
+       the main thread that orders this, not the display thread.
      - While in the gameTick function the GameLogic class will hold this mutex
 3. gametick_mutex
    this is located in the EventInterface global struct
@@ -61,9 +62,9 @@ private:
    void mouseUp();
 
    bool m_window_resized;
-   std::deque<sf::Vector2i> m_ev_mouse_moved;
-   std::deque<sf::Vector2i> m_ev_mouse_down;
-   std::deque<sf::Vector2i> m_ev_mouse_up;
+   std::queue<sf::Vector2i> m_ev_mouse_moved;
+   std::queue<sf::Vector2i> m_ev_mouse_down;
+   std::queue<sf::Vector2i> m_ev_mouse_up;
 
    sf::Cursor m_cursor;
 
