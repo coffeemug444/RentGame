@@ -2,10 +2,34 @@
 #include "SFML/Graphics.hpp"
 #include <tuple>
 #include <cmath>
+#include <queue>
+#include <algorithm>
+#include <optional>
 
 namespace Game
 {
 
+template <typename T>
+concept hasId = requires (T t)
+{
+   { t.getId() } -> std::same_as<int>;
+};
+
+template<typename T>
+void clear(std::queue<T>& q)
+{
+   std::queue<T> empty;
+   std::swap( q, empty );
+}
+
+template <typename T>
+requires hasId<T>
+std::optional<T*> getId(int id, std::vector<T> v)
+{
+   auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
+   if (it == v.end()) return {};
+   return &(*it);
+}
 
 template<typename A, typename B>
 requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>

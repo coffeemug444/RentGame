@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <SFML/Graphics.hpp>
 #include "logic/gameLogic.hpp"
+#include "logic/loan.hpp"
 
 #ifndef IL
 #define IL inline static
@@ -26,6 +27,7 @@ struct ObservableData
       IL unsigned capital = 0;
       IL unsigned debt = 0;
       IL unsigned net_income = 0;
+      IL std::vector<Loan> loans;
    };
 
 };

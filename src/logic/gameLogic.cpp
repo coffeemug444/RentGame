@@ -1,6 +1,7 @@
 #include "gameLogic.hpp"
 #include "eventInterface.hpp"
 #include "observableData.hpp"
+#include "util/util.hpp"
 
 namespace Game
 {
@@ -34,15 +35,32 @@ void GameLogic::handleEvents()
    if (EI::ev_stop_game.size() > 0)
    {
       OD::game_running = false;
-      EI::ev_stop_game.clear();
+      clear(EI::ev_stop_game);
    }
 
    if (EI::ev_gamespeed_changed.size() > 0)
    {
       m_current_speed = EI::ev_gamespeed_changed.back();
-      EI::ev_gamespeed_changed.clear();
+      clear(EI::ev_gamespeed_changed);
 
       OD::current_speed = m_current_speed;
+   }
+
+   while (EI::ev_loan_monthly_payment_arrears.size() > 0)
+   {
+      auto ev = EI::ev_loan_monthly_payment.front();
+      EI::ev_loan_monthly_payment.pop();
+
+      if (ev.amount > OD::Player::capital)
+      {
+         OD::game_running = false; // fix this
+      }
+      else
+      {
+         auto loan = getId(ev.loan_id, OD::Player::loans);
+         if (loan.has_value()) loan.value()->pay(ev.amount);
+      }
+
    }
 }
 
