@@ -25,6 +25,7 @@ class FinanceScreen : public Screen
 {
 public:
    FinanceScreen(Ui& ui, sf::Vector2u screen_size);
+   void handleClick(int button_id) override {}
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

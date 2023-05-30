@@ -11,14 +11,14 @@ namespace Game
 {
 
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
-:Screen(ui, screen_size, "Toolbar", CC::toolbar_color, { &m_finance_button
-                                                        ,&m_properties_button
-                                                        ,&m_loans_button
-                                                        ,&m_market_button
-                                                        ,&m_speed_pause
-                                                        ,&m_speed_normal
-                                                        ,&m_speed_fast
-                                                        ,&m_speed_veryfast})
+:ButtonContainer({ &m_finance_button
+                  ,&m_properties_button
+                  ,&m_loans_button
+                  ,&m_market_button
+                  ,&m_speed_pause
+                  ,&m_speed_normal
+                  ,&m_speed_fast
+                  ,&m_speed_veryfast})
 ,m_ui(ui)
 ,m_screen_size(screen_size)
 ,m_speed_pause(*this, PAUSE, SpeedButton::PAUSE)
@@ -30,9 +30,8 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 ,m_loans_button(*this, LOANS)
 ,m_market_button(*this, MARKET)
 ,m_current_speed(GameLogic::GameSpeed::PAUSE)
+,m_last_button_id(0)
 {
-   m_active = true;
-
    setScreenSize(screen_size);
 
    m_bar.setFillColor(CC::toolbar_color);

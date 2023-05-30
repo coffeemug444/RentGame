@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "display/buttons/circleButton.hpp"
 #include "display/buttons/speedButton.hpp"
-#include "screen.hpp"
+#include "display/buttons/buttonContainer.hpp"
 #include "logic/gameLogic.hpp"
 
 namespace Game
@@ -11,11 +11,11 @@ namespace Game
 class Ui;
 
    
-class Toolbar : public Screen
+class Toolbar : public ButtonContainer, public sf::Drawable
 {
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);
-   void setScreenSize(sf::Vector2u screen_size) override;
+   void setScreenSize(sf::Vector2u screen_size);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
 private:
@@ -49,6 +49,7 @@ private:
    mutable sf::Text m_debt_display;
    mutable sf::Text m_net_income_display;
    mutable GameLogic::GameSpeed m_current_speed;
+   int m_last_button_id;
 };
 
 } // namespace Game
