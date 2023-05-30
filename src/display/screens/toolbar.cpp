@@ -161,10 +161,10 @@ void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
       case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(CC::green_primary, CC::green_secondary); break;
       case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(CC::green_primary, CC::green_secondary); break;
       }
-      m_capital_display.setString(std::to_string(OD::Player::capital));
-      m_debt_display.setString(std::to_string(OD::Player::debt));
-      m_net_income_display.setString(std::to_string(OD::Player::net_income));
    }
+   m_capital_display.setString(std::to_string(OD::Player::capital));
+   m_debt_display.setString(std::to_string(OD::Player::debt));
+   m_net_income_display.setString(std::to_string(OD::Player::net_income));
 
 
    target.draw(m_bar);

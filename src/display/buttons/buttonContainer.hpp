@@ -7,10 +7,11 @@ namespace Game
 
 class Button;
    
-class ButtonContainer
+class ButtonContainer : public sf::Drawable
 {
 public:
    ButtonContainer(const std::vector<Button*>& buttons = {}, const std::vector<ButtonContainer*>& sub_containers = {});
+   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    virtual void handleClick(int button_id) = 0;
    virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
    virtual void mouseDown(sf::Vector2i mouse_pos);

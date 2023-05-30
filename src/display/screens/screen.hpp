@@ -11,10 +11,10 @@ class Ui;
 class Button;
 class Widget;
 
-class Screen : public sf::Drawable, public ButtonContainer
+class Screen : public ButtonContainer
 {
 public:
-   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {}, const std::vector<Widget*>& widgets = {});
+   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {}, const std::vector<ButtonContainer*>& widgets = {});
    
    virtual void setScreenSize(sf::Vector2u screen_size);
 
@@ -29,7 +29,7 @@ public:
    
 protected:
    Ui& m_ui;
-   std::vector<Widget*> m_widgets;
+   std::vector<ButtonContainer*> m_widgets;
    sf::RectangleShape m_background;
    sf::Font m_font;
    sf::Text m_title;

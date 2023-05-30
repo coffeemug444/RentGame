@@ -11,7 +11,7 @@ namespace Game
 class Ui;
 
    
-class Toolbar : public ButtonContainer, public sf::Drawable
+class Toolbar : public ButtonContainer
 {
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);

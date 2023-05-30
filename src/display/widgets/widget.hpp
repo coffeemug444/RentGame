@@ -7,10 +7,10 @@ namespace Game
 
 class Screen;
 
-class Widget : public ButtonContainer, public sf::Drawable
+class Widget : public ButtonContainer
 {
 public:
-   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+   Widget(const std::vector<Button*>& buttons = {}, const std::vector<ButtonContainer*>& sub_containers = {});
    void handleClick(int button_id) override {};
 };
 

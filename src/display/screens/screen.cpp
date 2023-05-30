@@ -1,21 +1,13 @@
 #include "screen.hpp"
 #include "display/buttons/button.hpp"
-#include "display/widgets/widget.hpp"
+#include "display/buttons/buttonContainer.hpp"
 
 #include <iostream>
 namespace Game
 {
 
-inline std::vector<ButtonContainer*> widgetsToButtonContainers(const std::vector<Widget*>& widgets)
-{
-   std::vector<ButtonContainer*> button_containers;
-   button_containers.insert(button_containers.begin(), widgets.begin(), widgets.end());
-   return button_containers;
-}
-
-
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons, const std::vector<Widget*>& widgets)
-:ButtonContainer(buttons, widgetsToButtonContainers(widgets))
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons, const std::vector<ButtonContainer*>& widgets)
+:ButtonContainer(buttons, widgets)
 ,m_ui(ui)
 ,m_widgets(widgets)
 ,m_screen_size(screen_size)
@@ -44,15 +36,7 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    target.draw(m_background);
    target.draw(m_title);
 
-   for (auto button_ptr : m_buttons)
-   {
-      target.draw(*button_ptr);
-   }
-
-   for (auto widget_ptr : m_widgets)
-   {
-      target.draw(*widget_ptr);
-   }
+   ButtonContainer::draw(target, states);
 }
 
 

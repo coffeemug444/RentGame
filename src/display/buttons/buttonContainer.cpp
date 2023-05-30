@@ -67,5 +67,17 @@ void ButtonContainer::mouseUp(sf::Vector2i mouse_pos)
    m_last_button_id = 0;
 }
 
+void ButtonContainer::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+   for (auto button_ptr : m_buttons)
+   {
+      target.draw(*button_ptr);
+   }
+   for (auto container_ptr : m_sub_containers)
+   {
+      target.draw(*container_ptr);
+   }
+}
+
 
 } // namespace Game
