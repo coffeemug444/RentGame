@@ -5,7 +5,7 @@
 1. All rents increase exponentially from game start
 2. All property prices increase exponentially from game start
 
-You will always be renting your main home which has its rent rise exponentially forever, providing a constant expense in the game. If you miss a single rent payment you lose. You start out with no properties and must take out a home loan in order to purchase your first. You can take out as many loans as you want, of any size, but if you miss two payments in a row you lose.
+You will always be renting your main home which has its rent rise exponentially forever, providing a constant expense in the game. If you miss a single rent payment you lose. You start out with no properties and must take out a home loan in order to purchase your first. You can take out as many loans as you want, of any size, but if you miss two payments in a row you lose. If your net monthly income is too low, you cannot take out a loan. This is to prevent taking out loans to pay off loans.
 
 You can choose to buy properties and rent them out, but the prices of these properties will rise from the beginning of the game. If you don't buy early you may never afford property. You can hire a property manager or manage rents yourself for potentially higher gains
 
