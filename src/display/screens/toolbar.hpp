@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "display/buttons/circleButton.hpp"
 #include "display/buttons/speedButton.hpp"
-#include "display/buttons/buttonContainer.hpp"
+#include "display/widgets/widget.hpp"
 #include "logic/gameLogic.hpp"
 
 namespace Game
@@ -11,7 +11,7 @@ namespace Game
 class Ui;
 
    
-class Toolbar : public ButtonContainer
+class Toolbar : public Widget
 {
 public:
    Toolbar(Ui& ui, sf::Vector2u screen_size);

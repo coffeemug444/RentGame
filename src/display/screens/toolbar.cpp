@@ -11,7 +11,7 @@ namespace Game
 {
 
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
-:ButtonContainer({ &m_finance_button
+:Widget({ &m_finance_button
                   ,&m_properties_button
                   ,&m_loans_button
                   ,&m_market_button

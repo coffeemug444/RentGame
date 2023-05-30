@@ -9,7 +9,7 @@ namespace Game
 class CircleButton : public Button
 {
 public:
-   CircleButton(ButtonContainer& callback_class, int button_id)
+   CircleButton(Widget& callback_class, int button_id)
       :Button(callback_class, button_id) {}
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override { target.draw(m_button_circle); };
    bool mouseIsOver(sf::Vector2i mouse_pos) const override

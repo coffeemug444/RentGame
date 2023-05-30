@@ -1,13 +1,13 @@
 #include "screen.hpp"
 #include "display/buttons/button.hpp"
-#include "display/buttons/buttonContainer.hpp"
+#include "display/widgets/widget.hpp"
 
 #include <iostream>
 namespace Game
 {
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons, const std::vector<ButtonContainer*>& widgets)
-:ButtonContainer(buttons, widgets)
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons, const std::vector<Widget*>& widgets)
+:Widget(buttons, widgets)
 ,m_ui(ui)
 ,m_widgets(widgets)
 ,m_screen_size(screen_size)
@@ -36,7 +36,7 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    target.draw(m_background);
    target.draw(m_title);
 
-   ButtonContainer::draw(target, states);
+   Widget::draw(target, states);
 }
 
 
@@ -47,7 +47,7 @@ void Screen::mouseDown(sf::Vector2i mouse_pos)
       m_last_button_id = 0;
       return;
    }
-   ButtonContainer::mouseDown(mouse_pos);
+   Widget::mouseDown(mouse_pos);
 }
 
 void Screen::mouseUp(sf::Vector2i mouse_pos)
@@ -57,7 +57,7 @@ void Screen::mouseUp(sf::Vector2i mouse_pos)
       m_last_button_id = 0;
       return;
    }
-   ButtonContainer::mouseUp(mouse_pos);
+   Widget::mouseUp(mouse_pos);
 }
 
 
