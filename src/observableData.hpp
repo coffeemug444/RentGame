@@ -19,6 +19,8 @@ struct ObservableData
 {
    IL std::mutex data_mutex;
 
+   IL sf::Font font;
+
    IL bool game_running = true;
    IL GameLogic::GameSpeed current_speed  {GameLogic::GameSpeed::PAUSE};
 
@@ -30,6 +32,10 @@ struct ObservableData
       IL std::vector<Loan> loans;
    };
 
+   static void init()
+   {
+      font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
+   }
 };
 
 

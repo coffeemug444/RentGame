@@ -60,6 +60,7 @@ private:
    void mouseMoved();
    void mouseDown();
    void mouseUp();
+   void charEntered(char c);
 
    bool m_window_resized;
    std::queue<sf::Vector2i> m_ev_mouse_moved;

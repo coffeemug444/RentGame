@@ -70,6 +70,13 @@ void Game::mouseUp()
    }
 }
 
+void Game::charEntered(char c)
+{
+   if (c >= '0' && c <= '9')
+   {
+   }
+}
+
 
 void Game::pollEvents()
 {
@@ -96,6 +103,14 @@ void Game::pollEvents()
       case sf::Event::MouseButtonReleased:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
          m_ev_mouse_up.push({event.mouseButton.x,event.mouseButton.y});
+         break;
+      case sf::Event::TextEntered:
+         if (event.text.unicode < 128) charEntered(static_cast<char>(event.text.unicode));
+         break;
+      case sf::Event::KeyPressed:
+         if (event.key.code == sf::Keyboard::Backspace)
+         {
+         }
          break;
       default:
          break;
@@ -140,6 +155,7 @@ void Game::gametickLoop()
 
 void Game::mainLoop()
 {
+   OD::init();
    m_ui_thread = std::async(&Game::uiLoop, this);
    m_gametick_thread = std::async(&Game::gametickLoop, this);
    sf::Clock timer;
