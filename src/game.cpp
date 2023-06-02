@@ -1,5 +1,5 @@
 #include "game.hpp"
-#include "logic/eventInterface.hpp"
+#include "logic/events/eventInterface.hpp"
 #include <chrono>
 #include <thread>
 

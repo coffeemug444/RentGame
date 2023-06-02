@@ -5,7 +5,7 @@
 #include <tuple>
 #include "observableData.hpp"
 #include "display/constColors.hpp"
-#include "logic/eventInterface.hpp"
+#include "logic/events/eventInterface.hpp"
 
 namespace Game
 {

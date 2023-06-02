@@ -1,6 +1,6 @@
 #include "loan.hpp"
 #include <cmath>
-#include "eventInterface.hpp"
+#include "events/eventInterface.hpp"
 
    // int m_principle;
    // float m_interest_rate_monthly;

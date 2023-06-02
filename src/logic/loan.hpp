@@ -3,12 +3,6 @@
 namespace Game
 {
 
-struct evLoanMonthlyPayment
-{
-   int loan_id;
-   int amount;
-};
-
 class Loan
 {
 public:

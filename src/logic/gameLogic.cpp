@@ -1,5 +1,5 @@
 #include "gameLogic.hpp"
-#include "eventInterface.hpp"
+#include "events/eventInterface.hpp"
 #include "observableData.hpp"
 #include "util/util.hpp"
 

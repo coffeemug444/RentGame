@@ -1,7 +1,7 @@
 #pragma once
 #include <queue>
-#include "gameLogic.hpp"
-#include "loan.hpp"
+#include "logic/gameLogic.hpp"
+#include "events.hpp"
 #include <mutex>
 
 #ifndef IL
