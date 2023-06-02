@@ -60,12 +60,15 @@ private:
    void mouseMoved();
    void mouseDown();
    void mouseUp();
-   void charEntered(char c);
+   void charEntered();
+   void backspace();
 
    bool m_window_resized;
    std::queue<sf::Vector2i> m_ev_mouse_moved;
    std::queue<sf::Vector2i> m_ev_mouse_down;
    std::queue<sf::Vector2i> m_ev_mouse_up;
+   int m_ev_backspace;
+   std::queue<char> m_ev_char_entered;
 
    sf::Cursor m_cursor;
 

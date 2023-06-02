@@ -10,7 +10,8 @@ namespace Game
 {
 
 Game::Game()
-:m_window(sf::VideoMode(800, 600), "Rent game")
+:m_ev_backspace(0)
+,m_window(sf::VideoMode(800, 600), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
    m_cursor.loadFromSystem(sf::Cursor::Arrow);
@@ -70,10 +71,21 @@ void Game::mouseUp()
    }
 }
 
-void Game::charEntered(char c)
+void Game::charEntered()
 {
-   if (c >= '0' && c <= '9')
+   while (m_ev_char_entered.size() > 0)
    {
+      m_ui.charEntered(m_ev_char_entered.front());
+      m_ev_char_entered.pop();
+   }
+}
+
+void Game::backspace()
+{
+   while (m_ev_backspace)
+   {
+      m_ui.backspace();
+      m_ev_backspace--;
    }
 }
 
@@ -87,7 +99,7 @@ void Game::pollEvents()
       {
       case sf::Event::Closed:
          {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_stop_game.push(true);
+         EI::ev_stop_game.push({});
          }
          break;
       case sf::Event::Resized:
@@ -105,11 +117,13 @@ void Game::pollEvents()
          m_ev_mouse_up.push({event.mouseButton.x,event.mouseButton.y});
          break;
       case sf::Event::TextEntered:
-         if (event.text.unicode < 128) charEntered(static_cast<char>(event.text.unicode));
+         if (event.text.unicode >= 128) break;
+         m_ev_char_entered.push(static_cast<char>(event.text.unicode));
          break;
       case sf::Event::KeyPressed:
          if (event.key.code == sf::Keyboard::Backspace)
          {
+            m_ev_backspace++;
          }
          break;
       default:
@@ -136,6 +150,8 @@ void Game::uiLoop()
       mouseMoved();
       mouseDown();
       mouseUp();
+      charEntered();
+      backspace();
       } // mutex lock
       sleep_for(1ms);
    }

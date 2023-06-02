@@ -24,6 +24,8 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void setScreenSize(sf::Vector2u screen_size) override;
    void setActive(bool active) override;
+   void charEntered(char c) override { m_bank_screen.charEntered(c); };
+   void backspace() override { m_bank_screen.backspace(); };
 private:
    enum ButtonId {
       NONE = 0,

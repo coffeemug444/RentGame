@@ -98,6 +98,22 @@ void Ui::mouseUp(sf::Vector2i mouse_pos)
    m_market_screen.mouseUp(mouse_pos);
 }
 
+void Ui::charEntered(char c) 
+{
+   m_finance_screen.charEntered(c);
+   m_property_screen.charEntered(c);
+   m_loan_screen.charEntered(c);
+   m_market_screen.charEntered(c);
+}
+
+void Ui::backspace() 
+{
+   m_finance_screen.backspace();
+   m_property_screen.backspace();
+   m_loan_screen.backspace();
+   m_market_screen.backspace();
+}
+
 
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

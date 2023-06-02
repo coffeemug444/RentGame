@@ -25,6 +25,9 @@ public:
 
    virtual void mouseDown(sf::Vector2i mouse_pos) override;
    virtual void mouseUp(sf::Vector2i mouse_pos) override;
+
+   virtual void charEntered(char c) {}
+   virtual void backspace() {}
    
    
 protected:

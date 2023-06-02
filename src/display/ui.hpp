@@ -31,7 +31,9 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void selectScreen(MainScreen screen);
    void mouseDown(sf::Vector2i mouse_pos);
-   void mouseUp(sf::Vector2i mouse_pos);
+   void mouseUp(sf::Vector2i mouse_pos);   
+   void charEntered(char c);
+   void backspace();
 
 private:
    Game& m_game;

@@ -9,5 +9,7 @@ struct evLoanMonthlyPayment
    int amount;
 };
 
+struct evNone {};
+
    
 } // namespace Game
