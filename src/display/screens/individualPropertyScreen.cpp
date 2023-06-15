@@ -26,7 +26,6 @@ void IndividualPropertyScreen::handleClick(int button_id)
    switch (button_id)
    {
    case PROPERTY:
-      setActive(false);
       m_ui.selectScreen(Ui::PROPERTIES);
       break;
    default: break;
