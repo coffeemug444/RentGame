@@ -51,7 +51,7 @@ void Ui::selectScreen(MainScreen screen)
    m_selected_screen = screen;
 }
 
-const Screen& Ui::getSelectedScreen_const() const
+const Screen& Ui::getSelectedScreen() const
 {
    switch(m_selected_screen)
    {
@@ -73,7 +73,22 @@ const Screen& Ui::getSelectedScreen_const() const
 
 Screen& Ui::getSelectedScreen()
 {
-   return const_cast<Screen&>(getSelectedScreen_const());
+   switch(m_selected_screen)
+   {
+      case FINANCE:
+         return m_finance_screen;
+      case PROPERTIES:
+         return m_property_screen;
+      case LOANS:
+         return m_loan_screen;
+      case MARKET:
+         return m_market_screen;
+      case BANK:
+         return m_bank_screen;
+      case INDIVIDUAL_PROPERTY:
+         return m_individual_property_screen;
+      default: throw -1;
+   }
 }
 
 sf::Cursor::Type Ui::mouseMoved(sf::Vector2i mouse_pos) const
@@ -83,7 +98,7 @@ sf::Cursor::Type Ui::mouseMoved(sf::Vector2i mouse_pos) const
       return m_toolbar.getCursorType(mouse_pos);
    }
 
-   return getSelectedScreen_const().getCursorType(mouse_pos);
+   return getSelectedScreen().getCursorType(mouse_pos);
 }
 
 void Ui::mouseDown(sf::Vector2i mouse_pos)
@@ -122,7 +137,7 @@ void Ui::backspace()
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(OD::data_mutex);
-   target.draw(getSelectedScreen_const());
+   target.draw(getSelectedScreen());
    target.draw(m_toolbar);
 }
 

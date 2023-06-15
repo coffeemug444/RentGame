@@ -34,7 +34,7 @@ public:
    sf::Cursor::Type mouseMoved(sf::Vector2i mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void selectScreen(MainScreen screen);
-   const Screen& getSelectedScreen_const() const;
+   const Screen& getSelectedScreen() const;
    Screen& getSelectedScreen();
    void mouseDown(sf::Vector2i mouse_pos);
    void mouseUp(sf::Vector2i mouse_pos);   
