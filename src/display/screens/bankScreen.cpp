@@ -11,8 +11,8 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
         {&m_loan_screen_button, &m_take_loan_button}, 
         {&m_loan_amount_field, &m_repayment_time_field})
 ,m_loan_screen_button(*this, LOAN_SCREEN)
-,m_loan_amount_field(sf::Color::Black, sf::Color::White, 12)
-,m_repayment_time_field(sf::Color::Black, sf::Color::White, 12)
+,m_loan_amount_field(sf::Color(0x666666FF), sf::Color::Black, sf::Color::White, 12)
+,m_repayment_time_field(sf::Color(0x666666FF), sf::Color::Black, sf::Color::White, 12)
 ,m_take_loan_button(*this, TAKE_LOAN)
 {
    m_loan_screen_button.setFillColor(CC::loan_color);

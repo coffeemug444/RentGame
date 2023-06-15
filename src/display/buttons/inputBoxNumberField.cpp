@@ -5,16 +5,22 @@
 namespace Game
 {
 
-InputBoxNumberField::InputBoxNumberField(sf::Color background_colour, sf::Color text_colour, int font_size, int max_len)
+InputBoxNumberField::InputBoxNumberField(sf::Color active_background_colour, 
+                                         sf::Color inactive_background_colour, 
+                                         sf::Color text_colour, 
+                                         int font_size, 
+                                         int max_len)
 :m_active(false)
 ,m_last_mouse_down(false)
 ,m_number("0")
 ,m_max_len(max_len)
+,m_active_background_colour(active_background_colour)
+,m_inactive_background_colour(inactive_background_colour)
 {
    m_number_display.setFont(OD::font);
    setDisplay();
 
-   m_background_box.setFillColor(background_colour);
+   m_background_box.setFillColor(inactive_background_colour);
    m_number_display.setFillColor(text_colour); 
 
    m_number_display.setCharacterSize(font_size);
@@ -64,7 +70,16 @@ void InputBoxNumberField::mouseDown(sf::Vector2i mouse_pos)
 
 void InputBoxNumberField::mouseUp(sf::Vector2i mouse_pos) 
 {
-   m_active = m_last_mouse_down and mouseIsOver(mouse_pos);
+   setActive(m_last_mouse_down and mouseIsOver(mouse_pos));
+}
+
+void InputBoxNumberField::setActive(bool active)
+{
+   m_active = active;
+   m_background_box.setFillColor(active
+                                 ? m_active_background_colour
+                                 : m_inactive_background_colour
+   );
 }
 
 void InputBoxNumberField::setDisplay()
