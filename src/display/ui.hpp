@@ -5,6 +5,8 @@
 #include "screens/financeScreen.hpp"
 #include "screens/propertyScreen.hpp"
 #include "screens/marketScreen.hpp"
+#include "screens/individualPropertyScreen.hpp"
+#include "screens/bankScreen.hpp"
 #include <mutex>
 #include <map>
 
@@ -22,7 +24,9 @@ public:
       FINANCE,
       PROPERTIES,
       LOANS,
-      MARKET
+      MARKET,
+      BANK,
+      INDIVIDUAL_PROPERTY
    };
 
    Ui(Game& game, sf::Vector2u screen_size);
@@ -30,6 +34,8 @@ public:
    sf::Cursor::Type mouseMoved(sf::Vector2i mouse_pos) const;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void selectScreen(MainScreen screen);
+   const Screen& getSelectedScreen_const() const;
+   Screen& getSelectedScreen();
    void mouseDown(sf::Vector2i mouse_pos);
    void mouseUp(sf::Vector2i mouse_pos);   
    void charEntered(char c);
@@ -45,6 +51,8 @@ private:
    FinanceScreen m_finance_screen;
    PropertyScreen m_property_screen;
    MarketScreen m_market_screen;
+   BankScreen m_bank_screen;
+   IndividualPropertyScreen m_individual_property_screen;
    sf::Cursor::Type m_current_cursor;
 };
 

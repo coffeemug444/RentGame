@@ -19,7 +19,7 @@ class LoanScreen;
 class BankScreen : public Screen
 {
 public:
-   BankScreen(Ui& ui, LoanScreen& loan_screen, sf::Vector2u screen_size);
+   BankScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void charEntered(char c) override;
@@ -32,7 +32,6 @@ private:
       TAKE_LOAN
    };
 
-   LoanScreen& m_loan_screen;
    CircleButton m_loan_screen_button;
 
    InputBoxNumberField m_loan_amount_field;

@@ -18,7 +18,7 @@ class PropertyScreen;
 class IndividualPropertyScreen : public Screen
 {
 public:
-   IndividualPropertyScreen(Ui& ui, PropertyScreen& property_screen, sf::Vector2u screen_size);
+   IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
@@ -27,7 +27,6 @@ private:
       NONE = 0,
       PROPERTY
    };
-   PropertyScreen& m_property_screen;
    CircleButton m_property_button;
 };
 

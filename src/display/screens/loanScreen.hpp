@@ -1,6 +1,5 @@
 #pragma once
 #include "screen.hpp"
-#include "bankScreen.hpp"
 #include "display/buttons/circleButton.hpp"
 
 /*
@@ -18,14 +17,7 @@ class LoanScreen : public Screen
 {
 public:
    LoanScreen(Ui& ui, sf::Vector2u screen_size);
-   sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const override;
-   void mouseDown(sf::Vector2i mouse_pos) override;
-   void mouseUp(sf::Vector2i mouse_pos) override;
-   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void setScreenSize(sf::Vector2u screen_size) override;
-   void setActive(bool active) override;
-   void charEntered(char c) override { m_bank_screen.charEntered(c); };
-   void backspace() override { m_bank_screen.backspace(); };
 private:
    enum ButtonId {
       NONE = 0,
@@ -35,7 +27,6 @@ private:
    void handleClick(int button_id) override;
 
    CircleButton m_bank_screen_button;
-   BankScreen m_bank_screen;
 };
 
 } // namespace Game
