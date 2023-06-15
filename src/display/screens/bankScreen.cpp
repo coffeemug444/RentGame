@@ -7,7 +7,9 @@ namespace Game
 {
 
 BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Bank", CC::bank_color, {&m_loan_screen_button, &m_take_loan_button})
+:Screen(ui, screen_size, "Bank", CC::bank_color, 
+        {&m_loan_screen_button, &m_take_loan_button}, 
+        {&m_loan_amount_field, &m_repayment_time_field})
 ,m_loan_screen_button(*this, LOAN_SCREEN)
 ,m_loan_amount_field(sf::Color::Black, sf::Color::White, 12)
 ,m_repayment_time_field(sf::Color::Black, sf::Color::White, 12)
