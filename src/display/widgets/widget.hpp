@@ -16,6 +16,7 @@ public:
    virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
    virtual void mouseDown(sf::Vector2i mouse_pos);
    virtual void mouseUp(sf::Vector2i mouse_pos);
+   virtual void uiEvents() {}
 protected:
    std::vector<Button*> m_buttons;
    std::vector<Widget*> m_sub_containers;

@@ -60,6 +60,14 @@ void Screen::mouseUp(sf::Vector2i mouse_pos)
    Widget::mouseUp(mouse_pos);
 }
 
+void Screen::uiEvents()
+{
+   for (auto widget : m_widgets)
+   {
+      widget->uiEvents();
+   }
+}
+
 
 
 

@@ -68,6 +68,7 @@ void BankScreen::backspace()
 
 void BankScreen::uiEvents()
 {
+   Screen::uiEvents();
    while (EI::ev_take_loan_status.size() > 0)
    {
       auto status = EI::ev_take_loan_status.front();
