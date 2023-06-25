@@ -24,6 +24,7 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void charEntered(char c) override;
    void backspace() override;
+   void uiEvents() override;
 private:
    void handleClick(int button_id) override;
    enum ButtonId {

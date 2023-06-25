@@ -40,6 +40,7 @@ public:
    void mouseUp(sf::Vector2i mouse_pos);   
    void charEntered(char c);
    void backspace();
+   void uiEvents();
 
 private:
    Game& m_game;

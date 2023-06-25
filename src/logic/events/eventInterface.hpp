@@ -21,6 +21,8 @@ IL std::queue<evNone> ev_stop_game;
 IL std::queue<GameLogic::GameSpeed> ev_gamespeed_changed;
 IL std::queue<evLoanMonthlyPayment> ev_loan_monthly_payment_arrears;
 IL std::queue<evLoanMonthlyPayment> ev_loan_monthly_payment;
+IL std::queue<evTakeLoanStatus> ev_take_loan_status;
+IL std::queue<evTakeLoan> ev_take_loan;
 
 
 };

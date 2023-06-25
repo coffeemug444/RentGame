@@ -60,7 +60,18 @@ void GameLogic::handleEvents()
          auto loan = getId(ev.loan_id, OD::Player::loans);
          if (loan.has_value()) loan.value()->pay(ev.amount);
       }
+   }
 
+   while (EI::ev_take_loan.size() > 0)
+   {
+      auto loan = EI::ev_take_loan.front();
+      // check if it's ok
+
+      // yep all those checks LGTM
+      OD::Player::loans.push_back({loan.principal, loan.interest_rate_yearly / 12.f, loan.repayment_time_months});
+      EI::ev_take_loan_status.push(SUCCESS);
+
+      EI::ev_take_loan.pop();
    }
 }
 

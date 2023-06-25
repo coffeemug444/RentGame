@@ -134,6 +134,17 @@ void Ui::backspace()
 }
 
 
+void Ui::uiEvents()
+{
+   m_finance_screen.uiEvents();
+   m_property_screen.uiEvents();
+   m_loan_screen.uiEvents();
+   m_market_screen.uiEvents();
+   m_bank_screen.uiEvents();
+   m_individual_property_screen.uiEvents();
+}
+
+
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    std::lock_guard lock(OD::data_mutex);

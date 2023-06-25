@@ -1,6 +1,7 @@
 #include "bankScreen.hpp"
 #include "display/ui.hpp"
 #include "display/constColors.hpp"
+#include "logic/events/eventInterface.hpp"
 
 
 namespace Game
@@ -17,6 +18,8 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 {
    m_loan_screen_button.setFillColor(CC::loan_color);
    m_loan_screen_button.setRadius(0.05f*screen_size.y);
+   m_take_loan_button.setFillColor(CC::loan_color);
+   m_take_loan_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 
    m_loan_amount_errors.setFont(OD::font);
@@ -33,6 +36,7 @@ void BankScreen::setScreenSize(sf::Vector2u screen_size)
    m_loan_screen_button.setPosition({screen_size.x-2*m_loan_screen_button.getRadius(),0});
    m_loan_amount_field.setPosition({0,0.1f*screen_size.y});
    m_repayment_time_field.setPosition({0,0.2f*screen_size.y});
+   m_take_loan_button.setPosition({0,0.3f*screen_size.y + m_loan_screen_button.getRadius()});
 }
 
 void BankScreen::handleClick(int button_id) 
@@ -41,6 +45,9 @@ void BankScreen::handleClick(int button_id)
    {
    case LOAN_SCREEN:
       m_ui.selectScreen(Ui::LOANS);
+      break;
+   case TAKE_LOAN:
+      EI::ev_take_loan.push({m_loan_amount_field.getNumber(), m_repayment_time_field.getNumber(), 0.045f});
       break;
    default: break;
    }
@@ -57,6 +64,23 @@ void BankScreen::backspace()
 {
    m_loan_amount_field.backSpace();
    m_repayment_time_field.backSpace();
+}
+
+void BankScreen::uiEvents()
+{
+   while (EI::ev_take_loan_status.size() > 0)
+   {
+      auto status = EI::ev_take_loan_status.front();
+      switch (status)
+      {
+      case SUCCESS:
+         m_ui.selectScreen(Ui::LOANS);
+         break;
+      case FAILED:
+         break;
+      }
+      EI::ev_take_loan_status.pop();
+   }
 }
 
 void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const

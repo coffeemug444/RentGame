@@ -28,6 +28,7 @@ public:
 
    virtual void charEntered(char c) {}
    virtual void backspace() {}
+   virtual void uiEvents() {}
    
    
 protected:

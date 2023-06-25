@@ -146,6 +146,7 @@ void Game::uiLoop()
    {
       {std::lock_guard lock(m_ui_mutex);
       if (not gameRunning()) break;
+      m_ui.uiEvents();
       resizeWindow();
       mouseMoved();
       mouseDown();
