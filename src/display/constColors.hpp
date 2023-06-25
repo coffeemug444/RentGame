@@ -21,6 +21,7 @@ struct ConstColors
    IL const sf::Color toolbar_color             {0xf2d666ff};
    IL const sf::Color green_primary             {0x40e83aff};
    IL const sf::Color green_secondary           {0x137010ff};
+   IL const sf::Color light_grey                {0x666666ff};
 
 };
 
