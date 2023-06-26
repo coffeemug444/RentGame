@@ -1,8 +1,8 @@
 #include "screen.hpp"
 #include "display/buttons/button.hpp"
 #include "display/widgets/widget.hpp"
+#include "observableData.hpp"
 
-#include <iostream>
 namespace Game
 {
 
@@ -17,8 +17,7 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
    setScreenSize(screen_size);
    m_background.setFillColor(background_color);
 
-   m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
-   m_title.setFont(m_font);
+   m_title.setFont(OD::font);
    m_title.setString(title);
 }
 void Screen::setScreenSize(sf::Vector2u screen_size)

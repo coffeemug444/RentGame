@@ -24,11 +24,29 @@ void clear(std::queue<T>& q)
 
 template <typename T>
 requires hasId<T>
-std::optional<T*> getId(unsigned id, std::vector<T> v)
+bool listContainsId(unsigned id, std::vector<T>& v)
+{
+   auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
+   return it != v.end();
+}
+
+template <typename T>
+requires hasId<T>
+std::optional<T*> findById(unsigned id, std::vector<T>& v)
 {
    auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
    if (it == v.end()) return {};
    return &(*it);
+}
+
+template <typename T>
+requires hasId<T>
+bool deleteById(unsigned id, std::vector<T>& v)
+{
+   auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
+   if (it == v.end()) return false;
+   v.erase(it);
+   return true;
 }
 
 template<typename A, typename B>

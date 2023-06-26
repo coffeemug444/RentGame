@@ -1,6 +1,5 @@
 #include "inputBoxNumberField.hpp"
 #include "observableData.hpp"
-#include <iostream>
 
 namespace Game
 {

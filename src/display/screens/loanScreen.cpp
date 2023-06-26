@@ -50,4 +50,25 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
    m_bank_screen_button.setPosition({screen_size.x-2*m_bank_screen_button.getRadius(),0});
 }
 
+void LoanScreen::dataSync() 
+{
+   for (const auto& loan : OD::Player::loans)
+   {
+      if (not listContainsId(loan.getId(), m_loan_widgets))
+      {
+         m_loan_widgets.push_back({loan.getId()});
+      }
+   }
+   for (int i = 0; i < m_loan_widgets.size(); i++)
+   {
+      if (not listContainsId(m_loan_widgets[i].getId(), OD::Player::loans))
+      {
+         m_loan_widgets.erase(m_loan_widgets.begin() + i);
+         i--;
+      }
+   }
+
+   Screen::dataSync();
+}
+
 } // namespace Game

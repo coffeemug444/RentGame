@@ -57,7 +57,7 @@ void GameLogic::handleEvents()
       }
       else
       {
-         auto loan = getId(ev.loan_id, OD::Player::loans);
+         auto loan = findById(ev.loan_id, OD::Player::loans);
          if (loan.has_value()) loan.value()->pay(ev.amount);
       }
    }

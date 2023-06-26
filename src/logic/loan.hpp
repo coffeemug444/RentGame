@@ -14,6 +14,9 @@ public:
 
    bool isInArrears() const { return m_in_arrears; }
    unsigned getId() const { return m_loan_id; }
+   int getPrincipal() const { return m_principle; }
+   int getRepaymentAmount() const { return m_repayment_amount_monthly; }
+   int getAmount() const { return m_loan_amount; }
 private:
    void recalculate_repayment_time();
    unsigned m_loan_id;

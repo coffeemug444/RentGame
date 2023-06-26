@@ -3,7 +3,6 @@
 #include "display/constColors.hpp"
 #include "logic/events/eventInterface.hpp"
 
-
 namespace Game
 {
 
@@ -46,6 +45,7 @@ void BankScreen::handleClick(int button_id)
       m_ui.selectScreen(Ui::LOANS);
       break;
    case TAKE_LOAN:
+      std::cout << "taking out loan of: $" << m_loan_amount_field.getNumber() << ", repayment time " << m_repayment_time_field.getNumber() << " months\n";
       EI::ev_take_loan.push({m_loan_amount_field.getNumber(), m_repayment_time_field.getNumber(), 0.045f});
       break;
    default: break;
