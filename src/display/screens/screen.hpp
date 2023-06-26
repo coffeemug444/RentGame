@@ -29,6 +29,7 @@ public:
    virtual void charEntered(char c) {}
    virtual void backspace() {}
    virtual void uiEvents() override;
+   virtual void dataSync() override;
    
    
 protected:

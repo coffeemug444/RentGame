@@ -41,6 +41,7 @@ public:
    void charEntered(char c);
    void backspace();
    void uiEvents();
+   void dataSync();
 
 private:
    Game& m_game;

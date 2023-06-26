@@ -12,8 +12,9 @@ namespace Game
 {
 
 
-Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months)
-:m_principle(principle)
+Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months, unsigned id)
+:m_loan_id(id)
+,m_principle(principle)
 ,m_interest_rate_monthly(interest_rate_monthly)
 ,m_loan_amount(principle)
 ,m_payments_remaining(repayment_in_months)
@@ -21,8 +22,6 @@ Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months)
 ,m_accrued_interest_this_moth(0)
 ,m_in_arrears(0)
 {
-   m_loan_id = 0; // figure this out later
-
    double P = principle;
    double r = interest_rate_monthly;
    double n = repayment_in_months;

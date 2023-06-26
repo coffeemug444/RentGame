@@ -68,6 +68,13 @@ void Screen::uiEvents()
    }
 }
 
+void Screen::dataSync()
+{
+   for (auto widget : m_widgets)
+   {
+      widget->dataSync();
+   }
+}
 
 
 

@@ -17,6 +17,7 @@ public:
    virtual void mouseDown(sf::Vector2i mouse_pos);
    virtual void mouseUp(sf::Vector2i mouse_pos);
    virtual void uiEvents() {}
+   virtual void dataSync() {}
 protected:
    std::vector<Button*> m_buttons;
    std::vector<Widget*> m_sub_containers;

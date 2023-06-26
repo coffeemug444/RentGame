@@ -142,10 +142,18 @@ bool Game::gameRunning()
 
 void Game::uiLoop()
 {
+   const unsigned dataSyncRate = 500; // 500ms per tick, 2Hz
+   unsigned dataSyncCounter = dataSyncRate;
    while (1)
    {
       {std::lock_guard lock(m_ui_mutex);
       if (not gameRunning()) break;
+      if (dataSyncCounter == dataSyncRate)
+      {
+         dataSyncCounter = 0;
+         m_ui.dataSync();
+      }
+      else dataSyncCounter++;
       m_ui.uiEvents();
       resizeWindow();
       mouseMoved();

@@ -144,6 +144,16 @@ void Ui::uiEvents()
    m_individual_property_screen.uiEvents();
 }
 
+void Ui::dataSync()
+{
+   m_finance_screen.dataSync();
+   m_property_screen.dataSync();
+   m_loan_screen.dataSync();
+   m_market_screen.dataSync();
+   m_bank_screen.dataSync();
+   m_individual_property_screen.dataSync();
+}
+
 
 void Ui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
