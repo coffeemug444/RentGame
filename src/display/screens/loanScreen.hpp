@@ -1,6 +1,7 @@
 #pragma once
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
+#include "display/widgets/loanWidget.hpp"
 
 /*
 
@@ -25,8 +26,11 @@ private:
    };
 
    void handleClick(int button_id) override;
+   std::vector<const Widget*> getSubWidgets() const override;
+   std::vector<Widget*> getSubWidgets() override;
 
    CircleButton m_bank_screen_button;
+   std::vector<LoanWidget> m_loan_widgets;
 };
 
 } // namespace Game

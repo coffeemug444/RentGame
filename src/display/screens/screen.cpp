@@ -6,10 +6,9 @@
 namespace Game
 {
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons, const std::vector<Widget*>& widgets)
-:Widget(buttons, widgets)
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons)
+:Widget(buttons)
 ,m_ui(ui)
-,m_widgets(widgets)
 ,m_screen_size(screen_size)
 ,m_background_color(background_color) 
 ,m_active(false) 
@@ -62,7 +61,8 @@ void Screen::mouseUp(sf::Vector2i mouse_pos)
 
 void Screen::uiEvents()
 {
-   for (auto widget : m_widgets)
+   auto widgets = getSubWidgets();
+   for (auto widget : widgets)
    {
       widget->uiEvents();
    }
@@ -70,7 +70,8 @@ void Screen::uiEvents()
 
 void Screen::dataSync()
 {
-   for (auto widget : m_widgets)
+   auto widgets = getSubWidgets();
+   for (auto widget : widgets)
    {
       widget->dataSync();
    }

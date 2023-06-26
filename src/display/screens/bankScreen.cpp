@@ -9,8 +9,7 @@ namespace Game
 
 BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Bank", CC::bank_color, 
-        {&m_loan_screen_button, &m_take_loan_button}, 
-        {&m_loan_amount_field, &m_repayment_time_field})
+        {&m_loan_screen_button, &m_take_loan_button})
 ,m_loan_screen_button(*this, LOAN_SCREEN)
 ,m_loan_amount_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12)
 ,m_repayment_time_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12)
@@ -82,6 +81,16 @@ void BankScreen::uiEvents()
       }
       EI::ev_take_loan_status.pop();
    }
+}
+
+std::vector<const Widget*> BankScreen::getSubWidgets() const
+{
+   return {&m_loan_amount_field, &m_repayment_time_field};
+}
+
+std::vector<Widget*> BankScreen::getSubWidgets()
+{
+   return {&m_loan_amount_field, &m_repayment_time_field};
 }
 
 void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const

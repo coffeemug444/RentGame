@@ -14,7 +14,7 @@ class Widget;
 class Screen : public Widget
 {
 public:
-   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {}, const std::vector<Widget*>& widgets = {});
+   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {});
    
    virtual void setScreenSize(sf::Vector2u screen_size);
 
@@ -34,7 +34,6 @@ public:
    
 protected:
    Ui& m_ui;
-   std::vector<Widget*> m_widgets;
    sf::RectangleShape m_background;
    sf::Font m_font;
    sf::Text m_title;

@@ -25,6 +25,8 @@ public:
    void charEntered(char c) override;
    void backspace() override;
    void uiEvents() override;
+   std::vector<const Widget*> getSubWidgets() const override;
+   std::vector<Widget*> getSubWidgets() override;
 private:
    void handleClick(int button_id) override;
    enum ButtonId {
