@@ -18,6 +18,8 @@ public:
    void setScreenSize(sf::Vector2u screen_size);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
+   sf::Vector2f getSize() const override;
+   sf::Vector2f getPosition() const override;
 private:
    void handleClick(int button_id) override;
 

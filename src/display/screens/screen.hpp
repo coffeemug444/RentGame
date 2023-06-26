@@ -17,6 +17,8 @@ public:
    Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {});
    
    virtual void setScreenSize(sf::Vector2u screen_size);
+   sf::Vector2f getSize() const override;
+   sf::Vector2f getPosition() const override;
 
    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

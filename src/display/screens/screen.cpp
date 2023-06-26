@@ -27,6 +27,16 @@ void Screen::setScreenSize(sf::Vector2u screen_size)
    m_background.setSize({screen_w,screen_h});
 }
 
+sf::Vector2f Screen::getSize() const
+{
+   return m_background.getSize();
+}
+
+sf::Vector2f Screen::getPosition() const
+{
+   return m_background.getPosition();
+}
+
 void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    if (not m_active) return;

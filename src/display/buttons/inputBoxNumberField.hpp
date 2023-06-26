@@ -25,6 +25,8 @@ public:
    void mouseUp(sf::Vector2i mouse_pos) override;
    void setActive(bool active);
    void handleClick(int button_id) override {}
+   sf::Vector2f getSize() const override;
+   sf::Vector2f getPosition() const override;
 private:
    void setDisplay();
    bool m_active;

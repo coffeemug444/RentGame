@@ -81,6 +81,16 @@ void InputBoxNumberField::setActive(bool active)
    );
 }
 
+sf::Vector2f InputBoxNumberField::getSize() const
+{
+   return m_background_box.getSize();
+}
+
+sf::Vector2f InputBoxNumberField::getPosition() const
+{
+   return m_background_box.getPosition();
+}
+
 void InputBoxNumberField::setDisplay()
 {
    m_number_display.setString(m_number);

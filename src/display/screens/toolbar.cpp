@@ -123,6 +123,16 @@ bool Toolbar::mouseIsOver(sf::Vector2i mouse_pos) const
    return mouse_pos.y > m_bar.getPosition().y;
 }
 
+sf::Vector2f Toolbar::getSize() const
+{
+   return m_bar.getSize();
+}
+
+sf::Vector2f Toolbar::getPosition() const
+{
+   return m_bar.getPosition();
+}
+
 void Toolbar::handleClick(int button_id)
 {
    switch(button_id)
