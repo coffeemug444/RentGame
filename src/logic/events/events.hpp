@@ -18,7 +18,7 @@ struct evTakeLoan
 
 struct evLoanMonthlyPayment
 {
-   int loan_id;
+   unsigned loan_id;
    int amount;
 };
 

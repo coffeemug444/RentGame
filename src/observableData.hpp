@@ -30,6 +30,7 @@ struct ObservableData
       IL unsigned debt = 0;
       IL unsigned net_income = 0;
       IL std::vector<Loan> loans;
+      IL unsigned next_loan_id = 0;
    };
 
    static void init()

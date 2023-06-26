@@ -12,7 +12,7 @@ namespace Game
 template <typename T>
 concept hasId = requires (T t)
 {
-   { t.getId() } -> std::same_as<int>;
+   { t.getId() } -> std::same_as<unsigned>;
 };
 
 template<typename T>
@@ -24,7 +24,7 @@ void clear(std::queue<T>& q)
 
 template <typename T>
 requires hasId<T>
-std::optional<T*> getId(int id, std::vector<T> v)
+std::optional<T*> getId(unsigned id, std::vector<T> v)
 {
    auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
    if (it == v.end()) return {};
