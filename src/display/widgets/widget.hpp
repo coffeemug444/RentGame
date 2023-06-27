@@ -7,7 +7,7 @@ namespace Game
 
 class Button;
    
-class Widget : public sf::Drawable, public sf::Transformable
+class Widget : public sf::Drawable
 {
 public:
    Widget(const std::vector<Button*>& buttons = {});
@@ -20,7 +20,7 @@ public:
    virtual void dataSync() {}
    virtual sf::Vector2f getSize() const = 0;
    virtual sf::Vector2f getPosition() const = 0;
-   virtual void setScreenSize(const sf::Vector2f& size);
+   virtual void setScreenSize(const sf::Vector2u& size);
    void setPosition(const sf::Vector2f& pos);
    virtual void move(const sf::Vector2f& pos);
    virtual std::vector<const Widget*> getSubWidgets() const { return {}; }

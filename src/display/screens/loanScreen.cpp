@@ -48,15 +48,26 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
    m_bank_screen_button.setPosition({screen_size.x-2*m_bank_screen_button.getRadius(),0});
+   sf::Vector2f loan_widget_origin {0,0.1*screen_size.y};
+   for (int i = 0; i < m_loan_widgets.size(); i++)
+   {
+      m_loan_widgets[i].setScreenSize(screen_size);
+      auto new_pos = loan_widget_origin + i*sf::Vector2f{0,m_loan_widgets[i].getSize().y};
+      std::cout << "Moving loanWidget with id " << m_loan_widgets[i].getId() << " to " << new_pos << std::endl;
+      m_loan_widgets[i].setPosition(new_pos);
+   }
 }
 
 void LoanScreen::dataSync() 
 {
+   bool changed = false;
    for (const auto& loan : OD::Player::loans)
    {
       if (not listContainsId(loan.getId(), m_loan_widgets))
       {
          m_loan_widgets.push_back({loan.getId()});
+         changed = true;
+         std::cout << "added loan id " << loan.getId() << std::endl;
       }
    }
    for (int i = 0; i < m_loan_widgets.size(); i++)
@@ -65,8 +76,10 @@ void LoanScreen::dataSync()
       {
          m_loan_widgets.erase(m_loan_widgets.begin() + i);
          i--;
+         changed = true;
       }
    }
+   if (changed) setScreenSize(m_screen_size);
 
    Screen::dataSync();
 }

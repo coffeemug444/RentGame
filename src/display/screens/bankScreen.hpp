@@ -29,6 +29,7 @@ public:
    std::vector<Widget*> getSubWidgets() override;
 private:
    void handleClick(int button_id) override;
+   void handleTakeLoan();
    enum ButtonId {
       NONE = 0,
       LOAN_SCREEN,

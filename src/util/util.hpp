@@ -5,6 +5,7 @@
 #include <queue>
 #include <algorithm>
 #include <optional>
+#include <iostream>
 
 namespace Game
 {
@@ -80,6 +81,53 @@ auto operator- (const sf::Vector2<A>& l, const sf::Vector2<B>& r)
 {
    return {l.x-r.x,l.y-r.y};
 }
+
+template<typename A, typename B>
+requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
+auto operator- (const A& l, const sf::Vector2<B>& r) 
+-> sf::Vector2<decltype(l-r.x)>
+{
+   return {l-r.x,l-r.y};
+}
+
+template<typename A, typename B>
+requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
+auto operator+ (const A& l, const sf::Vector2<B>& r) 
+-> sf::Vector2<decltype(l+r.x)>
+{
+   return {l+r.x,l+r.y};
+}
+
+template<typename A, typename B>
+requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
+auto operator* (const A& l, const sf::Vector2<B>& r) 
+-> sf::Vector2<decltype(l*r.x)>
+{
+   return {l*r.x,l*r.y};
+}
+
+template<typename A, typename B>
+requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
+auto operator/ (const A& l, const sf::Vector2<B>& r) 
+-> sf::Vector2<decltype(l/r.x)>
+{
+   return {l/r.x,l/r.y};
+}
+
+template<typename T>
+requires std::is_arithmetic_v<T>
+std::string operator+(const std::string& s, T v)
+{
+   return s + std::to_string(v);
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& out, sf::Vector2<T> v)
+{
+   out << "{ " << v.x << ", " << v.y << " }";
+   return out;
+}
+
 
 std::tuple<int, int, int, int> RGBAToHSVA(sf::Uint32 rgba);
 

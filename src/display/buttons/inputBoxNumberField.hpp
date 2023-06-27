@@ -18,6 +18,7 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void addDigit(char digit);
    void backSpace();
+   void reset();
    int getNumber() const;
    void setPosition(const sf::Vector2f& pos);
    bool mouseIsOver(sf::Vector2i mouse_pos) const;

@@ -69,7 +69,7 @@ void Widget::mouseUp(sf::Vector2i mouse_pos)
    m_last_button_id = 0;
 }
 
-void Widget::setScreenSize(const sf::Vector2f& pos)
+void Widget::setScreenSize(const sf::Vector2u& pos)
 {
    auto sub_widgets = getSubWidgets();
    for (auto widget_ptr : sub_widgets)

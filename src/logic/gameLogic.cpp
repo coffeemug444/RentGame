@@ -72,6 +72,7 @@ void GameLogic::handleEvents()
                                     loan.interest_rate_yearly / 12.f, 
                                     loan.repayment_time_months, 
                                     OD::Player::next_loan_id });
+      std::cout << "taking loan with loan_id " << OD::Player::next_loan_id << std::endl;
       OD::Player::next_loan_id++;
       EI::ev_take_loan_status.push(SUCCESS);
 

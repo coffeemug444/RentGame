@@ -37,6 +37,13 @@ void InputBoxNumberField::addDigit(char digit)
    setDisplay();
 }
 
+void InputBoxNumberField::reset()
+{
+   m_active = false;
+   m_number = "0";
+   setDisplay();
+}
+
 void InputBoxNumberField::backSpace()
 {
    if (not m_active) return;

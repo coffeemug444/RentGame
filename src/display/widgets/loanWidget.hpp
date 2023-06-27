@@ -14,11 +14,12 @@ public:
    void handleClick(int button_id) override;
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
-   void setScreenSize(const sf::Vector2f& size) override;
+   void setScreenSize(const sf::Vector2u& size) override;
+   void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
    unsigned m_id {};
-   sf::Vector2f m_screen_size;
+   sf::Vector2u m_screen_size;
    sf::Text m_principal;
    sf::Text m_total;
    sf::Text m_next_payment;

@@ -45,10 +45,17 @@ void BankScreen::handleClick(int button_id)
       m_ui.selectScreen(Ui::LOANS);
       break;
    case TAKE_LOAN:
-      EI::ev_take_loan.push({m_loan_amount_field.getNumber(), m_repayment_time_field.getNumber(), 0.045f});
+      handleTakeLoan();
       break;
    default: break;
    }
+}
+
+void BankScreen::handleTakeLoan()
+{
+   EI::ev_take_loan.push({m_loan_amount_field.getNumber(), m_repayment_time_field.getNumber(), 0.045f});
+   m_loan_amount_field.reset();
+   m_repayment_time_field.reset();
 }
 
 void BankScreen::charEntered(char c) 

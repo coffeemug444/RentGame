@@ -142,7 +142,7 @@ bool Game::gameRunning()
 
 void Game::uiLoop()
 {
-   const unsigned dataSyncRate = 500; // 500ms per tick, 2Hz
+   const unsigned dataSyncRate = 10; // 10ms per tick, 100Hz
    unsigned dataSyncCounter = dataSyncRate;
    while (1)
    {
