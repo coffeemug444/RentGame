@@ -10,14 +10,12 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 :Screen(ui, screen_size, "Bank", CC::bank_color, 
         {&m_loan_screen_button, &m_take_loan_button})
 ,m_loan_screen_button(*this, LOAN_SCREEN)
-,m_loan_amount_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12)
-,m_repayment_time_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12)
+,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12)
+,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12)
 ,m_take_loan_button(*this, TAKE_LOAN)
 {
    m_loan_screen_button.setFillColor(CC::loan_color);
-   m_loan_screen_button.setRadius(0.05f*screen_size.y);
    m_take_loan_button.setFillColor(CC::loan_color);
-   m_take_loan_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
 
    m_loan_amount_errors.setFont(OD::font);
@@ -31,10 +29,12 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 void BankScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
+   m_loan_screen_button.setRadius(0.05f*screen_size.y);
+   m_take_loan_button.setRadius(0.05f*screen_size.y);
    m_loan_screen_button.setPosition({screen_size.x-2*m_loan_screen_button.getRadius(),0});
    m_loan_amount_field.setPosition({0,0.1f*screen_size.y});
-   m_repayment_time_field.setPosition({0,0.2f*screen_size.y});
-   m_take_loan_button.setPosition({0,0.3f*screen_size.y + m_loan_screen_button.getRadius()});
+   m_repayment_time_field.setPosition({0,0.15f*screen_size.y});
+   m_take_loan_button.setPosition({0,0.2f*screen_size.y + m_loan_screen_button.getRadius()});
 }
 
 void BankScreen::handleClick(int button_id) 

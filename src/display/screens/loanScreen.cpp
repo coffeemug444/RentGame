@@ -53,7 +53,6 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
    {
       m_loan_widgets[i].setScreenSize(screen_size);
       auto new_pos = loan_widget_origin + i*sf::Vector2f{0,m_loan_widgets[i].getSize().y};
-      std::cout << "Moving loanWidget with id " << m_loan_widgets[i].getId() << " to " << new_pos << std::endl;
       m_loan_widgets[i].setPosition(new_pos);
    }
 }
@@ -67,7 +66,6 @@ void LoanScreen::dataSync()
       {
          m_loan_widgets.push_back({loan.getId()});
          changed = true;
-         std::cout << "added loan id " << loan.getId() << std::endl;
       }
    }
    for (int i = 0; i < m_loan_widgets.size(); i++)
