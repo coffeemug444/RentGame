@@ -84,22 +84,6 @@ auto operator- (const sf::Vector2<A>& l, const sf::Vector2<B>& r)
 
 template<typename A, typename B>
 requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
-auto operator- (const A& l, const sf::Vector2<B>& r) 
--> sf::Vector2<decltype(l-r.x)>
-{
-   return {l-r.x,l-r.y};
-}
-
-template<typename A, typename B>
-requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
-auto operator+ (const A& l, const sf::Vector2<B>& r) 
--> sf::Vector2<decltype(l+r.x)>
-{
-   return {l+r.x,l+r.y};
-}
-
-template<typename A, typename B>
-requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
 auto operator* (const A& l, const sf::Vector2<B>& r) 
 -> sf::Vector2<decltype(l*r.x)>
 {
@@ -108,10 +92,18 @@ auto operator* (const A& l, const sf::Vector2<B>& r)
 
 template<typename A, typename B>
 requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
-auto operator/ (const A& l, const sf::Vector2<B>& r) 
--> sf::Vector2<decltype(l/r.x)>
+auto operator* (const sf::Vector2<B>& l,const A& r) 
+-> decltype(r*l)
 {
-   return {l/r.x,l/r.y};
+   return r*l;
+}
+
+template<typename A, typename B>
+requires std::is_arithmetic_v<A> && std::is_arithmetic_v<B>
+auto operator/ (const sf::Vector2<B>& l, const A& r) 
+-> sf::Vector2<decltype(l.x/r)>
+{
+   return {l.x/r,l.y/r};
 }
 
 template<typename T>
