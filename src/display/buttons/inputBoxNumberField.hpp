@@ -23,7 +23,7 @@ public:
    void backSpace();
    void reset();
    int getNumber() const;
-   void move(const sf::Vector2f& pos);
+   void move(const sf::Vector2f& pos) override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    void mouseDown(sf::Vector2i mouse_pos) override;
    void mouseUp(sf::Vector2i mouse_pos) override;

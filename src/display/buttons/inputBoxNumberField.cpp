@@ -39,7 +39,7 @@ InputBoxNumberField::InputBoxNumberField(std::string label,
 
    m_text_offset = sf::Vector2f{0.1f*font_size,0.1f*font_size};
 
-   sf::Vector2f numbers_offset {20*m_font_size,0};
+   sf::Vector2f numbers_offset {20.f*m_font_size,0};
    
    m_background_box.setPosition(numbers_offset);
    m_number_display.setPosition(numbers_offset+m_text_offset); 
