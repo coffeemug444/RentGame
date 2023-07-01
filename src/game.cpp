@@ -10,7 +10,8 @@ namespace Game
 {
 
 Game::Game()
-:m_ev_backspace(0)
+:init_od([](){OD::init(); return true;}())
+,m_ev_backspace(0)
 ,m_window(sf::VideoMode(800, 600), "Rent game")
 ,m_ui(*this, m_window.getSize())
 {
@@ -180,7 +181,6 @@ void Game::gametickLoop()
 
 void Game::mainLoop()
 {
-   OD::init();
    m_ui_thread = std::async(&Game::uiLoop, this);
    m_gametick_thread = std::async(&Game::gametickLoop, this);
    sf::Clock timer;

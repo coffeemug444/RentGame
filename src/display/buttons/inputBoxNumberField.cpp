@@ -1,6 +1,7 @@
 #include "inputBoxNumberField.hpp"
 #include "observableData.hpp"
 #include "display/constColors.hpp"
+#include "util/util.hpp"
 
 namespace Game
 {
@@ -39,11 +40,11 @@ InputBoxNumberField::InputBoxNumberField(std::string label,
 
    m_text_offset = sf::Vector2f{0.1f*font_size,0.1f*font_size};
 
-   sf::Vector2f numbers_offset {20.f*m_font_size,0};
+   sf::Vector2f numbers_offset {m_label.getGlobalBounds().width+5.f,0};
    
    m_background_box.setPosition(numbers_offset);
    m_number_display.setPosition(numbers_offset+m_text_offset); 
-   m_errors.setPosition(numbers_offset+sf::Vector2f{background_box_w+0.5f,0});
+   m_errors.setPosition(numbers_offset+sf::Vector2f{background_box_w+5.f,0});
 }
 
 void InputBoxNumberField::addDigit(char digit)
@@ -110,7 +111,14 @@ void InputBoxNumberField::setActive(bool active)
 
 sf::Vector2f InputBoxNumberField::getSize() const
 {
-   return m_background_box.getSize();
+   auto label = m_label.getGlobalBounds();
+   auto box = m_background_box.getSize();
+   auto error = m_errors.getGlobalBounds();
+
+   float x = label.width + box.x + error.width + 10.f;
+   float y = std::max(label.height, std::max(box.y, error.height));
+
+   return {x, y};
 }
 
 sf::Vector2f InputBoxNumberField::getPosition() const

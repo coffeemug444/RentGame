@@ -63,6 +63,8 @@ private:
    void charEntered();
    void backspace();
 
+   bool init_od;
+
    bool m_window_resized;
    std::queue<sf::Vector2i> m_ev_mouse_moved;
    std::queue<sf::Vector2i> m_ev_mouse_down;
