@@ -21,7 +21,6 @@ LoanWidget::LoanWidget(unsigned id) : m_id(id)
 
    m_background_box.setFillColor(CC::light_grey);
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
-   std::cout << "init: box height is " << m_background_box.getSize().y << std::endl;
 }
 
 
@@ -59,10 +58,7 @@ sf::Vector2f LoanWidget::getPosition() const
 
 void LoanWidget::setScreenSize(const sf::Vector2u& size)
 {
-   std::cout << "Called setScreenSize on loanWidget" << std::endl;
-
    m_screen_size = size;
-   std::cout << "Screen size: " << size << std::endl;
 
    auto pos = getPosition();
    m_principal.setPosition(pos);
@@ -76,11 +72,9 @@ void LoanWidget::setScreenSize(const sf::Vector2u& size)
    m_next_payment.move({5,5+2*dy});
 
    float text_height = m_total.getGlobalBounds().height;
-   std::cout << "text height: " << text_height << std::endl;
 
    auto box_size = m_background_box.getSize();
    m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
-   std::cout << "setScreenSize: box height is " << m_background_box.getSize().y << std::endl;
 }
 
 void LoanWidget::move(const sf::Vector2f& pos)

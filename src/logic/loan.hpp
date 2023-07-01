@@ -26,7 +26,7 @@ private:
    int m_payments_remaining;
    int m_repayment_amount_monthly;
    int m_day_count;
-   int m_accrued_interest_this_moth;
+   int m_accrued_interest_this_month;
    bool m_in_arrears; 
 };
 

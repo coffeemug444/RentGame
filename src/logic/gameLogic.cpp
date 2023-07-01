@@ -46,22 +46,31 @@ void GameLogic::handleEvents()
       OD::current_speed = m_current_speed;
    }
 
-   while (EI::ev_loan_monthly_payment_arrears.size() > 0)
+   while (EI::ev_loan_monthly_payment.size() > 0)
    {
       auto ev = EI::ev_loan_monthly_payment.front();
       EI::ev_loan_monthly_payment.pop();
+      auto loan = findById(ev.loan_id, OD::Player::loans);
+      if (not loan.has_value()) continue;
 
       if (ev.amount > OD::Player::capital)
       {
-         OD::game_running = false; // fix this
+         if (loan.value()->isInArrears())
+            OD::game_running = false; // fix this
+         else
+            loan.value()->goIntoArrears();
       }
       else
       {
-         auto loan = findById(ev.loan_id, OD::Player::loans);
-         if (loan.has_value()) loan.value()->pay(ev.amount);
+         int loan_amount = loan.value()->getAmount();
+         int to_pay = std::min(loan_amount, ev.amount);
+         loan.value()->pay(to_pay);
+         OD::Player::capital -= to_pay;
+
+         if (loan_amount < ev.amount) deleteById(ev.loan_id, OD::Player::loans);
       }
    }
-
+   
    while (EI::ev_take_loan.size() > 0)
    {
       auto loan = EI::ev_take_loan.front();
@@ -72,8 +81,8 @@ void GameLogic::handleEvents()
                                     loan.interest_rate_yearly / 12.f, 
                                     loan.repayment_time_months, 
                                     OD::Player::next_loan_id });
-      std::cout << "taking loan with loan_id " << OD::Player::next_loan_id << std::endl;
       OD::Player::next_loan_id++;
+      OD::Player::capital += loan.principal;
       EI::ev_take_loan_status.push(SUCCESS);
 
       EI::ev_take_loan.pop();
@@ -82,6 +91,10 @@ void GameLogic::handleEvents()
 
 void GameLogic::advanceDay()
 {
+   for (auto& loan : OD::Player::loans)
+   {
+      loan.advanceDay();
+   }
 }
 
 void GameLogic::gameTick()

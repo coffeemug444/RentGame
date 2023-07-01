@@ -1,6 +1,7 @@
 #include "loan.hpp"
 #include <cmath>
 #include "events/eventInterface.hpp"
+#include <iostream>
 
    // int m_principle;
    // float m_interest_rate_monthly;
@@ -19,7 +20,7 @@ Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months, 
 ,m_loan_amount(principle)
 ,m_payments_remaining(repayment_in_months)
 ,m_day_count(0)
-,m_accrued_interest_this_moth(0)
+,m_accrued_interest_this_month(0)
 ,m_in_arrears(0)
 {
    double P = principle;
@@ -41,18 +42,18 @@ void Loan::recalculate_repayment_time()
 
 void Loan::advanceDay()
 {
-   m_accrued_interest_this_moth += m_interest_rate_monthly * m_loan_amount;
+   m_accrued_interest_this_month += (m_interest_rate_monthly/30.f) * m_loan_amount;
    m_day_count++;
    if (m_day_count < 30) return;
    m_day_count = 0;
-   m_loan_amount += m_accrued_interest_this_moth;
-   m_accrued_interest_this_moth = 0;
+   m_loan_amount += m_accrued_interest_this_month;
+   m_accrued_interest_this_month = 0;
    recalculate_repayment_time();
 
    // send event telling game to pay monthly amount
    if (m_in_arrears)
    {
-      EI::ev_loan_monthly_payment_arrears.push({m_loan_id, 2*m_repayment_amount_monthly});
+      EI::ev_loan_monthly_payment.push({m_loan_id, 2*m_repayment_amount_monthly});
    }
    else
    {
