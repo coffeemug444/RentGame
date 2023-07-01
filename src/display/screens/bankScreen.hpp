@@ -30,6 +30,10 @@ public:
 private:
    void handleClick(int button_id) override;
    void handleTakeLoan();
+
+   // returns true if errors were set
+   bool setErrors(int amount, int repayment_time, float interest_rate);
+   void resetErrors();
    enum ButtonId {
       NONE = 0,
       LOAN_SCREEN,

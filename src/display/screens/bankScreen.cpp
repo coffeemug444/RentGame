@@ -19,8 +19,10 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
    setScreenSize(screen_size);
 
    m_loan_amount_errors.setFont(OD::font);
+   m_loan_amount_errors.setCharacterSize(12);
    m_loan_amount_errors.setFillColor(sf::Color::Red);
    m_repayment_time_errors.setFont(OD::font);
+   m_repayment_time_errors.setCharacterSize(12);
    m_repayment_time_errors.setFillColor(sf::Color::Red);
 
 
@@ -35,6 +37,8 @@ void BankScreen::setScreenSize(sf::Vector2u screen_size)
    m_loan_amount_field.setPosition({0,0.1f*screen_size.y});
    m_repayment_time_field.setPosition({0,0.15f*screen_size.y});
    m_take_loan_button.setPosition({0,0.2f*screen_size.y + m_loan_screen_button.getRadius()});
+   m_loan_amount_errors.setPosition({m_loan_amount_field.getSize().x,0.1f*screen_size.y});
+   m_repayment_time_errors.setPosition({m_repayment_time_field.getSize().x,0.15f*screen_size.y});
 }
 
 void BankScreen::handleClick(int button_id) 
@@ -53,9 +57,41 @@ void BankScreen::handleClick(int button_id)
 
 void BankScreen::handleTakeLoan()
 {
-   EI::ev_take_loan.push({m_loan_amount_field.getNumber(), m_repayment_time_field.getNumber(), 0.045f});
+   int amount = m_loan_amount_field.getNumber();
+   int repayment_time = m_repayment_time_field.getNumber();
+   float interest_rate = 0.045;
+   
+   bool errors = setErrors(amount, repayment_time, interest_rate);
+   if (errors) return;
+   
+   EI::ev_take_loan.push({amount, repayment_time, interest_rate});
    m_loan_amount_field.reset();
    m_repayment_time_field.reset();
+}
+
+bool BankScreen::setErrors(int amount, int repayment_time, float interest_rate)
+{
+   resetErrors();
+
+   bool errors = false;
+   if (amount == 0)
+   {
+      errors = true;
+      m_loan_amount_errors.setString("Amount cannot be 0");
+   }
+   if (repayment_time == 0)
+   {
+      errors = true;
+      m_repayment_time_errors.setString("Repayment time must be at least 1 month");
+   }
+
+   return errors;
+}
+
+void BankScreen::resetErrors()
+{
+   m_loan_amount_errors.setString("");
+   m_repayment_time_errors.setString("");
 }
 
 void BankScreen::charEntered(char c) 
@@ -104,6 +140,8 @@ void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
    Screen::draw(target, states);
    target.draw(m_loan_amount_field);
    target.draw(m_repayment_time_field);
+   target.draw(m_loan_amount_errors);
+   target.draw(m_repayment_time_errors);
 }
 
 } // namespace Game
