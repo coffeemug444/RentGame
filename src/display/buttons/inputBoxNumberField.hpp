@@ -15,7 +15,7 @@ public:
                        sf::Color inactive_background_colour, 
                        sf::Color text_colour, 
                        int font_size, 
-                       int max_len = 10);
+                       int max_len = 10); // 1`000`000`000, N billion
    void setError(std::string error_message);
    void resetError();
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
