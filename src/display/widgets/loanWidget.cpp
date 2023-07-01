@@ -1,18 +1,27 @@
 #include "loanWidget.hpp"
 #include "observableData.hpp"
 #include "util/util.hpp"
+#include "display/constColors.hpp"
 
 namespace Game
 {
 
 LoanWidget::LoanWidget(unsigned id) : m_id(id) 
 {
+   const int CHAR_SIZE = 15;
    m_principal.setFont(OD::font);
-   m_principal.setCharacterSize(15);
+   m_principal.setString("Principal: ");
+   m_principal.setCharacterSize(CHAR_SIZE);
    m_total.setFont(OD::font);
-   m_total.setCharacterSize(15);
+   m_total.setString("Remaining: ");
+   m_total.setCharacterSize(CHAR_SIZE);
    m_next_payment.setFont(OD::font);
-   m_next_payment.setCharacterSize(15);
+   m_next_payment.setString("Next payment: ");
+   m_next_payment.setCharacterSize(CHAR_SIZE);
+
+   m_background_box.setFillColor(CC::light_grey);
+   m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
+   std::cout << "init: box height is " << m_background_box.getSize().y << std::endl;
 }
 
 
@@ -34,9 +43,9 @@ void LoanWidget::handleClick(int button_id)
 
 sf::Vector2f LoanWidget::getSize() const
 {
-   auto l1 = m_principal.getLocalBounds();
-   auto l2 = m_total.getLocalBounds();
-   auto l3 = m_next_payment.getLocalBounds();
+   auto l1 = m_principal.getGlobalBounds();
+   auto l2 = m_total.getGlobalBounds();
+   auto l3 = m_next_payment.getGlobalBounds();
 
    float x = std::max(l1.width, std::max(l2.width,l3.width));
    float y = 0.09*m_screen_size.y;
@@ -45,12 +54,15 @@ sf::Vector2f LoanWidget::getSize() const
 
 sf::Vector2f LoanWidget::getPosition() const
 {
-   return m_principal.getPosition();
+   return m_background_box.getPosition();
 }
 
 void LoanWidget::setScreenSize(const sf::Vector2u& size)
 {
+   std::cout << "Called setScreenSize on loanWidget" << std::endl;
+
    m_screen_size = size;
+   std::cout << "Screen size: " << size << std::endl;
 
    auto pos = getPosition();
    m_principal.setPosition(pos);
@@ -59,12 +71,21 @@ void LoanWidget::setScreenSize(const sf::Vector2u& size)
 
    float y = size.y;
    float dy = y * 0.03f;
-   m_total.move({0,dy});
-   m_next_payment.move({0,2*dy});
+   m_principal.move({5,5});
+   m_total.move({5,5+dy});
+   m_next_payment.move({5,5+2*dy});
+
+   float text_height = m_total.getGlobalBounds().height;
+   std::cout << "text height: " << text_height << std::endl;
+
+   auto box_size = m_background_box.getSize();
+   m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
+   std::cout << "setScreenSize: box height is " << m_background_box.getSize().y << std::endl;
 }
 
 void LoanWidget::move(const sf::Vector2f& pos)
 {
+   m_background_box.move(pos);
    m_principal.move(pos);
    m_total.move(pos);
    m_next_payment.move(pos);
@@ -72,6 +93,7 @@ void LoanWidget::move(const sf::Vector2f& pos)
 
 void LoanWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+   target.draw(m_background_box);
    target.draw(m_principal);
    target.draw(m_total);
    target.draw(m_next_payment);

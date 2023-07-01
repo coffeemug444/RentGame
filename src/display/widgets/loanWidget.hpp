@@ -23,6 +23,7 @@ private:
    sf::Text m_principal;
    sf::Text m_total;
    sf::Text m_next_payment;
+   sf::RectangleShape m_background_box;
 };
 
 

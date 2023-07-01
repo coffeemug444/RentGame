@@ -25,6 +25,11 @@ void Screen::setScreenSize(sf::Vector2u screen_size)
    float screen_w = static_cast<float>(screen_size.x);
    float screen_h = static_cast<float>(screen_size.y);
    m_background.setSize({screen_w,screen_h});
+   auto widgets = getSubWidgets();
+   for (auto widget : widgets)
+   {
+      widget->setScreenSize(screen_size);
+   }
 }
 
 sf::Vector2f Screen::getSize() const

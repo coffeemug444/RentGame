@@ -48,11 +48,10 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
    m_bank_screen_button.setPosition({screen_size.x-2*m_bank_screen_button.getRadius(),0});
-   sf::Vector2f loan_widget_origin {0,0.1f*screen_size.y};
+   sf::Vector2f loan_widget_origin = {10.f,0.1f*screen_size.y};
    for (int i = 0; i < m_loan_widgets.size(); i++)
    {
-      m_loan_widgets[i].setScreenSize(screen_size);
-      auto new_pos = loan_widget_origin + i*sf::Vector2f{0,m_loan_widgets[i].getSize().y};
+      auto new_pos = loan_widget_origin + i*sf::Vector2f{0,20.f+m_loan_widgets[i].getSize().y};
       m_loan_widgets[i].setPosition(new_pos);
    }
 }
