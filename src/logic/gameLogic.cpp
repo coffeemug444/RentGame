@@ -23,7 +23,7 @@ constexpr int GameLogic::gameSpeedTicks(GameSpeed speed) const
    case FAST:
       return TICKS_PER_SEC;
    case VERYFAST:
-      return TICKS_PER_SEC;
+      return TICKS_PER_SEC / 2;
    }
    return 0;
 }
@@ -78,6 +78,10 @@ void GameLogic::handleEvents()
 
       EI::ev_take_loan.pop();
    }
+}
+
+void GameLogic::advanceDay()
+{
 }
 
 void GameLogic::gameTick()

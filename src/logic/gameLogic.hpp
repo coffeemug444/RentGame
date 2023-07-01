@@ -25,7 +25,7 @@ private:
    constexpr int gameSpeedTicks(GameSpeed speed) const;
    void handleEvents();
 
-   void advanceDay() {};
+   void advanceDay();
    int m_current_day_ticks;
    GameSpeed m_current_speed;
 };
