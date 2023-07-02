@@ -83,6 +83,7 @@ void GameLogic::handleEvents()
                                     OD::Player::next_loan_id });
       OD::Player::next_loan_id++;
       OD::Player::capital += loan.principal;
+      OD::Player::debt += loan.principal;
       EI::ev_take_loan_status.push(SUCCESS);
 
       EI::ev_take_loan.pop();
@@ -95,6 +96,14 @@ void GameLogic::advanceDay()
    {
       loan.advanceDay();
    }
+
+   int loan_total = 0;
+   for (Loan& loan : OD::Player::loans)
+   {
+      loan_total += loan.getAmount();
+   }
+
+   OD::Player::debt = loan_total;
 }
 
 void GameLogic::gameTick()
@@ -111,7 +120,7 @@ void GameLogic::gameTick()
    if (m_current_day_ticks < gameSpeedTicks(m_current_speed)) return;
    
    m_current_day_ticks -= gameSpeedTicks(m_current_speed);
-   advanceDay();
+   advanceDay(); // called last
    
 }
 
