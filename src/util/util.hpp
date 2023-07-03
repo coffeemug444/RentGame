@@ -125,4 +125,14 @@ std::tuple<int, int, int, int> RGBAToHSVA(sf::Uint32 rgba);
 
 sf::Uint32 HSVAtoRGBA(int hue, int saturation, int value, int alpha);
 
+bool getRandomEvent(float chance);
+
+// number from a normal distribution, mean 0, stddev 1
+float getNormalRandomNumber();
+
+// number from a uniform distribution, 0 to 1
+float getUniformRandomNumber();
+
+int getUniformRandomNumber(int min, int max);
+
 } // namespace Game

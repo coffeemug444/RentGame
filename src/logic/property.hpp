@@ -27,9 +27,14 @@ void advanceDay();
 
 
 private:
+Problem createProblem() const;
+float getProblemChance() const;
+float getRenterChance() const;
+float getSaleChance() const;
+
 unsigned m_id;
 int m_price;
-int m_age; // older properties get problems more frequently
+int m_age; // age in years. older properties get problems more frequently
 int m_rental_price;
 
 // only 1 problem at a time, but low severity problems 

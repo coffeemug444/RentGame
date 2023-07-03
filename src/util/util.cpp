@@ -1,7 +1,13 @@
 #include "util.hpp"
+#include <random>
 
 namespace Game
 {
+
+namespace
+{
+   std::default_random_engine random_engine;
+}
 
 std::tuple<int, int, int, int> RGBAToHSVA(sf::Uint32 rgba) {
    // Convert RGB to normalized values between 0 and 1
@@ -85,6 +91,31 @@ sf::Uint32 HSVAtoRGBA(int hue, int saturation, int value, int alpha) {
    int a = static_cast<int>(normAlpha * 255);
 
    return (r<<24)+(g<<16)+(b<<8)+a;
+}
+
+bool getRandomEvent(float chance)
+{
+   return getUniformRandomNumber() < chance;
+}
+
+float getNormalRandomNumber()
+{
+   static std::normal_distribution<> dis(0,1);
+   return dis(random_engine);
+}
+
+float getUniformRandomNumber()
+{
+   static std::uniform_real_distribution<> dis(0, 1);
+   return dis(random_engine);
+}
+
+int getUniformRandomNumber(int min, int max)
+{
+   int range = max - min;
+   float rng = getUniformRandomNumber();
+
+   return (int)(rng * range) + min;
 }
 
 } // namespace Game

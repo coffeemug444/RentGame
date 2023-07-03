@@ -1,5 +1,6 @@
 #include "property.hpp"
 #include "observableData.hpp"
+#include "util/util.hpp"
 
 namespace Game
 {
@@ -20,23 +21,69 @@ Property::Property(unsigned id, int price, int age)
 }
 
 
+float Property::getProblemChance() const
+{
+   if (m_age <= 2) return 0.f;
+
+   return std::min((m_age / 20.f), 0.2f);
+}
+
+Problem Property::createProblem() const
+{
+   std::string name = "broken something";
+   int severity = getUniformRandomNumber(1,3);
+
+   int TMP = 0;
+   int cost_to_fix = TMP; // ************** come up with a cost metric for problems **************
+
+   return { name, cost_to_fix, severity };
+}
+
+float Property::getRenterChance() const
+{
+   // look at market conditions
+   float TMP = 0.f;
+   return TMP;
+}
+
+float Property::getSaleChance() const
+{
+   // look at market conditions
+   float TMP = 0.f;
+   return TMP;
+}
 
 void Property::advanceDay()
 {
    if (m_to_be_rented)
    {
       // check market conditions, roll on chance for gaining renters
+      if (getRandomEvent(getRenterChance()))
+      {
+         m_to_be_rented = false;
+         m_rented = true;
+      }
    }
 
    if (m_to_be_sold)
    {
       // check market conditions, roll on chance of sale
       // exit early if sold
+      if (getRandomEvent(getSaleChance()))
+      {
+         OD::Player::capital += m_price;
+         deleteById(m_id, OD::Player::properties);
+         return;
+      }
    }
 
    if (not m_rented) return;
-   
+
    // roll problems based on house age
+   if (getRandomEvent(getProblemChance()))
+   {
+      m_problem = createProblem();
+   }
 
    // do manager things
    if (m_managed)
