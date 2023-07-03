@@ -1,6 +1,5 @@
 #pragma once
 #include "property.hpp"
-#include "observableData.hpp"
 
 namespace Game
 {
@@ -18,7 +17,7 @@ namespace Game
 class Market
 {
 public:
-Market() {}
+Market();
 int propertySalePrice(Property::AgeClass age) const;
 int propertyRentalPrice(Property::AgeClass age) const;
 
@@ -30,7 +29,7 @@ float getAgeModifier(Property::AgeClass age) const;
 inline static const int m_initial_property_price = 1000;
 inline static const int m_initial_rental_price = 1000;
 
-inline static const int m_doubling_period = OD::Date::YEAR_LEN;
+const int m_doubling_period;
 
 
 // create new property

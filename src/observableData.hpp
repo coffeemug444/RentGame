@@ -5,6 +5,7 @@
 #include "logic/gameLogic.hpp"
 #include "logic/loan.hpp"
 #include "logic/property.hpp"
+#include "logic/market.hpp"
 
 #ifndef IL
 #define IL inline static
@@ -46,6 +47,8 @@ struct ObservableData
       IL std::vector<Property> properties;
       IL unsigned next_loan_id = 0;
    };
+
+   IL Market market;
 
    static void init()
    {

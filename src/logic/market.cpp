@@ -1,9 +1,11 @@
 #include "market.hpp"
+#include "observableData.hpp"
 #include <math.h>
 
 namespace Game
 {
 
+Market::Market() : m_doubling_period(OD::Date::YEAR_LEN) {}
 
 float Market::getTimeModifier() const
 {
@@ -15,13 +17,13 @@ float Market::getAgeModifier(Property::AgeClass age) const
    // NOTE: may need adjusting
    switch (age)
    {
-   case NEW:
+   case Property::AgeClass::NEW:
       return 2.f;
-   case MID:
+   case Property::AgeClass::MID:
       return 1.6f;
-   case OLD:
+   case Property::AgeClass::OLD:
       return 1.2f;
-   case VERYOLD:
+   case Property::AgeClass::VERYOLD:
    default:
       return 1.f;
    }
