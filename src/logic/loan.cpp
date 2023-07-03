@@ -20,7 +20,7 @@ Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months, 
 ,m_loan_amount(principle)
 ,m_payments_remaining(repayment_in_months)
 ,m_day_count(0)
-,m_accrued_interest_this_month(0)
+,m_accrued_interest(0)
 ,m_in_arrears(0)
 {
    double P = principle;
@@ -42,23 +42,24 @@ void Loan::recalculate_repayment_time()
 
 void Loan::advanceDay()
 {
-   m_accrued_interest_this_month += (m_interest_rate_monthly/30.f) * m_loan_amount;
+   m_accrued_interest += (m_interest_rate_monthly/30.f) * m_loan_amount;
    m_day_count++;
    if (m_day_count < 30) return;
    m_day_count = 0;
-   m_loan_amount += m_accrued_interest_this_month;
-   m_accrued_interest_this_month = 0;
    recalculate_repayment_time();
 
    // send event telling game to pay monthly amount
-   if (m_in_arrears)
-   {
-      EI::ev_loan_monthly_payment.push({m_loan_id, 2*m_repayment_amount_monthly});
-   }
-   else
-   {
-      EI::ev_loan_monthly_payment.push({m_loan_id, m_repayment_amount_monthly});
-   }
+
+   int amount = m_repayment_amount_monthly;
+   if (m_in_arrears) amount *= 2;
+   EI::ev_loan_monthly_payment.push({m_loan_id, amount + m_accrued_interest});
+}
+
+void Loan::goIntoArrears() 
+{ 
+   m_in_arrears = true; 
+   m_loan_amount += m_accrued_interest;
+   m_accrued_interest = 0;
 }
 
 
@@ -74,8 +75,12 @@ void Loan::advanceDay()
 */
 void Loan::pay(int amount)
 {
-   m_loan_amount -= amount;
-   if (isInArrears() and amount == 2*m_repayment_amount_monthly)
+   m_accrued_interest -= amount;
+   if (m_accrued_interest >= 0) return;
+
+   m_loan_amount += m_accrued_interest;
+   m_accrued_interest = 0;
+   if (isInArrears())   // if we're in arrears then one-off payments aren't allowed
    {
       m_in_arrears = false;
    }

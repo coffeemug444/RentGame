@@ -10,7 +10,7 @@ public:
    void pay(int amount);
    void advanceDay();
 
-   void goIntoArrears() { m_in_arrears = true; }
+   void goIntoArrears();
 
    bool isInArrears() const { return m_in_arrears; }
    unsigned getId() const { return m_loan_id; }
@@ -26,7 +26,7 @@ private:
    int m_payments_remaining;
    int m_repayment_amount_monthly;
    int m_day_count;
-   int m_accrued_interest_this_month;
+   int m_accrued_interest;
    bool m_in_arrears; 
 };
 
