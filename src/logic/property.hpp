@@ -23,6 +23,7 @@ Property(unsigned id, int price, int age);
 unsigned getId() const { return m_id; }
 int getPrice() const { return m_price; }
 std::optional<Problem> getProblem() const { return m_problem; }
+void advanceDay();
 
 
 private:
@@ -36,6 +37,7 @@ int m_rental_price;
 std::optional<Problem> m_problem; 
 
 bool m_rented;
+int m_rent_day; // day of the week that rent is due
 int m_renter_dissatisfaction;
 
 // automated management of property eg. rent price, fixing problems

@@ -2,6 +2,7 @@
 #include <cmath>
 #include "events/eventInterface.hpp"
 #include <iostream>
+#include "observableData.hpp"
 
    // int m_principle;
    // float m_interest_rate_monthly;
@@ -19,7 +20,7 @@ Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months, 
 ,m_interest_rate_monthly(interest_rate_monthly)
 ,m_loan_amount(principle)
 ,m_payments_remaining(repayment_in_months)
-,m_day_count(0)
+,m_repayment_day(OD::Date::day)
 ,m_accrued_interest(0)
 ,m_in_arrears(0)
 {
@@ -42,10 +43,8 @@ void Loan::recalculate_repayment_time()
 
 void Loan::advanceDay()
 {
-   m_accrued_interest += (m_interest_rate_monthly/30.f) * m_loan_amount;
-   m_day_count++;
-   if (m_day_count < 30) return;
-   m_day_count = 0;
+   m_accrued_interest += (m_interest_rate_monthly/OD::Date::MONTH_LEN) * m_loan_amount;
+   if (OD::Date::day != m_repayment_day) return;
    recalculate_repayment_time();
 
    // send event telling game to pay monthly amount

@@ -25,7 +25,7 @@ private:
    int m_loan_amount;
    int m_payments_remaining;
    int m_repayment_amount_monthly;
-   int m_day_count;
+   int m_repayment_day;
    int m_accrued_interest;
    bool m_in_arrears; 
 };
