@@ -68,16 +68,6 @@ void GameLogic::handleEvents()
 void GameLogic::advanceDay()
 {
    OD::Date::day++;
-   if (OD::Date::day == 30)
-   {
-      OD::Date::day = 0;
-      OD::Date::month++;
-   }
-   if (OD::Date::month == 12)
-   {
-      OD::Date::month = 0;
-      OD::Date::year++;
-   }
 
    for (auto& loan : OD::Player::loans)
    {

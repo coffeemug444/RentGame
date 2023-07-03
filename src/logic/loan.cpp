@@ -45,7 +45,7 @@ void Loan::recalculate_repayment_time()
 void Loan::advanceDay()
 {
    m_accrued_interest += (m_interest_rate_monthly/OD::Date::MONTH_LEN) * m_loan_amount;
-   if (OD::Date::day != m_repayment_day) return;
+   if (OD::Date::getDayOfMonth() != m_repayment_day) return;
    recalculate_repayment_time();
 
    int amount = m_repayment_amount_monthly;
