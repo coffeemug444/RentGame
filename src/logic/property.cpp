@@ -111,7 +111,7 @@ void Property::advanceDay()
    // check tenant dissatisfaction (maybe they leave)
 
    // collect rent on rent day
-   if (OD::Date::day % OD::Date::MONTH_LEN == m_rent_day)
+   if (OD::Date::day % OD::Date::WEEK_LEN == m_rent_day)
    {
       // get rent
       int collected_rent = m_rental_price;

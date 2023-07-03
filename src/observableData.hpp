@@ -27,7 +27,8 @@ struct ObservableData
 
    struct Date
    {
-      IL const unsigned MONTH_LEN = 28; // 4*7 days
+      IL const unsigned WEEK_LEN = 7; // 7 days
+      IL const unsigned MONTH_LEN = 4 * WEEK_LEN; // 4*7 = 28 days
       IL unsigned day = 0;
       IL unsigned month = 0;
       IL unsigned year = 0;
