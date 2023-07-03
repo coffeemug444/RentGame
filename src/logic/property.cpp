@@ -20,12 +20,31 @@ Property::Property(unsigned id, int price, int age)
 {
 }
 
+AgeClass Property::getAgeClass() const
+{
+   // NOTE: may need adjusting
+   if (m_age <= 2) return NEW;
+   if (m_age <= 5) return MID;
+   if (m_age <= 7) return OLD;
+   return VERYOLD;
+}
+
 
 float Property::getProblemChance() const
 {
-   if (m_age <= 2) return 0.f;
-
-   return std::min((m_age / 20.f), 0.2f);
+   // NOTE: may need adjusting
+   switch (getAgeClass())
+   {
+   case NEW:
+      return 0.f;
+   case MID:
+      return 0.02f;
+   case OLD:
+      return 0.05f;
+   case VERYOLD:
+   default:
+      return 0.1f;
+   }
 }
 
 Problem Property::createProblem() const

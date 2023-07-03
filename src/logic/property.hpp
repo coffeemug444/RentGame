@@ -25,6 +25,15 @@ int getPrice() const { return m_price; }
 std::optional<Problem> getProblem() const { return m_problem; }
 void advanceDay();
 
+enum AgeClass
+{
+   NEW,
+   MID,
+   OLD,
+   VERYOLD
+};
+AgeClass getAgeClass(int age) const;
+
 
 private:
 Problem createProblem() const;
