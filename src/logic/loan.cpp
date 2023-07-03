@@ -52,7 +52,7 @@ void Loan::advanceDay()
    if (m_in_arrears) amount *= 2;
    amount += m_accrued_interest;
 
-   if (amount > OD::Player::capital)
+   if (OD::Player::capital < amount)
    {
       if (m_in_arrears)
          // uh oh
@@ -64,7 +64,6 @@ void Loan::advanceDay()
    {
       int to_pay = std::min(m_loan_amount + m_accrued_interest, amount);
       pay(to_pay);
-      OD::Player::capital -= to_pay;
       if (m_loan_amount == 0) deleteById(m_loan_id, OD::Player::loans);
    }
 }
@@ -89,6 +88,9 @@ void Loan::goIntoArrears()
 */
 void Loan::pay(int amount)
 {
+   if (OD::Player::capital < amount) return;
+   OD::Player::capital -= amount;
+
    m_accrued_interest -= amount;
    if (m_accrued_interest >= 0) return;
 
