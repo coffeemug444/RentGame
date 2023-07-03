@@ -34,26 +34,42 @@ void Property::advanceDay()
       // exit early if sold
    }
 
-   if (m_rented)
+   if (not m_rented) return;
+   
+   // roll problems based on house age
+
+   // do manager things
+   if (m_managed)
    {
-      // roll problems
+      // check for rent adjustments
 
-      if (m_managed)
+      // check for problems
+      if (m_problem.has_value())
       {
-         // check for rent adjustments
+         if (m_problem.value().cost_to_fix <= OD::Player::capital)
+         {
+            // if the player has the money to fix the problem then fix it
+            OD::Player::capital -= m_problem.value().cost_to_fix;
+            m_problem.reset();
+         }
+         else
+         {
+            // manager quit because you're poor
+            // why don't you stop being poor
+            m_managed = false;
+         }
       }
-      else
-      {
+   }
 
-      }
+   // check tenant dissatisfaction (maybe they leave)
 
-      // check tenant dissatisfaction (maybe they leave)
-
-      if (OD::Date::day % OD::Date::MONTH_LEN == m_rent_day)
-      {
-         // get rent
-         OD::Player::capital += m_rental_price;
-      }
+   // collect rent on rent day
+   if (OD::Date::day % OD::Date::MONTH_LEN == m_rent_day)
+   {
+      // get rent
+      int collected_rent = m_rental_price;
+      if (m_managed) collected_rent *= 0.9f; // manager takes 10% cut
+      OD::Player::capital += collected_rent;
    }
 }
 
