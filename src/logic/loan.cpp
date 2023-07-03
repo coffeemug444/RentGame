@@ -3,6 +3,7 @@
 #include "events/eventInterface.hpp"
 #include <iostream>
 #include "observableData.hpp"
+#include "util/util.hpp"
 
    // int m_principle;
    // float m_interest_rate_monthly;
@@ -47,11 +48,25 @@ void Loan::advanceDay()
    if (OD::Date::day != m_repayment_day) return;
    recalculate_repayment_time();
 
-   // send event telling game to pay monthly amount
-
    int amount = m_repayment_amount_monthly;
    if (m_in_arrears) amount *= 2;
-   EI::ev_loan_monthly_payment.push({m_loan_id, amount + m_accrued_interest});
+   amount += m_accrued_interest;
+
+   if (amount > OD::Player::capital)
+   {
+      if (m_in_arrears)
+         // uh oh
+         bool uhhh = false;
+      else
+         goIntoArrears();
+   }
+   else
+   {
+      int to_pay = std::min(m_loan_amount + m_accrued_interest, amount);
+      pay(to_pay);
+      OD::Player::capital -= to_pay;
+      if (m_loan_amount == 0) deleteById(m_loan_id, OD::Player::loans);
+   }
 }
 
 void Loan::goIntoArrears() 

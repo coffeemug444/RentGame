@@ -46,31 +46,6 @@ void GameLogic::handleEvents()
       OD::current_speed = m_current_speed;
    }
 
-   while (EI::ev_loan_monthly_payment.size() > 0)
-   {
-      auto ev = EI::ev_loan_monthly_payment.front();
-      EI::ev_loan_monthly_payment.pop();
-      auto loan = findById(ev.loan_id, OD::Player::loans);
-      if (not loan.has_value()) continue;
-
-      if (ev.amount > OD::Player::capital)
-      {
-         if (loan.value()->isInArrears())
-            OD::game_running = false; // fix this
-         else
-            loan.value()->goIntoArrears();
-      }
-      else
-      {
-         int loan_amount = loan.value()->getAmount();
-         int to_pay = std::min(loan_amount, ev.amount);
-         loan.value()->pay(to_pay);
-         OD::Player::capital -= to_pay;
-
-         if (loan_amount < ev.amount) deleteById(ev.loan_id, OD::Player::loans);
-      }
-   }
-   
    while (EI::ev_take_loan.size() > 0)
    {
       auto loan = EI::ev_take_loan.front();
