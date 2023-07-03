@@ -30,7 +30,7 @@ struct ObservableData
    {
       IL const unsigned WEEK_LEN = 7; // 7 days
       IL const unsigned MONTH_LEN = 4 * WEEK_LEN; // 4*7 = 28 days
-      IL const unsigned YEAR_LEN = 12 * MONTH_LEN; // 4*7 = 28 days
+      IL const unsigned YEAR_LEN = 12 * MONTH_LEN; // 12*28 = 336 days
       IL unsigned day = 0;
       IL unsigned getDayOfMonth() { return day % MONTH_LEN; }
       IL unsigned getWeekday() { return day % WEEK_LEN; }
