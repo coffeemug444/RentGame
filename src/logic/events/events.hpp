@@ -16,12 +16,6 @@ struct evTakeLoan
    float interest_rate_yearly;
 };
 
-struct evLoanMonthlyPayment
-{
-   unsigned loan_id;
-   int amount;
-};
-
 struct evNone {};
 
    

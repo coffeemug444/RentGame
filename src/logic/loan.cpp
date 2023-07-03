@@ -56,7 +56,7 @@ void Loan::advanceDay()
    {
       if (m_in_arrears)
          // uh oh
-         bool uhhh = false;
+         EI::ev_stop_game.push({});
       else
          goIntoArrears();
    }
