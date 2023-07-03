@@ -18,10 +18,17 @@ class Market
 {
 public:
 Market() {}
-int propertySalePrice(AgeClass age) const;
-int propertyRentalPrice(AgeClass age) const;
+int propertySalePrice(Property::AgeClass age) const;
+int propertyRentalPrice(Property::AgeClass age) const;
 
 private:
+float getAgeModifier(Property::AgeClass age) const;
+
+// NOTE: these may need adjustment
+inline static const int m_initial_property_price = 1000;
+inline static const int m_initial_rental_price = 1000;
+
+
 // create new property
 };
 
