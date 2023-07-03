@@ -20,7 +20,7 @@ Property::Property(unsigned id, int price, int age)
 {
 }
 
-AgeClass Property::getAgeClass() const
+Property::AgeClass Property::getAgeClass() const
 {
    // NOTE: may need adjusting
    if (m_age <= 2) return NEW;

@@ -32,7 +32,8 @@ enum AgeClass
    OLD,
    VERYOLD
 };
-AgeClass getAgeClass(int age) const;
+
+AgeClass getAgeClass() const;
 
 
 private:
