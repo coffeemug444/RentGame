@@ -35,7 +35,7 @@ struct ObservableData
       IL unsigned getDayOfMonth() { return day % MONTH_LEN; }
       IL unsigned getWeekday() { return day % WEEK_LEN; }
       IL unsigned getMonth() { return (day % YEAR_LEN) / MONTH_LEN; }
-      IL unsigned getYear() { return day / YEAR_LEN;  }
+      IL unsigned getYear() { return day / YEAR_LEN; }
    };
 
    struct Player

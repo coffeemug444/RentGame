@@ -1,6 +1,7 @@
 #include "property.hpp"
 #include "observableData.hpp"
 #include "util/util.hpp"
+#include <math.h>
 
 namespace Game
 {
@@ -23,9 +24,9 @@ Property::Property(unsigned id, int price, int age)
 Property::AgeClass Property::getAgeClass() const
 {
    // NOTE: may need adjusting
-   if (m_age <= 2) return NEW;
-   if (m_age <= 5) return MID;
-   if (m_age <= 7) return OLD;
+   if (m_age <= 2*OD::Date::YEAR_LEN) return NEW;
+   if (m_age <= 5*OD::Date::YEAR_LEN) return MID;
+   if (m_age <= 7*OD::Date::YEAR_LEN) return OLD;
    return VERYOLD;
 }
 
@@ -58,26 +59,34 @@ Problem Property::createProblem() const
    return { name, cost_to_fix, severity };
 }
 
-float Property::getRenterChance() const
+bool Property::rentPriceSuccess() const
 {
-   // look at market conditions
-   float TMP = 0.f;
-   return TMP;
+   int going_rental_rate = OD::market.propertyRentalPrice(getAgeClass());
+   float random = getNormalRandomNumber();
+   random *= std::log((float)going_rental_rate);
+   random += going_rental_rate;
+
+   return random < m_rental_price;
 }
 
-float Property::getSaleChance() const
+bool Property::salePriceSuccess() const
 {
-   // look at market conditions
-   float TMP = 0.f;
-   return TMP;
+   int going_sale_price = OD::market.propertyRentalPrice(getAgeClass());
+   float random = getNormalRandomNumber();
+   random *= std::log((float)going_sale_price);
+   random += going_sale_price;
+
+   return random < m_price;
 }
 
 void Property::advanceDay()
 {
+   m_age++;
+
    if (m_to_be_rented)
    {
       // check market conditions, roll on chance for gaining renters
-      if (getRandomEvent(getRenterChance()))
+      if (rentPriceSuccess())
       {
          m_to_be_rented = false;
          m_rented = true;
@@ -88,7 +97,7 @@ void Property::advanceDay()
    {
       // check market conditions, roll on chance of sale
       // exit early if sold
-      if (getRandomEvent(getSaleChance()))
+      if (salePriceSuccess())
       {
          OD::Player::capital += m_price;
          deleteById(m_id, OD::Player::properties);

@@ -39,12 +39,16 @@ AgeClass getAgeClass() const;
 private:
 Problem createProblem() const;
 float getProblemChance() const;
-float getRenterChance() const;
-float getSaleChance() const;
+
+// queries the market for going rates and decides if the current
+// set price will result in a successfully finding a buyer/renter
+// based on some random fluctuations
+bool rentPriceSuccess() const;
+bool salePriceSuccess() const;
 
 unsigned m_id;
 int m_price;
-int m_age; // age in years. older properties get problems more frequently
+int m_age; // age in days. older properties get problems more frequently
 int m_rental_price;
 
 // only 1 problem at a time, but low severity problems 
