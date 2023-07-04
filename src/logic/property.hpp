@@ -19,7 +19,7 @@ struct Problem
 class Property
 {
 public:
-Property(unsigned id, int price, int age);
+Property(int price, int age);
 unsigned getId() const { return m_id; }
 int getPrice() const { return m_price; }
 std::optional<Problem> getProblem() const { return m_problem; }
@@ -27,13 +27,14 @@ void advanceDay();
 
 enum AgeClass
 {
-   NEW,
-   MID,
-   OLD,
-   VERYOLD
+   NEW = 0,
+   MID = 2,
+   OLD = 5,
+   VERYOLD = 7
 };
 
-AgeClass getAgeClass() const;
+static AgeClass getAgeClass(int age);
+AgeClass getAgeClass() const { return getAgeClass(m_age); }
 
 
 private:
@@ -46,6 +47,7 @@ float getProblemChance() const;
 bool rentPriceSuccess() const;
 bool salePriceSuccess() const;
 
+static inline unsigned m_next_property_id = 0;
 unsigned m_id;
 int m_price;
 int m_age; // age in days. older properties get problems more frequently

@@ -6,8 +6,8 @@ namespace Game
 {
 
 
-Property::Property(unsigned id, int price, int age)
-:m_id(id)
+Property::Property(int price, int age)
+:m_id(m_next_property_id)
 ,m_price(price)
 ,m_age(age)
 ,m_rental_price(0)
@@ -18,14 +18,15 @@ Property::Property(unsigned id, int price, int age)
 ,m_to_be_rented(false)
 ,m_to_be_sold(false)
 {
+   m_next_property_id++;
 }
 
-Property::AgeClass Property::getAgeClass() const
+Property::AgeClass Property::getAgeClass(int age)
 {
    // NOTE: may need adjusting
-   if (m_age <= 2*OD::Date::YEAR_LEN) return NEW;
-   if (m_age <= 5*OD::Date::YEAR_LEN) return MID;
-   if (m_age <= 7*OD::Date::YEAR_LEN) return OLD;
+   if (age <= 2*OD::Date::YEAR_LEN) return NEW;
+   if (age <= 5*OD::Date::YEAR_LEN) return MID;
+   if (age <= 7*OD::Date::YEAR_LEN) return OLD;
    return VERYOLD;
 }
 

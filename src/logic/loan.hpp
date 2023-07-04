@@ -6,7 +6,7 @@ namespace Game
 class Loan
 {
 public:
-   Loan(int principle, float interest_rate_monthly, int repayment_in_months, unsigned id);
+   Loan(int principle, float interest_rate_monthly, int repayment_in_months);
    void pay(int amount);
    void advanceDay();
 
@@ -19,6 +19,7 @@ public:
    int getAmount() const { return m_loan_amount; }
 private:
    void recalculate_repayment_time();
+   static inline unsigned m_next_loan_id = 0;
    unsigned m_loan_id;
    int m_principle;
    float m_interest_rate_monthly;

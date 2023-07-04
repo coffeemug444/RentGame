@@ -1,5 +1,6 @@
 #pragma once
 #include "property.hpp"
+#include <vector>
 
 namespace Game
 {
@@ -22,8 +23,25 @@ int averageSalePrice(Property::AgeClass age) const;
 int averageRentalRate(Property::AgeClass age) const;
 int randomSalePrice(Property::AgeClass age) const;
 int randomRentalRate(Property::AgeClass age) const;
+void advanceDay();
+
+struct Listing
+{
+   unsigned id;
+   int age; // listing age, not property age
+   Property property;
+
+   unsigned getId() const { return id; } // required for util vector helpers
+};
+
+const std::vector<Listing>& getListings() const { return m_listings; }
+void purchaseListing(unsigned id);
 
 private:
+std::vector<Listing> m_listings;
+inline static unsigned m_next_listing_id = 0;
+
+int randomPropertyAge() const;
 float getTimeModifier() const;
 float getAgeModifier(Property::AgeClass age) const;
 

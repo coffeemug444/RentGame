@@ -45,7 +45,6 @@ struct ObservableData
       IL unsigned net_income = 0;
       IL std::vector<Loan> loans;
       IL std::vector<Property> properties;
-      IL unsigned next_loan_id = 0;
    };
 
    IL Market market;

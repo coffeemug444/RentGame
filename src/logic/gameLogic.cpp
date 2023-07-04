@@ -54,9 +54,7 @@ void GameLogic::handleEvents()
       // yep all those checks LGTM
       OD::Player::loans.push_back({ loan.principal, 
                                     loan.interest_rate_yearly / 12.f, 
-                                    loan.repayment_time_months, 
-                                    OD::Player::next_loan_id });
-      OD::Player::next_loan_id++;
+                                    loan.repayment_time_months });
       OD::Player::capital += loan.principal;
       OD::Player::debt += loan.principal;
       EI::ev_take_loan_status.push(SUCCESS);
