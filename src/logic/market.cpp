@@ -22,9 +22,9 @@ void Market::advanceDay()
    {
       int property_age = randomPropertyAge();
       Listing listing {
-         .id{m_next_listing_id},
-         .age{0},
-         .property{
+         .id = m_next_listing_id,
+         .age = 0,
+         .property = {
             property_age,
             randomSalePrice(Property::getAgeClass(property_age))
          }
