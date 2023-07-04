@@ -10,7 +10,14 @@ class CircleButton : public Button
 {
 public:
    CircleButton(Widget& callback_class, int button_id)
-      :Button(callback_class, button_id) {}
+      :Button(&callback_class, button_id) {}
+   CircleButton& operator= (const CircleButton& other)
+   {
+      m_callback_class = other.m_callback_class;
+      m_button_id = other.m_button_id;
+      m_button_circle = other.m_button_circle;
+      return *this;
+   }
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override { target.draw(m_button_circle); };
    bool mouseIsOver(sf::Vector2i mouse_pos) const override
    {
@@ -23,6 +30,7 @@ public:
    const sf::Vector2f& getPosition() const { return m_button_circle.getPosition(); }
    virtual float getRadius() const { return m_button_circle.getRadius(); }
    virtual void setPosition(const sf::Vector2f& pos) { m_button_circle.setPosition(pos); }
+   virtual void move(const sf::Vector2f& pos) { m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
    virtual void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
 private:

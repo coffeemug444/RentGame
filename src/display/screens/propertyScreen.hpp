@@ -17,6 +17,7 @@ class PropertyScreen : public Screen
 public:
    PropertyScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
+   std::vector<const Button*> getButtons() const override;
 private:
    enum ButtonId {
       NONE = 0,

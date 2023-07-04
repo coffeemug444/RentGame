@@ -27,6 +27,7 @@ public:
    void uiEvents() override;
    std::vector<const Widget*> getSubWidgets() const override;
    std::vector<Widget*> getSubWidgets() override;
+   std::vector<const Button*> getButtons() const override;
 private:
    void handleClick(int button_id) override;
    void handleTakeLoan();

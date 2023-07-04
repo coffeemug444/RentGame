@@ -14,7 +14,7 @@ class Widget;
 class Screen : public Widget
 {
 public:
-   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons = {});
+   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color);
    
    virtual void setScreenSize(sf::Vector2u screen_size);
    sf::Vector2f getSize() const override;

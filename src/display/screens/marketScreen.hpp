@@ -20,6 +20,7 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void handleClick(int button_id) override {}
    void dataSync() override;
+   std::vector<const Button*> getButtons() const override { return {}; }
 private:
 
    std::vector<const Widget*> getSubWidgets() const override;

@@ -34,14 +34,15 @@ void Market::advanceDay()
    }
 }
 
-void Market::purchaseListing(unsigned id)
+bool Market::purchaseListing(unsigned id)
 {
    auto listing = findById(id, m_listings);
-   if (not listing.has_value()) return;
-   if (OD::Player::capital < listing.value()->property.getPrice()) return;
+   if (not listing.has_value()) return false;
+   if (OD::Player::capital < listing.value()->property.getPrice()) return false;
    OD::Player::capital -= listing.value()->property.getPrice();
    OD::Player::properties.push_back(listing.value()->property);
    deleteById(id, m_listings);
+   return true;
 }
 
 // gets a normally random distributed age with a 10% chance

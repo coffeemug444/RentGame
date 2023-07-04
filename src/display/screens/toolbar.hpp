@@ -20,6 +20,7 @@ public:
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
+   std::vector<const Button*> getButtons() const override;
 private:
    void handleClick(int button_id) override;
 

@@ -6,9 +6,8 @@
 namespace Game
 {
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color, const std::vector<Button*>& buttons)
-:Widget(buttons)
-,m_ui(ui)
+Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color)
+:m_ui(ui)
 ,m_screen_size(screen_size)
 ,m_background_color(background_color) 
 ,m_active(false) 

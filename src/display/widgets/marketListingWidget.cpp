@@ -2,6 +2,7 @@
 #include "observableData.hpp"
 #include "display/constColors.hpp"
 #include "util/util.hpp"
+#include "logic/events/eventInterface.hpp"
 
 namespace Game
 {
@@ -9,10 +10,14 @@ namespace Game
 
 MarketListingWidget::MarketListingWidget(unsigned id) 
 :m_id(id)
+,m_purchase_button(*this, BUY_PROPERTY)
 ,m_price()
 ,m_age()
 {
    const int CHAR_SIZE = 15;
+
+   m_purchase_button.setFillColor(sf::Color::Red);
+   m_purchase_button.setRadius(20.f);
 
    m_price.setFont(OD::font);
    m_price.setString("Price: ");
@@ -26,12 +31,17 @@ MarketListingWidget::MarketListingWidget(unsigned id)
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
 }
 
+std::vector<const Button*> MarketListingWidget::getButtons() const 
+{
+   return {&m_purchase_button};
+}
+
 void MarketListingWidget::handleClick(int button_id) 
 {
    switch (button_id)
    {
    case BUY_PROPERTY:
-      // TODO: send event to purchase the property with this ID
+      EI::ev_purchase_property.push({m_id});
       break;
    default:
       break;
@@ -56,11 +66,14 @@ void MarketListingWidget::setScreenSize(const sf::Vector2u& size)
    auto pos = getPosition();
    m_age.setPosition(pos);
    m_price.setPosition(pos);
+   m_purchase_button.setPosition(pos);
 
    float y = size.y;
    float dy = y * 0.03f;
    m_age.move({5,5});
    m_price.move({5,5 + dy});
+
+   m_purchase_button.move({100,10});
 
    float text_height = m_age.getGlobalBounds().height;
 
@@ -96,14 +109,15 @@ void MarketListingWidget::move(const sf::Vector2f& pos)
    m_background_box.move(pos);
    m_age.move(pos);
    m_price.move(pos);
+   m_purchase_button.move(pos);
 }
 
 void MarketListingWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   Widget::draw(target, states);
    target.draw(m_background_box);
    target.draw(m_age);
    target.draw(m_price);
+   Widget::draw(target, states);
 }
 
 

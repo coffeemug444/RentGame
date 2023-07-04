@@ -5,14 +5,14 @@ namespace Game
 {
    
 
-Widget::Widget(const std::vector<Button*>& buttons) 
-:m_buttons(buttons)
-,m_last_button_id(0) 
+Widget::Widget() 
+:m_last_button_id(0) 
 {}
 
 
 sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
 {
+   static int hand_count = 0;
    auto sub_widgets = getSubWidgets();
    for (auto widget_ptr : sub_widgets)
    {
@@ -20,7 +20,8 @@ sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
       if (cursor_type != sf::Cursor::Arrow) return cursor_type;
    }
 
-   for (auto button_ptr : m_buttons)
+   auto buttons = getButtons();
+   for (auto button_ptr : buttons)
    {
       if (button_ptr->mouseIsOver(mouse_pos)) return sf::Cursor::Hand;
    }
@@ -35,7 +36,8 @@ void Widget::mouseDown(sf::Vector2i mouse_pos)
       widget_ptr->mouseDown(mouse_pos);
    }
 
-   for (auto button_ptr : m_buttons)
+   auto buttons = getButtons();
+   for (auto button_ptr : buttons)
    {
       if (button_ptr->mouseIsOver(mouse_pos))
       {
@@ -55,7 +57,8 @@ void Widget::mouseUp(sf::Vector2i mouse_pos)
    }
 
    if (m_last_button_id == 0) return;
-   for (auto button_ptr : m_buttons)
+   auto buttons = getButtons();
+   for (auto button_ptr : buttons)
    {
       if (button_ptr->mouseIsOver(mouse_pos))
       {
@@ -106,7 +109,8 @@ void Widget::draw(sf::RenderTarget& target, sf::RenderStates states) const
    {
       target.draw(*widget_ptr);
    }
-   for (auto button_ptr : m_buttons)
+   auto buttons = getButtons();
+   for (auto button_ptr : buttons)
    {
       target.draw(*button_ptr);
    }

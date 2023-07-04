@@ -16,6 +16,11 @@ struct evTakeLoan
    float interest_rate_yearly;
 };
 
+struct evPurchaseProperty
+{
+   unsigned listing_id;
+};
+
 struct evNone {};
 
    

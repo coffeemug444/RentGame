@@ -11,14 +11,7 @@ namespace Game
 {
 
 Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
-:Widget({ &m_finance_button
-                  ,&m_properties_button
-                  ,&m_loans_button
-                  ,&m_market_button
-                  ,&m_speed_pause
-                  ,&m_speed_normal
-                  ,&m_speed_fast
-                  ,&m_speed_veryfast})
+:Widget()
 ,m_ui(ui)
 ,m_screen_size(screen_size)
 ,m_speed_pause(*this, PAUSE, SpeedButton::PAUSE)
@@ -61,6 +54,18 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
    m_debt_display.setFillColor(sf::Color::Red);
    m_net_income_display.setFillColor(sf::Color::Green);
 
+}
+
+std::vector<const Button*> Toolbar::getButtons() const
+{
+   return { &m_finance_button
+           ,&m_properties_button
+           ,&m_loans_button
+           ,&m_market_button
+           ,&m_speed_pause
+           ,&m_speed_normal
+           ,&m_speed_fast
+           ,&m_speed_veryfast};
 }
 
 void Toolbar::setScreenSize(sf::Vector2u screen_size)
@@ -178,13 +183,10 @@ void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
    target.draw(m_bar);
-   for (auto button_ptr : m_buttons)
-   {
-      target.draw(*button_ptr);
-   }
    target.draw(m_capital_display);
    target.draw(m_debt_display);
    target.draw(m_net_income_display);
+   Widget::draw(target, states);
 }
 
 } // namespace Game

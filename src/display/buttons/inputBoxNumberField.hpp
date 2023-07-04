@@ -31,6 +31,7 @@ public:
    void handleClick(int button_id) override {}
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
+   std::vector<const Button*> getButtons() const override { return {}; }
 private:
    void setDisplay();
    bool m_active;

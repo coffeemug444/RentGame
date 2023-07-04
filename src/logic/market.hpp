@@ -35,7 +35,9 @@ struct Listing
 };
 
 const std::vector<Listing>& getListings() const { return m_listings; }
-void purchaseListing(unsigned id);
+
+// returns true if successfully purchased
+bool purchaseListing(unsigned id);
 
 private:
 std::vector<Listing> m_listings;

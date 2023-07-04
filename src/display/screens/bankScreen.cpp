@@ -7,8 +7,7 @@ namespace Game
 {
 
 BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Bank", CC::bank_color, 
-        {&m_loan_screen_button, &m_take_loan_button})
+:Screen(ui, screen_size, "Bank", CC::bank_color)
 ,m_loan_screen_button(*this, LOAN_SCREEN)
 ,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
@@ -26,6 +25,11 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
    m_repayment_time_errors.setFillColor(sf::Color::Red);
 
 
+}
+
+std::vector<const Button*> BankScreen::getButtons() const 
+{
+   return {&m_loan_screen_button, &m_take_loan_button};
 }
 
 void BankScreen::setScreenSize(sf::Vector2u screen_size)

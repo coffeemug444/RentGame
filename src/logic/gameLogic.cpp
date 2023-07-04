@@ -61,6 +61,15 @@ void GameLogic::handleEvents()
 
       EI::ev_take_loan.pop();
    }
+
+   while (EI::ev_purchase_property.size() > 0)
+   {
+      auto purchase_order = EI::ev_purchase_property.front();
+      if (OD::market.purchaseListing(purchase_order.listing_id))
+      {
+         EI::ev_purchase_property.pop();
+      }
+   }
 }
 
 void GameLogic::advanceDay()

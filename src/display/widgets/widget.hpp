@@ -10,7 +10,7 @@ class Button;
 class Widget : public sf::Drawable
 {
 public:
-   Widget(const std::vector<Button*>& buttons = {});
+   Widget();
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    virtual void handleClick(int button_id) = 0;
    virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
@@ -25,8 +25,8 @@ public:
    virtual void move(const sf::Vector2f& pos);
    virtual std::vector<const Widget*> getSubWidgets() const { return {}; }
    virtual std::vector<Widget*> getSubWidgets() { return {}; }
+   virtual std::vector<const Button*> getButtons() const = 0;
 protected:
-   std::vector<Button*> m_buttons;
    int m_last_button_id;
 };
 

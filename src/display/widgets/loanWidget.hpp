@@ -17,6 +17,7 @@ public:
    void setScreenSize(const sf::Vector2u& size) override;
    void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+   std::vector<const Button*> getButtons() const override { return {}; };
 private:
    unsigned m_id {};
    sf::Vector2u m_screen_size;

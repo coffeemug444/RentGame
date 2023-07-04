@@ -12,6 +12,7 @@ MarketScreen::MarketScreen(Ui& ui, sf::Vector2u screen_size)
    setScreenSize(screen_size);
 }
 
+
 void MarketScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
@@ -49,7 +50,8 @@ void MarketScreen::dataSync()
    {
       if (not listContainsId(listing.getId(), m_market_listing_widgets))
       {
-         m_market_listing_widgets.push_back({listing.getId()});
+         MarketListingWidget new_widget(listing.getId());
+         m_market_listing_widgets.push_back(new_widget);
          changed = true;
       }
    }

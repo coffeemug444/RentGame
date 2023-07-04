@@ -20,6 +20,7 @@ public:
    LoanScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void dataSync() override;
+   std::vector<const Button*> getButtons() const override;
 private:
    enum ButtonId {
       NONE = 0,
