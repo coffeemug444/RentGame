@@ -6,7 +6,7 @@ namespace Game
 {
 
 
-MarketScreen(Ui& ui, sf::Vector2u screen_size) 
+MarketScreen::MarketScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Market", CC::market_color) 
 {
    setScreenSize(screen_size);

@@ -21,7 +21,7 @@ Loan::Loan(int principle, float interest_rate_monthly, int repayment_in_months)
 ,m_interest_rate_monthly(interest_rate_monthly)
 ,m_loan_amount(principle)
 ,m_payments_remaining(repayment_in_months)
-,m_repayment_day(OD::Date::day)
+,m_repayment_day(OD::Date::getDayOfMonth())
 ,m_accrued_interest(0)
 ,m_in_arrears(0)
 {
