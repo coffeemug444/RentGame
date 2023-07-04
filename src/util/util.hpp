@@ -25,7 +25,7 @@ void clear(std::queue<T>& q)
 
 template <typename T>
 requires hasId<T>
-bool listContainsId(unsigned id, std::vector<T>& v)
+bool listContainsId(unsigned id, const std::vector<T>& v)
 {
    auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
    return it != v.end();
