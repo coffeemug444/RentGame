@@ -1,5 +1,6 @@
 #include "market.hpp"
 #include "observableData.hpp"
+#include "util/util.hpp"
 #include <math.h>
 
 namespace Game
@@ -29,14 +30,32 @@ float Market::getAgeModifier(Property::AgeClass age) const
    }
 }
 
-int Market::propertySalePrice(Property::AgeClass age) const
+int Market::averageSalePrice(Property::AgeClass age) const
 {
    return getTimeModifier() * getAgeModifier(age) * m_initial_property_price;
 }
 
-int Market::propertyRentalPrice(Property::AgeClass age) const
+int Market::averageRentalRate(Property::AgeClass age) const
 {
-   return getTimeModifier() * getAgeModifier(age) * m_initial_rental_price;
+   return getTimeModifier() * getAgeModifier(age) * m_initial_rental_rate;
+}
+
+int Market::randomSalePrice(Property::AgeClass age) const
+{
+   int going_sale_price = averageSalePrice(age);
+   float random = getNormalRandomNumber();
+   random *= std::log((float)going_sale_price);
+   random += going_sale_price;
+   return (int)random;
+}
+
+int Market::randomRentalRate(Property::AgeClass age) const
+{
+   int going_rental_rate = averageRentalRate(age);
+   float random = getNormalRandomNumber();
+   random *= std::log((float)going_rental_rate);
+   random += going_rental_rate;
+   return (int)random;
 }
 
    

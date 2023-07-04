@@ -1,7 +1,6 @@
 #include "property.hpp"
 #include "observableData.hpp"
 #include "util/util.hpp"
-#include <math.h>
 
 namespace Game
 {
@@ -61,22 +60,16 @@ Problem Property::createProblem() const
 
 bool Property::rentPriceSuccess() const
 {
-   int going_rental_rate = OD::market.propertyRentalPrice(getAgeClass());
-   float random = getNormalRandomNumber();
-   random *= std::log((float)going_rental_rate);
-   random += going_rental_rate;
-
-   return random < m_rental_price;
+   // if your set rental rate is more favorable 
+   // to market rate then indicate a success
+   return m_rental_price < OD::market.randomSalePrice(getAgeClass());
 }
 
 bool Property::salePriceSuccess() const
 {
-   int going_sale_price = OD::market.propertyRentalPrice(getAgeClass());
-   float random = getNormalRandomNumber();
-   random *= std::log((float)going_sale_price);
-   random += going_sale_price;
-
-   return random < m_price;
+   // if your set sale price is more favorable 
+   // to market price then indicate a success
+   return m_price < OD::market.randomRentalRate(getAgeClass());
 }
 
 void Property::advanceDay()

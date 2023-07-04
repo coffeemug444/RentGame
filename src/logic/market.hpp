@@ -18,8 +18,10 @@ class Market
 {
 public:
 Market();
-int propertySalePrice(Property::AgeClass age) const;
-int propertyRentalPrice(Property::AgeClass age) const;
+int averageSalePrice(Property::AgeClass age) const;
+int averageRentalRate(Property::AgeClass age) const;
+int randomSalePrice(Property::AgeClass age) const;
+int randomRentalRate(Property::AgeClass age) const;
 
 private:
 float getTimeModifier() const;
@@ -27,7 +29,7 @@ float getAgeModifier(Property::AgeClass age) const;
 
 // NOTE: these may need adjustment
 inline static const int m_initial_property_price = 1000;
-inline static const int m_initial_rental_price = 1000;
+inline static const int m_initial_rental_rate = 1000;
 
 const int m_doubling_period;
 
