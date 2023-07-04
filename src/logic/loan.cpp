@@ -51,7 +51,6 @@ void Loan::advanceDay()
 
    int amount = m_repayment_amount_monthly;
    if (m_in_arrears) amount *= 2;
-   amount += m_accrued_interest;
 
    if (OD::Player::capital < amount)
    {
