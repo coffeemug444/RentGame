@@ -42,13 +42,7 @@ void LoanWidget::handleClick(int button_id)
 
 sf::Vector2f LoanWidget::getSize() const
 {
-   auto l1 = m_principal.getGlobalBounds();
-   auto l2 = m_total.getGlobalBounds();
-   auto l3 = m_next_payment.getGlobalBounds();
-
-   float x = std::max(l1.width, std::max(l2.width,l3.width));
-   float y = 0.09*m_screen_size.y;
-   return {x,y};
+   return m_background_box.getSize();
 }
 
 sf::Vector2f LoanWidget::getPosition() const

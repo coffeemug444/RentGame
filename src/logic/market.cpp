@@ -30,6 +30,7 @@ void Market::advanceDay()
          }
       };
       m_listings.push_back(listing);
+      m_next_listing_id++;
    }
 }
 

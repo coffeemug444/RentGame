@@ -76,6 +76,8 @@ void GameLogic::advanceDay()
       property.advanceDay();
    }
 
+   OD::market.advanceDay();
+
    int loan_total = 0;
    for (Loan& loan : OD::Player::loans)
    {
