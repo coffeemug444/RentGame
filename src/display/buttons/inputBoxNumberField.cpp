@@ -12,7 +12,8 @@ InputBoxNumberField::InputBoxNumberField(std::string label,
                                          sf::Color text_colour, 
                                          int font_size, 
                                          int max_len)
-:m_active(false)
+:m_editable(true)
+,m_active(false)
 ,m_last_mouse_down(false)
 ,m_number("0")
 ,m_font_size(font_size)
@@ -53,6 +54,12 @@ void InputBoxNumberField::addDigit(char digit)
    if (m_number.size() == m_max_len) return;
    if (m_number == "0") m_number = digit;
    else m_number.push_back(digit);
+   setDisplay();
+}
+
+void InputBoxNumberField::setNumber(int number)
+{
+   m_number = std::to_string(number);
    setDisplay();
 }
 
@@ -102,11 +109,18 @@ void InputBoxNumberField::mouseUp(sf::Vector2i mouse_pos)
 
 void InputBoxNumberField::setActive(bool active)
 {
+   if (not m_editable) return;
    m_active = active;
    m_background_box.setFillColor(active
                                  ? m_active_background_colour
                                  : m_inactive_background_colour
    );
+}
+
+void InputBoxNumberField::setEditable(bool editable) 
+{ 
+   m_editable = editable; 
+   if (not m_editable) m_active = false;
 }
 
 sf::Vector2f InputBoxNumberField::getSize() const

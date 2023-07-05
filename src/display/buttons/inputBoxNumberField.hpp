@@ -23,17 +23,20 @@ public:
    void backSpace();
    void reset();
    int getNumber() const;
+   void setNumber(int number);
    void move(const sf::Vector2f& pos) override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    void mouseDown(sf::Vector2i mouse_pos) override;
    void mouseUp(sf::Vector2i mouse_pos) override;
    void setActive(bool active);
    void handleClick(int button_id) override {}
+   void setEditable(bool editable);
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
    std::vector<const Button*> getButtons() const override { return {}; }
 private:
    void setDisplay();
+   bool m_editable;
    bool m_active;
    bool m_last_mouse_down;
    std::string m_number;
