@@ -25,6 +25,7 @@ IL std::queue<evTakeLoan> ev_take_loan;
 IL std::queue<evPurchaseProperty> ev_purchase_property;
 IL std::queue<Ui::MainScreen> ev_switch_screen;
 IL std::queue<unsigned> ev_change_monitored_property_id;
+IL std::queue<evPropertyManagedStatus> ev_set_property_managed_status;
 
 };
 

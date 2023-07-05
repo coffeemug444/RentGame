@@ -27,9 +27,14 @@ private:
    void handleClick(int button_id) override;
    enum ButtonId {
       NONE = 0,
-      PROPERTY
+      PROPERTY,
+      MANAGER
    };
    CircleButton m_property_button;
+   CircleButton m_manager_button;
+
+   bool m_managed;
+   unsigned m_id;
 
    sf::Text m_price;
    sf::Text m_age;

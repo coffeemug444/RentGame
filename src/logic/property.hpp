@@ -24,6 +24,9 @@ unsigned getId() const { return m_id; }
 int getPrice() const { return m_price; }
 std::optional<Problem> getProblem() const { return m_problem; }
 void advanceDay();
+void setManaged(bool managed) { m_managed = managed; }
+bool isManaged() const { return m_managed; }
+bool isRented() const { return m_rented; }
 
 enum AgeClass
 {

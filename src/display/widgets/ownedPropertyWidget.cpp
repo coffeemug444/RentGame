@@ -29,6 +29,7 @@ OwnedPropertyWidget::OwnedPropertyWidget(unsigned id)
 
    m_background_box.setFillColor(CC::light_grey);
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
+   m_background_box.setOutlineColor(sf::Color::Red);
 }
 
 std::vector<const Button*> OwnedPropertyWidget::getButtons() const 
@@ -105,6 +106,16 @@ void OwnedPropertyWidget::dataSync()
    }
    m_age.setString(age_string);
    m_price.setString(std::string("Price: ") + property.value()->getPrice());
+
+   if (property.value()->isManaged())
+      m_background_box.setOutlineThickness(0);
+   else
+      m_background_box.setOutlineThickness(2);
+   
+   if (property.value()->isRented())
+      m_background_box.setFillColor(sf::Color::Green);
+   else
+      m_background_box.setFillColor(CC::light_grey);
 }
 
 void OwnedPropertyWidget::move(const sf::Vector2f& pos) 

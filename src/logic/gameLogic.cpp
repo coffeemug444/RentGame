@@ -76,6 +76,16 @@ void GameLogic::handleEvents()
       OD::monitored_property_id = EI::ev_change_monitored_property_id.front();
       EI::ev_change_monitored_property_id.pop();
    }
+
+   while (EI::ev_set_property_managed_status.size() > 0)
+   {
+      auto ev = EI::ev_set_property_managed_status.front();
+      EI::ev_set_property_managed_status.pop();
+      if (not listContainsId(ev.property_id, OD::Player::properties))
+         continue;
+      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      property.setManaged(ev.managed);
+   }
 }
 
 void GameLogic::advanceDay()

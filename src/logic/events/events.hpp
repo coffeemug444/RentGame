@@ -23,5 +23,11 @@ struct evPurchaseProperty
 
 struct evNone {};
 
+struct evPropertyManagedStatus
+{
+   unsigned property_id;
+   bool managed;
+};
+
    
 } // namespace Game
