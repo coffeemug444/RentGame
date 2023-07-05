@@ -155,6 +155,15 @@ void Game::uiLoop()
          m_ui.dataSync();
       }
       else dataSyncCounter++;
+      if (EI::ev_switch_screen.size() > 0)
+      {
+         std::lock_guard lock(EI::gametick_mutex);
+         while (EI::ev_switch_screen.size() > 0)
+         {
+            m_ui.selectScreen(EI::ev_switch_screen.front());
+            EI::ev_switch_screen.pop();
+         }
+      }
       m_ui.uiEvents();
       resizeWindow();
       mouseMoved();

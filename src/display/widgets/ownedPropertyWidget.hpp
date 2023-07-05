@@ -29,7 +29,7 @@ private:
 
    unsigned m_id;
 
-   CircleButton m_purchase_button;
+   CircleButton m_edit_property_button;
    sf::Text m_price;
    sf::Text m_age;
    sf::RectangleShape m_background_box;

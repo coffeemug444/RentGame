@@ -55,10 +55,12 @@ void Loan::advanceDay()
    if (OD::Player::capital < amount)
    {
       if (m_in_arrears)
+      {
          // uh oh
+         std::lock_guard lock(EI::gametick_mutex);
          EI::ev_stop_game.push({});
-      else
-         goIntoArrears();
+      }
+      else goIntoArrears();
    }
    else
    {

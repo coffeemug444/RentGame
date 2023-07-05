@@ -68,7 +68,9 @@ void BankScreen::handleTakeLoan()
    bool errors = setErrors(amount, repayment_time, interest_rate);
    if (errors) return;
    
-   EI::ev_take_loan.push({amount, repayment_time, interest_rate});
+
+   {std::lock_guard lock(EI::gametick_mutex);
+   EI::ev_take_loan.push({amount, repayment_time, interest_rate});}
    m_loan_amount_field.reset();
    m_repayment_time_field.reset();
 }
@@ -114,18 +116,22 @@ void BankScreen::backspace()
 void BankScreen::uiEvents()
 {
    Screen::uiEvents();
-   while (EI::ev_take_loan_status.size() > 0)
+   if (EI::ev_take_loan_status.size() > 0)
    {
-      auto status = EI::ev_take_loan_status.front();
-      switch (status)
+      std::lock_guard lock(EI::gametick_mutex);
+      while (EI::ev_take_loan_status.size() > 0)
       {
-      case SUCCESS:
-         m_ui.selectScreen(Ui::LOANS);
-         break;
-      case FAILED:
-         break;
+         auto status = EI::ev_take_loan_status.front();
+         switch (status)
+         {
+         case SUCCESS:
+            m_ui.selectScreen(Ui::LOANS);
+            break;
+         case FAILED:
+            break;
+         }
+         EI::ev_take_loan_status.pop();
       }
-      EI::ev_take_loan_status.pop();
    }
 }
 

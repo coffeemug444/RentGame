@@ -40,7 +40,7 @@ void GameLogic::handleEvents()
 
    if (EI::ev_gamespeed_changed.size() > 0)
    {
-      m_current_speed = EI::ev_gamespeed_changed.back();
+      m_current_speed = EI::ev_gamespeed_changed.front();
       clear(EI::ev_gamespeed_changed);
 
       OD::current_speed = m_current_speed;
@@ -69,6 +69,12 @@ void GameLogic::handleEvents()
       {
          EI::ev_purchase_property.pop();
       }
+   }
+
+   while (EI::ev_change_monitored_property_id.size() > 0)
+   {
+      OD::monitored_property_id = EI::ev_change_monitored_property_id.front();
+      EI::ev_change_monitored_property_id.pop();
    }
 }
 

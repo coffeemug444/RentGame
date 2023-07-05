@@ -47,6 +47,8 @@ struct ObservableData
       IL std::vector<Property> properties;
    };
 
+   IL unsigned monitored_property_id = 0;
+
    IL Market market;
 
    static void init()
