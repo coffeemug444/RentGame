@@ -37,7 +37,9 @@ private:
    unsigned m_id;
 
    sf::Text m_price;
+   sf::Text m_rental_price;
    sf::Text m_age;
+   sf::Text m_rental_status;
 };
 
 } // namespace Game

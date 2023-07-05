@@ -99,10 +99,8 @@ void Property::advanceDay()
       }
    }
 
-   if (not m_rented) return;
-
    // roll problems based on house age
-   if (getRandomEvent(getProblemChance()))
+   if (m_rented and getRandomEvent(getProblemChance()))
    {
       m_problem = createProblem();
    }
@@ -110,7 +108,10 @@ void Property::advanceDay()
    // do manager things
    if (m_managed)
    {
+      if (not m_rented) m_to_be_rented = true;
+
       // check for rent adjustments
+      m_rental_price = OD::market.averageRentalRate(getAgeClass());
 
       // check for problems
       if (m_problem.has_value())
@@ -133,7 +134,7 @@ void Property::advanceDay()
    // check tenant dissatisfaction (maybe they leave)
 
    // collect rent on rent day
-   if (OD::Date::getWeekday() == m_rent_day)
+   if (m_rented and OD::Date::getWeekday() == m_rent_day)
    {
       // get rent
       int collected_rent = m_rental_price;
