@@ -22,6 +22,7 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    std::vector<const Button*> getButtons() const override;
+   void dataSync() override;
 private:
    void handleClick(int button_id) override;
    enum ButtonId {
@@ -29,6 +30,9 @@ private:
       PROPERTY
    };
    CircleButton m_property_button;
+
+   sf::Text m_price;
+   sf::Text m_age;
 };
 
 } // namespace Game
