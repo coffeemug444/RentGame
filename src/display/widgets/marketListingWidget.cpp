@@ -10,7 +10,7 @@ namespace Game
 
 MarketListingWidget::MarketListingWidget(unsigned id) 
 :m_id(id)
-,m_purchase_button(*this, BUY_PROPERTY)
+,m_purchase_button(BUY_PROPERTY)
 ,m_price()
 ,m_age()
 {

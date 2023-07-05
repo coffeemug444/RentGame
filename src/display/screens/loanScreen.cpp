@@ -8,7 +8,7 @@ namespace Game
 
 LoanScreen::LoanScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Loans", CC::loan_color) 
-,m_bank_screen_button(*this, BANK)
+,m_bank_screen_button(BANK)
 {
    m_bank_screen_button.setFillColor(CC::bank_color);
    m_bank_screen_button.setRadius(0.05f*screen_size.y);

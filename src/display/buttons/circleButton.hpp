@@ -9,11 +9,10 @@ namespace Game
 class CircleButton : public Button
 {
 public:
-   CircleButton(Widget& callback_class, int button_id)
-      :Button(&callback_class, button_id) {}
+   CircleButton(int button_id)
+      :Button(button_id) {}
    CircleButton& operator= (const CircleButton& other)
    {
-      m_callback_class = other.m_callback_class;
       m_button_id = other.m_button_id;
       m_button_circle = other.m_button_circle;
       return *this;

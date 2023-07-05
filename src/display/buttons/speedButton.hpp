@@ -18,8 +18,8 @@ public:
       VERYFAST
    };
 
-   SpeedButton(Widget& callback_class, int button_id, SpeedType type)
-      :CircleButton(callback_class, button_id)
+   SpeedButton(int button_id, SpeedType type)
+      :CircleButton(button_id)
       ,m_type(type)
       ,m_symbol_color(sf::Color::White)
    {

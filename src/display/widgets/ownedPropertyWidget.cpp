@@ -10,7 +10,7 @@ namespace Game
 
 OwnedPropertyWidget::OwnedPropertyWidget(unsigned id) 
 :m_id(id)
-,m_purchase_button(*this, EDIT_PROPERTY)
+,m_purchase_button(EDIT_PROPERTY)
 ,m_price()
 ,m_age()
 {

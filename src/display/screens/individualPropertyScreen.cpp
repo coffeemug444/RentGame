@@ -8,7 +8,7 @@ namespace Game
 
 IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Property 2",CC::individual_property_color)
-,m_property_button(*this, PROPERTY)
+,m_property_button(PROPERTY)
 {
    m_property_button.setFillColor(CC::property_color);
    m_property_button.setRadius(0.05f*screen_size.y);
