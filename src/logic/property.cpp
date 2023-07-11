@@ -15,7 +15,7 @@ Property::Property(int price, int age)
 ,m_rent_day(0)
 ,m_renter_dissatisfaction(0)
 ,m_managed(false)
-,m_to_be_rented(false)
+,m_looking_for_tenants(false)
 ,m_to_be_sold(false)
 {
    m_next_property_id++;
@@ -77,12 +77,12 @@ void Property::advanceDay()
 {
    m_age++;
 
-   if (m_to_be_rented)
+   if (m_looking_for_tenants)
    {
       // check market conditions, roll on chance for gaining renters
       if (rentPriceSuccess())
       {
-         m_to_be_rented = false;
+         m_looking_for_tenants = false;
          m_rented = true;
       }
    }
@@ -108,7 +108,7 @@ void Property::advanceDay()
    // do manager things
    if (m_managed)
    {
-      if (not m_rented) m_to_be_rented = true;
+      if (not m_rented) m_looking_for_tenants = true;
 
       // check for rent adjustments
       m_rental_price = OD::market.averageRentalRate(getAgeClass());

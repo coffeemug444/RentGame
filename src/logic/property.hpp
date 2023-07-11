@@ -30,7 +30,9 @@ void advanceDay();
 void setManaged(bool managed) { m_managed = managed; }
 bool isManaged() const { return m_managed; }
 bool isRented() const { return m_rented; }
-bool lookingForRenters() const { return m_to_be_rented; }
+void evictTenants() { m_rented = false; }
+bool getLookingForTenants() const { return m_looking_for_tenants; }
+void setLookingForTenants(bool looking) { m_looking_for_tenants = looking; }
 
 enum AgeClass
 {
@@ -71,7 +73,7 @@ int m_renter_dissatisfaction;
 // automated management of property eg. rent price, fixing problems
 bool m_managed; 
 
-bool m_to_be_rented;   // player is looking for tenants
+bool m_looking_for_tenants;   // player is looking for tenants
 bool m_to_be_sold;  // player is looking for buyers
 
 

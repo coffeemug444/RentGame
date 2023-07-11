@@ -96,6 +96,26 @@ void GameLogic::handleEvents()
       property.setPrice(ev.sale_price);
       property.setRentalPrice(ev.rental_price);
    }
+
+   while (EI::ev_set_property_looking_for_tenants_status.size() > 0)
+   {
+      auto ev = EI::ev_set_property_looking_for_tenants_status.front();
+      EI::ev_set_property_looking_for_tenants_status.pop();
+      if (not listContainsId(ev.property_id, OD::Player::properties))
+         continue;
+      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      property.setLookingForTenants(ev.looking_for_tenants); 
+   }
+
+   while (EI::ev_evict_tenants_from_property_id.size() > 0)
+   {
+      auto property_id = EI::ev_evict_tenants_from_property_id.front();
+      EI::ev_evict_tenants_from_property_id.pop();
+      if (not listContainsId(property_id, OD::Player::properties))
+         continue;
+      auto& property = *findById(property_id, OD::Player::properties).value();
+      property.evictTenants();
+   }
 }
 
 void GameLogic::advanceDay()

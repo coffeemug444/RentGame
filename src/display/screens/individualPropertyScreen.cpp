@@ -12,7 +12,11 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 ,m_property_button(PROPERTY)
 ,m_manager_button(MANAGER)
 ,m_save_button(SAVE)
+,m_sell_button(SELL)
+,m_rent_button(RENT)
 ,m_managed(false)
+,m_looking_for_tenants(false)
+,m_rented(false)
 ,m_id(0)
 ,m_price("Price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_rental_price("Rental price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
@@ -23,6 +27,11 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 
    m_save_button.setFillColor(sf::Color::Green);
    m_save_button.setRadius(0.05f*screen_size.y);
+
+   m_sell_button.setFillColor(sf::Color::Green);
+   m_sell_button.setRadius(0.025f*screen_size.y);
+   m_rent_button.setFillColor(sf::Color::Green);
+   m_rent_button.setRadius(0.025f*screen_size.y);
 
    m_age.setString("Age: ");
 
@@ -38,7 +47,7 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 
 std::vector<const Button*> IndividualPropertyScreen::getButtons() const
 {
-   return {&m_property_button, &m_manager_button, &m_save_button};
+   return {&m_property_button, &m_manager_button, &m_save_button, &m_sell_button, &m_rent_button};
 }
 
 void IndividualPropertyScreen::dataSync() 
@@ -62,12 +71,24 @@ void IndividualPropertyScreen::dataSync()
    }
    m_age.setString(age_string);
 
-   if (property.isRented())
+   m_looking_for_tenants = property.getLookingForTenants();
+   m_rented = property.isRented();
+
+   if (m_rented)
+   {
       m_rental_status.setString("Rental status: Rented");
-   else if(property.lookingForRenters())
+      m_rent_button.setFillColor(sf::Color::Red);
+   }
+   else if(m_looking_for_tenants)
+   {      
       m_rental_status.setString("Rental status: Looking for tenants");
+      m_rent_button.setFillColor(sf::Color::Yellow);
+   }
    else
+   {
       m_rental_status.setString("Rental status: No tenants, not looking");
+      m_rent_button.setFillColor(sf::Color::Green);
+   }
 
    m_managed = property.isManaged();
 
@@ -104,6 +125,8 @@ void IndividualPropertyScreen::setScreenSize(sf::Vector2u screen_size)
    m_rental_price.setPosition({10,80});
    m_rental_status.setPosition({10,100});
    m_manager_button.setPosition({10,130});
+   m_sell_button.setPosition({300,130});
+   m_rent_button.setPosition({350,130});
 }
 
 void IndividualPropertyScreen::handleClick(int button_id) 
@@ -122,6 +145,16 @@ void IndividualPropertyScreen::handleClick(int button_id)
       {std::lock_guard lock(EI::gametick_mutex);
       EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});}
       break;
+   case SELL:
+      break;
+   case RENT:
+      {std::lock_guard lock(EI::gametick_mutex);
+      if (m_rented)
+         EI::ev_evict_tenants_from_property_id.push(m_id);
+      else
+         EI::ev_set_property_looking_for_tenants_status.push({m_id, not m_looking_for_tenants});
+      }
+      break;
    default: break;
    }
 }
@@ -134,6 +167,8 @@ void IndividualPropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates s
    target.draw(m_rental_price);
    target.draw(m_rental_status);
    target.draw(m_manager_button);
+   target.draw(m_sell_button);
+   target.draw(m_rent_button);
 }
 
 

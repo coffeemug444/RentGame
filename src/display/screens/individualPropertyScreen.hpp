@@ -32,13 +32,19 @@ private:
       NONE = 0,
       PROPERTY,
       MANAGER,
-      SAVE
+      SAVE,
+      SELL,
+      RENT
    };
    CircleButton m_property_button;
    CircleButton m_manager_button;
    CircleButton m_save_button;
+   CircleButton m_sell_button;
+   CircleButton m_rent_button;
 
    bool m_managed;
+   bool m_looking_for_tenants;
+   bool m_rented;
    unsigned m_id;
 
    InputBoxNumberField m_price;

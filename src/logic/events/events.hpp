@@ -31,5 +31,11 @@ struct evPropertyManagedStatus
    bool managed;
 };
 
+struct evPropertyLookingForTenantsStatus
+{
+   unsigned property_id;
+   bool looking_for_tenants;
+};
+
    
 } // namespace Game
