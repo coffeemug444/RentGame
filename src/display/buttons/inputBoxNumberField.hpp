@@ -19,8 +19,8 @@ public:
    void setError(std::string error_message);
    void resetError();
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   void addDigit(char digit);
-   void backSpace();
+   void charEntered(char c) override;
+   void backspace() override;
    void reset();
    int getNumber() const;
    void setNumber(int number);

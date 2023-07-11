@@ -22,8 +22,6 @@ public:
    BankScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   void charEntered(char c) override;
-   void backspace() override;
    void uiEvents() override;
    std::vector<const Widget*> getSubWidgets() const override;
    std::vector<Widget*> getSubWidgets() override;

@@ -16,8 +16,10 @@ public:
    virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
    virtual void mouseDown(sf::Vector2i mouse_pos);
    virtual void mouseUp(sf::Vector2i mouse_pos);
-   virtual void uiEvents() {}
-   virtual void dataSync() {}
+   virtual void uiEvents();
+   virtual void dataSync();
+   virtual void charEntered(char c);
+   virtual void backspace();
    virtual sf::Vector2f getSize() const = 0;
    virtual sf::Vector2f getPosition() const = 0;
    virtual void setScreenSize(const sf::Vector2u& size);

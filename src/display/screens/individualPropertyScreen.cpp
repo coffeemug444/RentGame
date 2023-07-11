@@ -11,22 +11,19 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 :Screen(ui, screen_size, "Property 2",CC::individual_property_color)
 ,m_property_button(PROPERTY)
 ,m_manager_button(MANAGER)
+,m_save_button(SAVE)
 ,m_managed(false)
 ,m_id(0)
+,m_price("Price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
+,m_rental_price("Rental price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
+,m_data_synced(false)
 {
    m_property_button.setFillColor(CC::property_color);
    m_property_button.setRadius(0.05f*screen_size.y);
 
-   m_price.setFont(OD::font);
-   m_price.setCharacterSize(15);
-   m_price.setString("Price: ");
+   m_save_button.setFillColor(sf::Color::Green);
+   m_save_button.setRadius(0.05f*screen_size.y);
 
-   m_rental_price.setFont(OD::font);
-   m_rental_price.setCharacterSize(15);
-   m_rental_price.setString("Rental price: ");
-
-   m_age.setFont(OD::font);
-   m_age.setCharacterSize(15);
    m_age.setString("Age: ");
 
    m_rental_status.setFont(OD::font);
@@ -41,7 +38,7 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 
 std::vector<const Button*> IndividualPropertyScreen::getButtons() const
 {
-   return {&m_property_button, &m_manager_button};
+   return {&m_property_button, &m_manager_button, &m_save_button};
 }
 
 void IndividualPropertyScreen::dataSync() 
@@ -64,8 +61,6 @@ void IndividualPropertyScreen::dataSync()
       age_string += "VERY OLD"; break;      
    }
    m_age.setString(age_string);
-   m_price.setString(std::string("Price: ") + property.getPrice());
-   m_rental_price.setString(std::string("Rental price: ") + property.getRentalPrice());
 
    if (property.isRented())
       m_rental_status.setString("Rental status: Rented");
@@ -76,16 +71,34 @@ void IndividualPropertyScreen::dataSync()
 
    m_managed = property.isManaged();
 
-   if (m_managed)
-      m_manager_button.setFillColor(sf::Color::Red);
-   else
-      m_manager_button.setFillColor(sf::Color::Green);
+   m_price.setEditable(not m_managed);
+   m_rental_price.setEditable(not m_managed);
+   m_manager_button.setFillColor(m_managed ? sf::Color::Red : sf::Color::Green);
+
+   if (not m_data_synced or m_managed)
+   {
+      m_price.setNumber(property.getPrice());
+      m_rental_price.setNumber(property.getRentalPrice());
+   }
+
+   m_data_synced = true;
+}
+
+std::vector<const Widget*> IndividualPropertyScreen::getSubWidgets() const
+{
+   return {&m_price, &m_rental_price};
+}
+
+std::vector<Widget*> IndividualPropertyScreen::getSubWidgets()
+{
+   return {&m_price, &m_rental_price};
 }
 
 void IndividualPropertyScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
    m_property_button.setPosition({screen_size.x-2*m_property_button.getRadius(),0});
+   m_save_button.setPosition({300,60});
    m_age.setPosition({10,40});
    m_price.setPosition({10,60});
    m_rental_price.setPosition({10,80});
@@ -99,10 +112,15 @@ void IndividualPropertyScreen::handleClick(int button_id)
    {
    case PROPERTY:
       m_ui.selectScreen(Ui::PROPERTIES);
+      m_data_synced = false;
       break;
    case MANAGER:
       {std::lock_guard lock(EI::gametick_mutex);
       EI::ev_set_property_managed_status.push({m_id, not m_managed});}
+      break;
+   case SAVE:
+      {std::lock_guard lock(EI::gametick_mutex);
+      EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});}
       break;
    default: break;
    }

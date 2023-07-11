@@ -100,19 +100,6 @@ void BankScreen::resetErrors()
    m_repayment_time_errors.setString("");
 }
 
-void BankScreen::charEntered(char c) 
-{
-   if (c < '0' or c > '9') return;
-   m_loan_amount_field.addDigit(c);
-   m_repayment_time_field.addDigit(c);
-}
-
-void BankScreen::backspace() 
-{
-   m_loan_amount_field.backSpace();
-   m_repayment_time_field.backSpace();
-}
-
 void BankScreen::uiEvents()
 {
    Screen::uiEvents();

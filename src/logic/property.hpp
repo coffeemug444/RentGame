@@ -23,6 +23,8 @@ Property(int price, int age);
 unsigned getId() const { return m_id; }
 int getPrice() const { return m_price; }
 int getRentalPrice() const { return m_rental_price; }
+void setPrice(int price) { m_price = price; }
+void setRentalPrice(int price) { m_rental_price = price; }
 std::optional<Problem> getProblem() const { return m_problem; }
 void advanceDay();
 void setManaged(bool managed) { m_managed = managed; }

@@ -72,6 +72,42 @@ void Widget::mouseUp(sf::Vector2i mouse_pos)
    m_last_button_id = 0;
 }
 
+void Widget::uiEvents()
+{
+   auto sub_widgets = getSubWidgets();
+   for (auto widget_ptr : sub_widgets)
+   {
+      widget_ptr->uiEvents();
+   }
+}
+
+void Widget::dataSync()
+{
+   auto sub_widgets = getSubWidgets();
+   for (auto widget_ptr : sub_widgets)
+   {
+      widget_ptr->dataSync();
+   }
+}
+
+void Widget::charEntered(char c)
+{
+   auto sub_widgets = getSubWidgets();
+   for (auto widget_ptr : sub_widgets)
+   {
+      widget_ptr->charEntered(c);
+   }
+}
+
+void Widget::backspace()
+{
+   auto sub_widgets = getSubWidgets();
+   for (auto widget_ptr : sub_widgets)
+   {
+      widget_ptr->backspace();
+   }
+}
+
 void Widget::setScreenSize(const sf::Vector2u& pos)
 {
    auto sub_widgets = getSubWidgets();

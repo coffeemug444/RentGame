@@ -62,12 +62,11 @@ void GameLogic::handleEvents()
       EI::ev_take_loan.pop();
    }
 
-   while (EI::ev_purchase_property.size() > 0)
+   while (EI::ev_purchase_listing_id.size() > 0)
    {
-      auto purchase_order = EI::ev_purchase_property.front();
-      if (OD::market.purchaseListing(purchase_order.listing_id))
+      if (OD::market.purchaseListing(EI::ev_purchase_listing_id.front()))
       {
-         EI::ev_purchase_property.pop();
+         EI::ev_purchase_listing_id.pop();
       }
    }
 
@@ -85,6 +84,17 @@ void GameLogic::handleEvents()
          continue;
       auto& property = *findById(ev.property_id, OD::Player::properties).value();
       property.setManaged(ev.managed);
+   }
+
+   while (EI::ev_update_property_prices.size() > 0)
+   {
+      auto ev = EI::ev_update_property_prices.front();
+      EI::ev_update_property_prices.pop();
+      if (not listContainsId(ev.property_id, OD::Player::properties))
+         continue;
+      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      property.setPrice(ev.sale_price);
+      property.setRentalPrice(ev.rental_price);
    }
 }
 

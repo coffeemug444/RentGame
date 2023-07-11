@@ -16,9 +16,11 @@ struct evTakeLoan
    float interest_rate_yearly;
 };
 
-struct evPurchaseProperty
+struct evUpdatePropertyPrices
 {
-   unsigned listing_id;
+   unsigned property_id;
+   int sale_price;
+   int rental_price;
 };
 
 struct evNone {};

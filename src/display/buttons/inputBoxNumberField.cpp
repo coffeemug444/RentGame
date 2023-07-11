@@ -48,10 +48,11 @@ InputBoxNumberField::InputBoxNumberField(std::string label,
    m_errors.setPosition(numbers_offset+sf::Vector2f{background_box_w+5.f,0});
 }
 
-void InputBoxNumberField::addDigit(char digit)
+void InputBoxNumberField::charEntered(char digit)
 {
    if (not m_active) return;
    if (m_number.size() == m_max_len) return;
+   if ('0' > digit or '9' < digit) return;
    if (m_number == "0") m_number = digit;
    else m_number.push_back(digit);
    setDisplay();
@@ -70,7 +71,7 @@ void InputBoxNumberField::reset()
    setDisplay();
 }
 
-void InputBoxNumberField::backSpace()
+void InputBoxNumberField::backspace()
 {
    if (not m_active) return;
    if (m_number == "0") return;

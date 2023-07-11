@@ -72,25 +72,6 @@ void Screen::mouseUp(sf::Vector2i mouse_pos)
    Widget::mouseUp(mouse_pos);
 }
 
-void Screen::uiEvents()
-{
-   auto widgets = getSubWidgets();
-   for (auto widget : widgets)
-   {
-      widget->uiEvents();
-   }
-}
-
-void Screen::dataSync()
-{
-   auto widgets = getSubWidgets();
-   for (auto widget : widgets)
-   {
-      widget->dataSync();
-   }
-}
-
-
 
 
 } // namespace Game

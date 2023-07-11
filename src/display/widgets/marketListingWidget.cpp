@@ -42,7 +42,7 @@ void MarketListingWidget::handleClick(int button_id)
    {
    case BUY_PROPERTY:
       {std::lock_guard lock(EI::gametick_mutex);
-      EI::ev_purchase_property.push({m_id});}
+      EI::ev_purchase_listing_id.push(m_id);}
       break;
    default:
       break;

@@ -1,6 +1,7 @@
 #pragma once
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
+#include "display/buttons/inputBoxNumberField.hpp"
 
 /*
 
@@ -23,23 +24,29 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    std::vector<const Button*> getButtons() const override;
    void dataSync() override;
+   std::vector<const Widget*> getSubWidgets() const;
+   std::vector<Widget*> getSubWidgets();
 private:
    void handleClick(int button_id) override;
    enum ButtonId {
       NONE = 0,
       PROPERTY,
-      MANAGER
+      MANAGER,
+      SAVE
    };
    CircleButton m_property_button;
    CircleButton m_manager_button;
+   CircleButton m_save_button;
 
    bool m_managed;
    unsigned m_id;
 
-   sf::Text m_price;
-   sf::Text m_rental_price;
+   InputBoxNumberField m_price;
+   InputBoxNumberField m_rental_price;
    sf::Text m_age;
    sf::Text m_rental_status;
+
+   bool m_data_synced;
 };
 
 } // namespace Game
