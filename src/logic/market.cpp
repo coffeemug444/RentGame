@@ -52,7 +52,7 @@ int Market::randomPropertyAge() const
    // in a normal distribution there is a 5% chance of getting a number greater than this
    const float NORMAL_5_PERCENT = 1.65f; 
    const int very_old_age_days = Property::AgeClass::VERYOLD*OD::Date::YEAR_LEN;
-   return NORMAL_5_PERCENT * std::abs(getNormalRandomNumber()) * very_old_age_days;
+   return (std::abs(getNormalRandomNumber())/NORMAL_5_PERCENT) * very_old_age_days;
 }
 
 float Market::getTimeModifier() const
