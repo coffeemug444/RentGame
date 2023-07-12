@@ -64,10 +64,9 @@ void GameLogic::handleEvents()
 
    while (EI::ev_purchase_listing_id.size() > 0)
    {
-      if (OD::market.purchaseListing(EI::ev_purchase_listing_id.front()))
-      {
-         EI::ev_purchase_listing_id.pop();
-      }
+      auto listing_id = EI::ev_purchase_listing_id.front();
+      EI::ev_purchase_listing_id.pop();
+      OD::market.purchaseListing(listing_id);
    }
 
    while (EI::ev_change_monitored_property_id.size() > 0)
