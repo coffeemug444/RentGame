@@ -24,8 +24,8 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    std::vector<const Button*> getButtons() const override;
    void dataSync() override;
-   std::vector<const Widget*> getSubWidgets() const;
-   std::vector<Widget*> getSubWidgets();
+   std::vector<const Widget*> getSubWidgets() const override;
+   std::vector<Widget*> getSubWidgets() override;
 private:
    void handleClick(int button_id) override;
    enum ButtonId {
