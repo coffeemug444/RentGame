@@ -24,24 +24,6 @@ void MarketScreen::setScreenSize(sf::Vector2u screen_size)
    }
 }
 
-std::vector<Widget*> MarketScreen::getSubWidgets()
-{
-   std::vector<Widget*> widgets(m_market_listing_widgets.size());
-   std::transform(m_market_listing_widgets.begin(), m_market_listing_widgets.end(), widgets.begin(),
-      [](MarketListingWidget& loan_widget) -> Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
-std::vector<const Widget*> MarketScreen::getSubWidgets() const
-{
-   std::vector<const Widget*> widgets(m_market_listing_widgets.size());
-   std::transform(m_market_listing_widgets.begin(), m_market_listing_widgets.end(), widgets.begin(),
-      [](const MarketListingWidget& loan_widget) -> const Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
 void MarketScreen::dataSync() 
 {
    bool changed = false;

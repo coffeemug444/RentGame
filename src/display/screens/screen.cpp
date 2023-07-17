@@ -13,7 +13,6 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
 ,m_active(false) 
 ,m_last_button_id(0)
 {
-   setScreenSize(screen_size);
    m_background.setFillColor(background_color);
 
    m_title.setFont(OD::font);
@@ -24,10 +23,9 @@ void Screen::setScreenSize(sf::Vector2u screen_size)
    float screen_w = static_cast<float>(screen_size.x);
    float screen_h = static_cast<float>(screen_size.y);
    m_background.setSize({screen_w,screen_h});
-   auto widgets = getSubWidgets();
-   for (auto widget : widgets)
+   for (auto& widget : *this)
    {
-      widget->setScreenSize(screen_size);
+      widget.setScreenSize(screen_size);
    }
 }
 

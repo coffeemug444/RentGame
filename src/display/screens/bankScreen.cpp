@@ -122,14 +122,15 @@ void BankScreen::uiEvents()
    }
 }
 
-std::vector<const Widget*> BankScreen::getSubWidgets() const
-{
-   return {&m_loan_amount_field, &m_repayment_time_field};
-}
 
-std::vector<Widget*> BankScreen::getSubWidgets()
+const Widget& BankScreen::getSubWidget(unsigned index) const
 {
-   return {&m_loan_amount_field, &m_repayment_time_field};
+   switch (index)
+   {
+   case 0: return m_loan_amount_field;
+   case 1: return m_repayment_time_field;
+   default: return Widget::getSubWidget(index);
+   }
 }
 
 void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const

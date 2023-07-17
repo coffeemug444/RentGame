@@ -21,10 +21,9 @@ public:
    void handleClick(int button_id) override {}
    void dataSync() override;
    std::vector<const Button*> getButtons() const override { return {}; }
+   const Widget& getSubWidget(unsigned index) const override { return m_market_listing_widgets.at(index); }
+   Iterator end() const override { return Iterator(this, m_market_listing_widgets.size()); }
 private:
-
-   std::vector<const Widget*> getSubWidgets() const override;
-   std::vector<Widget*> getSubWidgets() override;
 
    std::vector<MarketListingWidget> m_market_listing_widgets;
 };

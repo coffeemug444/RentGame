@@ -21,6 +21,7 @@ public:
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
    std::vector<const Button*> getButtons() const override;
+   Iterator end() const override { return Iterator(this, 0); }
 private:
    void handleClick(int button_id) override;
 

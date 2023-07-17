@@ -26,6 +26,7 @@ public:
    FinanceScreen(Ui& ui, sf::Vector2u screen_size);
    void handleClick(int button_id) override {}
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+   Iterator end() const override { return Iterator(this, 0); }
    std::vector<const Button*> getButtons() const override { return {}; }
 };
 

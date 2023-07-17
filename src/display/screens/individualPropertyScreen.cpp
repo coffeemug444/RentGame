@@ -105,14 +105,15 @@ void IndividualPropertyScreen::dataSync()
    m_data_synced = true;
 }
 
-std::vector<const Widget*> IndividualPropertyScreen::getSubWidgets() const
-{
-   return {&m_price, &m_rental_price};
-}
 
-std::vector<Widget*> IndividualPropertyScreen::getSubWidgets()
+const Widget& IndividualPropertyScreen::getSubWidget(unsigned index) const 
 {
-   return {&m_price, &m_rental_price};
+   switch (index)
+   {
+   case 0: return m_price;
+   case 1: return m_rental_price;
+   default: return Widget::getSubWidget(index);
+   }
 }
 
 void IndividualPropertyScreen::setScreenSize(sf::Vector2u screen_size)

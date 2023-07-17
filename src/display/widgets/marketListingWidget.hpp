@@ -20,6 +20,7 @@ public:
    void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    std::vector<const Button*> getButtons() const override;
+   Iterator end() const override { return Iterator(this, 0); }
 
 private:
    enum ButtonId {

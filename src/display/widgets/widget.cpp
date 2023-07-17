@@ -13,10 +13,10 @@ Widget::Widget()
 sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
 {
    static int hand_count = 0;
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+
+   for (auto& sub_widget : *this)
    {
-      sf::Cursor::Type cursor_type = widget_ptr->getCursorType(mouse_pos);
+      sf::Cursor::Type cursor_type = sub_widget.getCursorType(mouse_pos);
       if (cursor_type != sf::Cursor::Arrow) return cursor_type;
    }
 
@@ -30,10 +30,9 @@ sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
 
 void Widget::mouseDown(sf::Vector2i mouse_pos)
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->mouseDown(mouse_pos);
+      sub_widget.mouseDown(mouse_pos);
    }
 
    auto buttons = getButtons();
@@ -50,10 +49,9 @@ void Widget::mouseDown(sf::Vector2i mouse_pos)
 
 void Widget::mouseUp(sf::Vector2i mouse_pos)
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->mouseUp(mouse_pos);
+      sub_widget.mouseUp(mouse_pos);
    }
 
    if (m_last_button_id == 0) return;
@@ -74,46 +72,41 @@ void Widget::mouseUp(sf::Vector2i mouse_pos)
 
 void Widget::uiEvents()
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->uiEvents();
+      sub_widget.uiEvents();
    }
 }
 
 void Widget::dataSync()
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->dataSync();
+      sub_widget.dataSync();
    }
 }
 
 void Widget::charEntered(char c)
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->charEntered(c);
+      sub_widget.charEntered(c);
    }
 }
 
 void Widget::backspace()
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->backspace();
+      sub_widget.backspace();
    }
 }
 
 void Widget::setScreenSize(const sf::Vector2u& pos)
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->setScreenSize(pos);
+      sub_widget.setScreenSize(pos);
    }
 }
 
@@ -122,28 +115,25 @@ void Widget::setPosition(const sf::Vector2f& pos)
    sf::Vector2f old_pos = getPosition();
    sf::Vector2f diff = pos - old_pos;
    move(diff);
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->move(diff);
+      sub_widget.move(diff);
    }
 }
 
 void Widget::move(const sf::Vector2f& pos)
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      widget_ptr->move(pos);
+      sub_widget.move(pos);
    }
 }
 
 void Widget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   auto sub_widgets = getSubWidgets();
-   for (auto widget_ptr : sub_widgets)
+   for (auto& sub_widget : *this)
    {
-      target.draw(*widget_ptr);
+      target.draw(sub_widget);
    }
    auto buttons = getButtons();
    for (auto button_ptr : buttons)

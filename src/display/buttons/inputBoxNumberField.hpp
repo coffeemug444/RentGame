@@ -34,6 +34,7 @@ public:
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
    std::vector<const Button*> getButtons() const override { return {}; }
+   Iterator end() const override { return Iterator(this, 0); }
 private:
    void setDisplay();
    bool m_editable;

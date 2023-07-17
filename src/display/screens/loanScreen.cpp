@@ -31,24 +31,6 @@ void LoanScreen::handleClick(int button_id)
    }
 }
 
-std::vector<Widget*> LoanScreen::getSubWidgets()
-{
-   std::vector<Widget*> widgets(m_loan_widgets.size());
-   std::transform(m_loan_widgets.begin(), m_loan_widgets.end(), widgets.begin(),
-      [](LoanWidget& loan_widget) -> Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
-std::vector<const Widget*> LoanScreen::getSubWidgets() const
-{
-   std::vector<const Widget*> widgets(m_loan_widgets.size());
-   std::transform(m_loan_widgets.begin(), m_loan_widgets.end(), widgets.begin(),
-      [](const LoanWidget& loan_widget) -> const Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
 void LoanScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);

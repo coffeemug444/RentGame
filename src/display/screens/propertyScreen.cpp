@@ -24,24 +24,6 @@ void PropertyScreen::setScreenSize(sf::Vector2u screen_size)
    }
 }
 
-std::vector<Widget*> PropertyScreen::getSubWidgets()
-{
-   std::vector<Widget*> widgets(m_owned_property_widgets.size());
-   std::transform(m_owned_property_widgets.begin(), m_owned_property_widgets.end(), widgets.begin(),
-      [](OwnedPropertyWidget& loan_widget) -> Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
-std::vector<const Widget*> PropertyScreen::getSubWidgets() const
-{
-   std::vector<const Widget*> widgets(m_owned_property_widgets.size());
-   std::transform(m_owned_property_widgets.begin(), m_owned_property_widgets.end(), widgets.begin(),
-      [](const OwnedPropertyWidget& loan_widget) -> const Widget* { return &loan_widget; }
-   );
-   return widgets;
-}
-
 void PropertyScreen::dataSync() 
 {
    bool changed = false;

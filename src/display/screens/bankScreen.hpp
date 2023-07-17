@@ -23,9 +23,9 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void uiEvents() override;
-   std::vector<const Widget*> getSubWidgets() const override;
-   std::vector<Widget*> getSubWidgets() override;
    std::vector<const Button*> getButtons() const override;
+   const Widget& getSubWidget(unsigned index) const override;
+   Iterator end() const override { return Iterator(this, 2); }
 private:
    void handleClick(int button_id) override;
    void handleTakeLoan();
