@@ -8,7 +8,6 @@ namespace Game
 {
 
 class Ui;
-class Button;
 class Widget;
 
 class Screen : public Widget
@@ -24,10 +23,6 @@ public:
 
    virtual void setActive(bool active) { m_active = active; }
    virtual bool getActive() const { return m_active; }
-
-   virtual void mouseDown(sf::Vector2i mouse_pos) override;
-   virtual void mouseUp(sf::Vector2i mouse_pos) override;
-   
    
 protected:
    Ui& m_ui;
@@ -37,7 +32,6 @@ protected:
    sf::Vector2u m_screen_size;
    sf::Color m_background_color;
    bool m_active;
-   int m_last_button_id;
 };
 
 } // namespace Game

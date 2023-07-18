@@ -11,16 +11,14 @@ class OwnedPropertyWidget : public Widget
 public:
    OwnedPropertyWidget(unsigned id);
    unsigned getId() const { return m_id; }
-
-   void handleClick(int button_id) override;
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
    void setScreenSize(const sf::Vector2u& size) override;
    void dataSync() override;
    void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   std::vector<const Button*> getButtons() const override;
-   Iterator end() const override { return Iterator(this, 0); }
+   const Widget& getSubWidget(unsigned index) const override;
+   Iterator end() const override { return Iterator(this, 1); }
 
 private:
    enum ButtonId {

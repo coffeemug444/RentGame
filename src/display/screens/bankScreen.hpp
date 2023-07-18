@@ -23,21 +23,14 @@ public:
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void uiEvents() override;
-   std::vector<const Button*> getButtons() const override;
    const Widget& getSubWidget(unsigned index) const override;
-   Iterator end() const override { return Iterator(this, 2); }
+   Iterator end() const override { return Iterator(this, 4); }
 private:
-   void handleClick(int button_id) override;
    void handleTakeLoan();
 
    // returns true if errors were set
    bool setErrors(int amount, int repayment_time, float interest_rate);
    void resetErrors();
-   enum ButtonId {
-      NONE = 0,
-      LOAN_SCREEN,
-      TAKE_LOAN
-   };
 
    CircleButton m_loan_screen_button;
 

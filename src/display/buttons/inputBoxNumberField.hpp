@@ -29,11 +29,9 @@ public:
    void mouseDown(sf::Vector2i mouse_pos) override;
    void mouseUp(sf::Vector2i mouse_pos) override;
    void setActive(bool active);
-   void handleClick(int button_id) override {}
    void setEditable(bool editable);
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
-   std::vector<const Button*> getButtons() const override { return {}; }
    Iterator end() const override { return Iterator(this, 0); }
 private:
    void setDisplay();

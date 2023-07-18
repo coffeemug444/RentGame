@@ -10,7 +10,9 @@ namespace Game
 
 OwnedPropertyWidget::OwnedPropertyWidget(unsigned id) 
 :m_id(id)
-,m_edit_property_button(EDIT_PROPERTY)
+,m_edit_property_button([id](){ 
+   EI::ev_switch_screen.push(Ui::INDIVIDUAL_PROPERTY);
+   EI::ev_change_monitored_property_id.push(id); })
 ,m_price()
 ,m_age()
 {
@@ -30,27 +32,6 @@ OwnedPropertyWidget::OwnedPropertyWidget(unsigned id)
    m_background_box.setFillColor(CC::light_grey);
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
    m_background_box.setOutlineColor(sf::Color::Red);
-}
-
-std::vector<const Button*> OwnedPropertyWidget::getButtons() const 
-{
-   return {&m_edit_property_button};
-}
-
-void OwnedPropertyWidget::handleClick(int button_id) 
-{
-   switch (button_id)
-   {
-   case EDIT_PROPERTY:
-      {
-         std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_switch_screen.push(Ui::MainScreen::INDIVIDUAL_PROPERTY);
-         EI::ev_change_monitored_property_id.push(m_id);
-      }
-      break;
-   default:
-      break;
-   }
 }
 
 // TODO: get the total size from top-left to bottom-right
@@ -116,6 +97,12 @@ void OwnedPropertyWidget::dataSync()
       m_background_box.setFillColor(sf::Color::Green);
    else
       m_background_box.setFillColor(CC::light_grey);
+}
+
+const Widget& OwnedPropertyWidget::getSubWidget(unsigned index) const
+{
+   if (index == 0) return m_edit_property_button;
+   return Widget::getSubWidget(index);
 }
 
 void OwnedPropertyWidget::move(const sf::Vector2f& pos) 

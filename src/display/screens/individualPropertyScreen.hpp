@@ -22,20 +22,10 @@ public:
    IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   std::vector<const Button*> getButtons() const override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
-   Iterator end() const override { return Iterator(this, 2); }
+   Iterator end() const override { return Iterator(this, 7); }
 private:
-   void handleClick(int button_id) override;
-   enum ButtonId {
-      NONE = 0,
-      PROPERTY,
-      MANAGER,
-      SAVE,
-      SELL,
-      RENT
-   };
    CircleButton m_property_button;
    CircleButton m_manager_button;
    CircleButton m_save_button;

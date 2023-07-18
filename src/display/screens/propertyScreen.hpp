@@ -18,9 +18,7 @@ class PropertyScreen : public Screen
 public:
    PropertyScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
-   void handleClick(int button_id) override {}
    void dataSync() override;
-   std::vector<const Button*> getButtons() const override { return {}; }
    const Widget& getSubWidget(unsigned index) const override { return m_owned_property_widgets.at(index); }
    Iterator end() const override { return Iterator(this, m_owned_property_widgets.size()); }
 private:

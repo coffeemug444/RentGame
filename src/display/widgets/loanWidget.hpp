@@ -11,13 +11,11 @@ public:
    LoanWidget(unsigned id);
    unsigned getId() const { return m_id; }
    void dataSync() override;
-   void handleClick(int button_id) override;
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
    void setScreenSize(const sf::Vector2u& size) override;
    void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   std::vector<const Button*> getButtons() const override { return {}; };
    Iterator end() const override { return Iterator(this, 0); }
 private:
    unsigned m_id {};

@@ -1,9 +1,20 @@
 #include "speedButton.hpp"
+#include "logic/events/eventInterface.hpp"
+#include <iostream>
 
 
 namespace Game
 {
 
+SpeedButton::SpeedButton(GameLogic::GameSpeed type)
+:CircleButton([&](){EI::ev_gamespeed_changed.push(m_type);})
+,m_type(type)
+,m_symbol_color(sf::Color::White)
+{
+   m_play_tri.setPrimitiveType(sf::Triangles);
+   m_fast_tris.setPrimitiveType(sf::Triangles);
+   m_veryfast_tri.setPrimitiveType(sf::Triangles);
+}
 
 void SpeedButton::setRadius(float radius)
 {
@@ -39,13 +50,6 @@ void SpeedButton::setRadius(float radius)
 
 }
 
-void SpeedButton::setPosition(const sf::Vector2f& pos)
-{
-   CircleButton::setPosition(pos);
-   setRadius(getRadius());
-}
-
-
 void SpeedButton::setFillColor(const sf::Color& color) 
 {
    auto [h,s,v,a] = RGBAToHSVA(color.toInteger());
@@ -80,17 +84,17 @@ void SpeedButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
    CircleButton::draw(target, states);
    switch(m_type)
    {
-   case PAUSE:
+   case GameLogic::PAUSE:
       target.draw(m_pause_rec_1);
       target.draw(m_pause_rec_2);
       break;
-   case NORMAL:
+   case GameLogic::NORMAL:
       target.draw(m_play_tri);
       break;
-   case FAST:
+   case GameLogic::FAST:
       target.draw(m_fast_tris);
       break;
-   case VERYFAST:
+   case GameLogic::VERYFAST:
       target.draw(m_veryfast_tri);
       target.draw(m_veryfast_rec);
       break;

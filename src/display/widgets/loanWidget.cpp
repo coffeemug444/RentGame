@@ -35,11 +35,6 @@ void LoanWidget::dataSync()
    m_next_payment.setString(std::string("Next payment: ") + loan.getRepaymentAmount());
 }
 
-void LoanWidget::handleClick(int button_id)
-{
-   // no buttons yet
-}
-
 sf::Vector2f LoanWidget::getSize() const
 {
    return m_background_box.getSize();

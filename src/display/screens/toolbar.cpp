@@ -14,14 +14,14 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 :Widget()
 ,m_ui(ui)
 ,m_screen_size(screen_size)
-,m_speed_pause(PAUSE, SpeedButton::PAUSE)
-,m_speed_normal(NORMAL, SpeedButton::NORMAL)
-,m_speed_fast(FAST, SpeedButton::FAST)
-,m_speed_veryfast(VERYFAST, SpeedButton::VERYFAST)
-,m_finance_button(FINANCE)
-,m_properties_button(PROPERTIES)
-,m_loans_button(LOANS)
-,m_market_button(MARKET)
+,m_speed_pause(GameLogic::PAUSE)
+,m_speed_normal(GameLogic::NORMAL)
+,m_speed_fast(GameLogic::FAST)
+,m_speed_veryfast(GameLogic::VERYFAST)
+,m_finance_button([&](){EI::ev_switch_screen.push(Ui::FINANCE);})
+,m_properties_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);})
+,m_loans_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
+,m_market_button([&](){EI::ev_switch_screen.push(Ui::MARKET);})
 ,m_current_speed(GameLogic::GameSpeed::PAUSE)
 ,m_last_button_id(0)
 {
@@ -54,18 +54,6 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
    m_debt_display.setFillColor(sf::Color::Red);
    m_net_income_display.setFillColor(sf::Color::Green);
 
-}
-
-std::vector<const Button*> Toolbar::getButtons() const
-{
-   return { &m_finance_button
-           ,&m_properties_button
-           ,&m_loans_button
-           ,&m_market_button
-           ,&m_speed_pause
-           ,&m_speed_normal
-           ,&m_speed_fast
-           ,&m_speed_veryfast};
 }
 
 void Toolbar::setScreenSize(sf::Vector2u screen_size)
@@ -138,22 +126,20 @@ sf::Vector2f Toolbar::getPosition() const
    return m_bar.getPosition();
 }
 
-void Toolbar::handleClick(int button_id)
+
+const Widget& Toolbar::getSubWidget(unsigned index) const 
 {
-   switch(button_id)
+   switch (index)
    {
-      case FINANCE: m_ui.selectScreen(Ui::FINANCE); break;
-      case PROPERTIES: m_ui.selectScreen(Ui::PROPERTIES); break;
-      case LOANS: m_ui.selectScreen(Ui::LOANS); break;
-      case MARKET: m_ui.selectScreen(Ui::MARKET); break;
-      case PAUSE: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push(GameLogic::PAUSE); break;}
-      case NORMAL: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push(GameLogic::NORMAL); break;}
-      case FAST: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push(GameLogic::FAST); break;}
-      case VERYFAST: {std::lock_guard lock(EI::gametick_mutex);
-         EI::ev_gamespeed_changed.push(GameLogic::VERYFAST); break;}
+   case 0: return m_speed_pause;
+   case 1: return m_speed_normal;
+   case 2: return m_speed_fast;
+   case 3: return m_speed_veryfast;
+   case 4: return m_finance_button;
+   case 5: return m_properties_button;
+   case 6: return m_loans_button;
+   case 7: return m_market_button;
+   default: return Widget::getSubWidget(index);
    }
 }
 

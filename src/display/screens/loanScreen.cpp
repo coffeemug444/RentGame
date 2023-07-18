@@ -2,33 +2,18 @@
 #include "display/ui.hpp"
 #include "display/constColors.hpp"
 #include <algorithm>
+#include "logic/events/eventInterface.hpp"
 
 namespace Game
 {
 
 LoanScreen::LoanScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Loans", CC::loan_color) 
-,m_bank_screen_button(BANK)
+,m_bank_screen_button([&](){EI::ev_switch_screen.push(Ui::BANK);})
 {
    m_bank_screen_button.setFillColor(CC::bank_color);
    m_bank_screen_button.setRadius(0.05f*screen_size.y);
    setScreenSize(screen_size);
-}
-
-std::vector<const Button*> LoanScreen::getButtons() const 
-{
-   return {&m_bank_screen_button};
-}
-
-void LoanScreen::handleClick(int button_id)
-{
-   switch(button_id)
-   {
-   case BANK:
-      m_ui.selectScreen(Ui::BANK);
-      break;
-   default: break;
-   }
 }
 
 void LoanScreen::setScreenSize(sf::Vector2u screen_size)
@@ -41,6 +26,13 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
       auto new_pos = loan_widget_origin + i*sf::Vector2f{0,20.f+m_loan_widgets[i].getSize().y};
       m_loan_widgets[i].setPosition(new_pos);
    }
+}
+
+
+const Widget& LoanScreen::getSubWidget(unsigned index) const 
+{ 
+   if (index == 0) return m_bank_screen_button;
+   return m_loan_widgets.at(index - 1); 
 }
 
 void LoanScreen::dataSync() 

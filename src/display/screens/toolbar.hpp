@@ -20,22 +20,9 @@ public:
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    sf::Vector2f getSize() const override;
    sf::Vector2f getPosition() const override;
-   std::vector<const Button*> getButtons() const override;
-   Iterator end() const override { return Iterator(this, 0); }
+   const Widget& getSubWidget(unsigned index) const override;
+   Iterator end() const override { return Iterator(this, 8); }
 private:
-   void handleClick(int button_id) override;
-
-   enum ButtonId {
-      NONE = 0,
-      FINANCE,
-      PROPERTIES,
-      LOANS,
-      MARKET,
-      PAUSE,
-      NORMAL,
-      FAST,
-      VERYFAST
-   };
 
    Ui& m_ui;
    sf::Vector2u m_screen_size;

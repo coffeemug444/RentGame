@@ -9,11 +9,16 @@ namespace Game
 
 IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Property 2",CC::individual_property_color)
-,m_property_button(PROPERTY)
-,m_manager_button(MANAGER)
-,m_save_button(SAVE)
-,m_sell_button(SELL)
-,m_rent_button(RENT)
+,m_property_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);})
+,m_manager_button([&](){EI::ev_set_property_managed_status.push({m_id, not m_managed});})
+,m_save_button([&](){EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});})
+,m_sell_button([&](){})
+,m_rent_button([&](){
+      if (m_rented)
+         EI::ev_evict_tenants_from_property_id.push(m_id);
+      else
+         EI::ev_set_property_looking_for_tenants_status.push({m_id, not m_looking_for_tenants});
+   })
 ,m_managed(false)
 ,m_looking_for_tenants(false)
 ,m_rented(false)
@@ -43,11 +48,6 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
    m_manager_button.setRadius(0.05f*screen_size.y);
 
    setScreenSize(screen_size);
-}
-
-std::vector<const Button*> IndividualPropertyScreen::getButtons() const
-{
-   return {&m_property_button, &m_manager_button, &m_save_button, &m_sell_button, &m_rent_button};
 }
 
 void IndividualPropertyScreen::dataSync() 
@@ -112,6 +112,11 @@ const Widget& IndividualPropertyScreen::getSubWidget(unsigned index) const
    {
    case 0: return m_price;
    case 1: return m_rental_price;
+   case 2: return m_property_button;
+   case 3: return m_manager_button;
+   case 4: return m_save_button;
+   case 5: return m_sell_button;
+   case 6: return m_rent_button;
    default: return Widget::getSubWidget(index);
    }
 }
@@ -128,36 +133,6 @@ void IndividualPropertyScreen::setScreenSize(sf::Vector2u screen_size)
    m_manager_button.setPosition({10,130});
    m_sell_button.setPosition({300,130});
    m_rent_button.setPosition({350,130});
-}
-
-void IndividualPropertyScreen::handleClick(int button_id) 
-{
-   switch (button_id)
-   {
-   case PROPERTY:
-      m_ui.selectScreen(Ui::PROPERTIES);
-      m_data_synced = false;
-      break;
-   case MANAGER:
-      {std::lock_guard lock(EI::gametick_mutex);
-      EI::ev_set_property_managed_status.push({m_id, not m_managed});}
-      break;
-   case SAVE:
-      {std::lock_guard lock(EI::gametick_mutex);
-      EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});}
-      break;
-   case SELL:
-      break;
-   case RENT:
-      {std::lock_guard lock(EI::gametick_mutex);
-      if (m_rented)
-         EI::ev_evict_tenants_from_property_id.push(m_id);
-      else
-         EI::ev_set_property_looking_for_tenants_status.push({m_id, not m_looking_for_tenants});
-      }
-      break;
-   default: break;
-   }
 }
 
 void IndividualPropertyScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const

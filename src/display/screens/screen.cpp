@@ -1,5 +1,4 @@
 #include "screen.hpp"
-#include "display/buttons/button.hpp"
 #include "display/widgets/widget.hpp"
 #include "observableData.hpp"
 
@@ -11,7 +10,6 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
 ,m_screen_size(screen_size)
 ,m_background_color(background_color) 
 ,m_active(false) 
-,m_last_button_id(0)
 {
    m_background.setFillColor(background_color);
 
@@ -48,28 +46,6 @@ void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
    Widget::draw(target, states);
 }
-
-
-void Screen::mouseDown(sf::Vector2i mouse_pos)
-{
-   if (not m_active)
-   {
-      m_last_button_id = 0;
-      return;
-   }
-   Widget::mouseDown(mouse_pos);
-}
-
-void Screen::mouseUp(sf::Vector2i mouse_pos)
-{
-   if (not m_active)
-   {
-      m_last_button_id = 0;
-      return;
-   }
-   Widget::mouseUp(mouse_pos);
-}
-
 
 
 } // namespace Game

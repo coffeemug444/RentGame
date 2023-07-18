@@ -10,7 +10,7 @@ namespace Game
 
 MarketListingWidget::MarketListingWidget(unsigned id) 
 :m_id(id)
-,m_purchase_button(BUY_PROPERTY)
+,m_purchase_button([id](){EI::ev_purchase_listing_id.push(id);})
 ,m_price()
 ,m_age()
 {
@@ -29,24 +29,6 @@ MarketListingWidget::MarketListingWidget(unsigned id)
 
    m_background_box.setFillColor(CC::light_grey);
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
-}
-
-std::vector<const Button*> MarketListingWidget::getButtons() const 
-{
-   return {&m_purchase_button};
-}
-
-void MarketListingWidget::handleClick(int button_id) 
-{
-   switch (button_id)
-   {
-   case BUY_PROPERTY:
-      {std::lock_guard lock(EI::gametick_mutex);
-      EI::ev_purchase_listing_id.push(m_id);}
-      break;
-   default:
-      break;
-   }
 }
 
 // TODO: get the total size from top-left to bottom-right
@@ -80,6 +62,12 @@ void MarketListingWidget::setScreenSize(const sf::Vector2u& size)
 
    auto box_size = m_background_box.getSize();
    m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
+}
+
+const Widget& MarketListingWidget::getSubWidget(unsigned index) const 
+{
+   if (index == 0) return m_purchase_button;
+   return Widget::getSubWidget(index);
 }
 
 // TODO: retrieve data for listing with this ID and update the fields

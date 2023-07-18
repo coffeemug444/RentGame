@@ -9,14 +9,8 @@ namespace Game
 class CircleButton : public Button
 {
 public:
-   CircleButton(int button_id)
-      :Button(button_id) {}
-   CircleButton& operator= (const CircleButton& other)
-   {
-      m_button_id = other.m_button_id;
-      m_button_circle = other.m_button_circle;
-      return *this;
-   }
+   CircleButton(std::function<void(void)> callback)
+      :Button(callback) {}
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override { target.draw(m_button_circle); };
    bool mouseIsOver(sf::Vector2i mouse_pos) const override
    {
@@ -26,10 +20,13 @@ public:
       sf::Vector2f d = button_center - mouse_pos;
       return ((d.x*d.x+d.y*d.y) < getRadius()*getRadius());
    }
-   const sf::Vector2f& getPosition() const { return m_button_circle.getPosition(); }
+   sf::Vector2f getPosition() const override { return m_button_circle.getPosition(); }
    virtual float getRadius() const { return m_button_circle.getRadius(); }
-   virtual void setPosition(const sf::Vector2f& pos) { m_button_circle.setPosition(pos); }
-   virtual void move(const sf::Vector2f& pos) { m_button_circle.move(pos); }
+   virtual sf::Vector2f getSize() const override {
+      float r = getRadius();
+      return {2*r,2*r};
+   }
+   virtual void move(const sf::Vector2f& pos) override { m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
    virtual void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
 private:

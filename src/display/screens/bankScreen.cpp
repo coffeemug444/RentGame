@@ -8,10 +8,10 @@ namespace Game
 
 BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size) 
 :Screen(ui, screen_size, "Bank", CC::bank_color)
-,m_loan_screen_button(LOAN_SCREEN)
+,m_loan_screen_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
 ,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
-,m_take_loan_button(TAKE_LOAN)
+,m_take_loan_button([&](){handleTakeLoan();})
 {
    m_loan_screen_button.setFillColor(CC::loan_color);
    m_take_loan_button.setFillColor(CC::loan_color);
@@ -27,11 +27,6 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 
 }
 
-std::vector<const Button*> BankScreen::getButtons() const 
-{
-   return {&m_loan_screen_button, &m_take_loan_button};
-}
-
 void BankScreen::setScreenSize(sf::Vector2u screen_size)
 {
    Screen::setScreenSize(screen_size);
@@ -45,20 +40,6 @@ void BankScreen::setScreenSize(sf::Vector2u screen_size)
    m_repayment_time_errors.setPosition({m_repayment_time_field.getSize().x,0.15f*screen_size.y});
 }
 
-void BankScreen::handleClick(int button_id) 
-{
-   switch (button_id)
-   {
-   case LOAN_SCREEN:
-      m_ui.selectScreen(Ui::LOANS);
-      break;
-   case TAKE_LOAN:
-      handleTakeLoan();
-      break;
-   default: break;
-   }
-}
-
 void BankScreen::handleTakeLoan()
 {
    int amount = m_loan_amount_field.getNumber();
@@ -68,9 +49,7 @@ void BankScreen::handleTakeLoan()
    bool errors = setErrors(amount, repayment_time, interest_rate);
    if (errors) return;
    
-
-   {std::lock_guard lock(EI::gametick_mutex);
-   EI::ev_take_loan.push({amount, repayment_time, interest_rate});}
+   EI::ev_take_loan.push({amount, repayment_time, interest_rate});
    m_loan_amount_field.reset();
    m_repayment_time_field.reset();
 }
@@ -129,6 +108,8 @@ const Widget& BankScreen::getSubWidget(unsigned index) const
    {
    case 0: return m_loan_amount_field;
    case 1: return m_repayment_time_field;
+   case 2: return m_loan_screen_button;
+   case 3: return m_take_loan_button;
    default: return Widget::getSubWidget(index);
    }
 }
