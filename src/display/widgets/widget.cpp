@@ -11,8 +11,6 @@ Widget::Widget()
 
 sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
 {
-   static int hand_count = 0;
-
    for (auto& sub_widget : *this)
    {
       sf::Cursor::Type cursor_type = sub_widget.getCursorType(mouse_pos);
