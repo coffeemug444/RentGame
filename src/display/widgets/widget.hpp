@@ -24,7 +24,7 @@ public:
       unsigned m_index;
    };
 
-   virtual const Widget& getSubWidget(unsigned index) const { return *(Widget*)nullptr; }
+   virtual const Widget& getSubWidget(unsigned index) const { return *this; }
    Widget& getSubWidget(unsigned index) { return _getSubWidget(index); }
    
    Iterator begin() const { return Iterator(this, 0); }
