@@ -26,9 +26,18 @@ public:
       VerticalAlignment vertical;
       HorizontalAlignment horizontal;
    };
+   struct Padding {
+      float left;
+      float right;
+      float top;
+      float bottom;
+      float horizontal() const { return left + right; }
+      float vertical() const { return top + bottom; }
+   };
    Widget(PlacementStyle style = ROW, Alignment alignment = { TOP, LEFT }) 
    :m_placement_style(style) 
    ,m_alignment(alignment)
+   ,m_padding{0,0,0,0}
    {} 
 
    class Iterator {
@@ -72,8 +81,14 @@ public:
    void setPosition(const sf::Vector2f& pos);
    virtual void move(const sf::Vector2f& pos);
 protected:
+   void setPadding(Padding padding) { 
+      m_padding = padding; 
+      setSubWidgetSize();
+      placeSubWidgets(); 
+   }
    PlacementStyle m_placement_style;
    Alignment m_alignment;
+   Padding m_padding;
    sf::Vector2f m_container_size;
    sf::Vector2f m_position;
 private:

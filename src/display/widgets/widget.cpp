@@ -73,6 +73,8 @@ void Widget::setSize(const sf::Vector2f& container_size)
 void Widget::setSubWidgetSize()
 {
    auto sub_widget_size = m_container_size;
+   sub_widget_size.x -= m_padding.horizontal();
+   sub_widget_size.y -= m_padding.vertical();
    unsigned num_sub_widgets = end() - begin();
    if (m_placement_style == ROW) sub_widget_size.y /= num_sub_widgets;
    else                          sub_widget_size.x /= num_sub_widgets;
@@ -116,7 +118,12 @@ void Widget::placeSubWidgets()
    }
 
    auto this_size = getSize();
+   this_size.x -= m_padding.horizontal();
+   this_size.y -= m_padding.vertical();
    auto this_pos = getPosition();
+   this_pos.x += m_padding.left;
+   this_pos.y += m_padding.top;
+
    float x = this_pos.x;
    float y = this_pos.y;  
 
