@@ -12,7 +12,24 @@ public:
       ROW,     // elements are placed top to bottom
       COL      // elements are placed left to right
    };
-   Widget(PlacementStyle style = ROW) : m_placement_style(style) {} 
+   enum VerticalAlignment {
+      TOP,
+      BOTTOM,
+      V_CENTER
+   };
+   enum HorizontalAlignment {
+      LEFT,
+      RIGHT,
+      H_CENTER
+   };
+   struct Alignment {
+      VerticalAlignment vertical;
+      HorizontalAlignment horizontal;
+   };
+   Widget(PlacementStyle style = ROW, Alignment alignment = { TOP, LEFT }) 
+   :m_placement_style(style) 
+   ,m_alignment(alignment)
+   {} 
 
    class Iterator {
    public:
@@ -56,6 +73,7 @@ public:
    virtual void move(const sf::Vector2f& pos);
 protected:
    PlacementStyle m_placement_style;
+   Alignment m_alignment;
    sf::Vector2f m_container_size;
    sf::Vector2f m_position;
 private:

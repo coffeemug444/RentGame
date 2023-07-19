@@ -6,8 +6,8 @@
 namespace Game
 {
 
-SpeedButton::SpeedButton(GameLogic::GameSpeed type)
-:CircleButton([&](){EI::ev_gamespeed_changed.push(m_type);})
+SpeedButton::SpeedButton(GameLogic::GameSpeed type, Widget::Alignment alignment)
+:CircleButton([&](){EI::ev_gamespeed_changed.push(m_type);}, alignment)
 ,m_type(type)
 ,m_symbol_color(sf::Color::White)
 {
@@ -24,7 +24,7 @@ void SpeedButton::setRadius(float radius)
    m_fast_tris.clear();
    m_veryfast_tri.clear();
 
-   sf::Vector2f base_pos = getPosition() + sf::Vector2f{radius,radius};
+   sf::Vector2f base_pos = m_button_circle.getPosition() + sf::Vector2f{radius,radius};
 
    m_play_tri.append(sf::Vertex{base_pos + sf::Vector2f{-0.2f*radius,-0.4f*radius}, m_symbol_color });
    m_play_tri.append(sf::Vertex{base_pos + sf::Vector2f{-0.2f*radius, 0.4f*radius}, m_symbol_color });

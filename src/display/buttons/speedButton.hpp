@@ -11,7 +11,7 @@ namespace Game
 class SpeedButton : public CircleButton
 {
 public:
-   SpeedButton(GameLogic::GameSpeed type);
+   SpeedButton(GameLogic::GameSpeed type, Widget::Alignment alignment = {TOP, LEFT});
 
    void setRadius(float radius) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

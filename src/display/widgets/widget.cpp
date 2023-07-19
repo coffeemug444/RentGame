@@ -83,15 +83,111 @@ void Widget::setSubWidgetSize()
    }
 }
 
+
+// rows need to be placed on top of eachother
+//    if colStyle and right aligned go backwards
+// cols need to be placed side by side
+//    if rowStyle and bottom aligned need to go backwards
+
+// right alignment needs to know total width only if
+// this is a colStyle
+
+// bottom alignment needs to know total height only if
+// this is a rowStyle
+
+// center alignment needs to know total width for colStyles
+// and total height for rowStyles
 void Widget::placeSubWidgets()
 {
-   sf::Vector2f sub_widget_pos = getPosition();
-   for (auto& sub_widget : *this)
+   bool backwards = (m_placement_style == COL ? 
+                        m_alignment.horizontal == RIGHT :   // right aligned cols 
+                        m_alignment.vertical == BOTTOM );   // bottom aligned rows
+
+   float total_width{0.f}, total_height{0.f};
+   // if the total width/height of all widgets is required
+   if ((m_alignment.horizontal == H_CENTER and m_placement_style == COL) or 
+       (m_alignment.vertical == V_CENTER and m_placement_style == ROW)) {
+      for (auto& sub_widget : *this)
+      {
+         auto size = sub_widget.getSize();
+         total_width += size.x;
+         total_height += size.y;
+      }
+   }
+
+   auto this_size = getSize();
+   auto this_pos = getPosition();
+   float x = this_pos.x;
+   float y = this_pos.y;  
+
+   auto get_x = [this_pos, this_size, x](sf::Vector2f sub_widget_size, Widget::Alignment alignment){
+      if (alignment.horizontal == H_CENTER) {return this_pos.x + this_size.x/2.f;}
+      else if (alignment.horizontal == RIGHT) {return this_pos.x + this_size.x - sub_widget_size.x;}
+      else {return x;} // do nothing, it's already left aligned
+   };
+   auto get_y = [this_pos, this_size, y](sf::Vector2f sub_widget_size, Widget::Alignment alignment){
+      if (alignment.vertical == V_CENTER) {return this_pos.y + this_size.y/2.f;}
+      else if (alignment.vertical == BOTTOM) {return this_pos.y + this_size.y - sub_widget_size.y;}
+      else {return y;} // do nothing, it's already top aligned
+   };
+
+   if (backwards)
    {
-      sub_widget.setPosition(sub_widget_pos);
-      sf::Vector2f sub_widget_size = sub_widget.getSize();
-      if (m_placement_style == ROW) sub_widget_pos.y += sub_widget_size.y;
-      else                          sub_widget_pos.x += sub_widget_size.x;
+      if (m_placement_style == ROW) 
+         x += this_size.x; // starting from the right
+      else                          
+         y += this_size.y; // starting from the bottom
+
+      auto it = end();
+      while (it != begin()) {
+         --it;
+         auto& sub_widget = *it;
+         sf::Vector2f sub_widget_size = sub_widget.getSize();
+         if (m_placement_style == ROW) // bottom to top
+         {
+            y -= sub_widget_size.y;
+            x = get_x(sub_widget_size, m_alignment);
+         }
+         else // col placement, right to left
+         {
+            x -= sub_widget_size.x;
+            y = get_y(sub_widget_size, m_alignment);
+         }
+         sub_widget.setPosition({x,y});
+      }
+   }
+   else
+   {
+      // if row and center then start from (h_middle of this widget) - (half of total width of subwidgets)
+      // if col and center then start from (v_middle of this widget) - (half of total height of subwidgets)
+      if (m_placement_style == ROW and m_alignment.vertical == V_CENTER)
+      {
+         x += (this_size.x - total_width)/2.f;
+      }
+      if (m_placement_style == COL and m_alignment.horizontal == H_CENTER)
+      {
+         y += (this_size.y - total_height)/2.f;
+      }
+
+      for (auto& sub_widget : *this)
+      {
+         sf::Vector2f sub_widget_size = sub_widget.getSize();
+         if (m_placement_style == ROW) // top to bottom
+         {
+            x = get_x(sub_widget_size, m_alignment);
+         }
+         else // col placement, right to left
+         {
+            y = get_y(sub_widget_size, m_alignment);
+         }
+
+         sub_widget.setPosition({x,y});
+
+         if (m_placement_style == ROW) // top to bottom
+            y += sub_widget_size.y;
+         else
+            x += sub_widget_size.x;
+      }
    }
 }
 
