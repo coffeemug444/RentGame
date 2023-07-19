@@ -2,6 +2,7 @@
 #include "screen.hpp"
 #include "display/constColors.hpp"
 #include "display/widgets/marketListingWidget.hpp"
+#include <memory>
 
 /*
 
@@ -19,11 +20,11 @@ public:
    MarketScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void dataSync() override;
-   const Widget& getSubWidget(unsigned index) const override { return m_market_listing_widgets.at(index); }
+   const Widget& getSubWidget(unsigned index) const override { return *(m_market_listing_widgets.at(index)); }
    Iterator end() const override { return Iterator(this, m_market_listing_widgets.size()); }
 private:
 
-   std::vector<MarketListingWidget> m_market_listing_widgets;
+   std::vector<std::shared_ptr<MarketListingWidget>> m_market_listing_widgets;
 };
 
 } // namespace Game

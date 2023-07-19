@@ -81,7 +81,7 @@ void GameLogic::handleEvents()
       EI::ev_set_property_managed_status.pop();
       if (not listContainsId(ev.property_id, OD::Player::properties))
          continue;
-      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      auto& property = findById(ev.property_id, OD::Player::properties).value().get();
       property.setManaged(ev.managed);
    }
 
@@ -91,7 +91,7 @@ void GameLogic::handleEvents()
       EI::ev_update_property_prices.pop();
       if (not listContainsId(ev.property_id, OD::Player::properties))
          continue;
-      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      auto& property = findById(ev.property_id, OD::Player::properties).value().get();
       property.setPrice(ev.sale_price);
       property.setRentalPrice(ev.rental_price);
    }
@@ -102,7 +102,7 @@ void GameLogic::handleEvents()
       EI::ev_set_property_looking_for_tenants_status.pop();
       if (not listContainsId(ev.property_id, OD::Player::properties))
          continue;
-      auto& property = *findById(ev.property_id, OD::Player::properties).value();
+      auto& property = findById(ev.property_id, OD::Player::properties).value().get();
       property.setLookingForTenants(ev.looking_for_tenants); 
    }
 
@@ -112,7 +112,7 @@ void GameLogic::handleEvents()
       EI::ev_evict_tenants_from_property_id.pop();
       if (not listContainsId(property_id, OD::Player::properties))
          continue;
-      auto& property = *findById(property_id, OD::Player::properties).value();
+      auto& property = findById(property_id, OD::Player::properties).value().get();
       property.evictTenants();
    }
 }

@@ -23,8 +23,8 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
    sf::Vector2f loan_widget_origin = {10.f,0.1f*screen_size.y};
    for (int i = 0; i < m_loan_widgets.size(); i++)
    {
-      auto new_pos = loan_widget_origin + i*sf::Vector2f{0,20.f+m_loan_widgets[i].getSize().y};
-      m_loan_widgets[i].setPosition(new_pos);
+      auto new_pos = loan_widget_origin + i*sf::Vector2f{0,20.f+m_loan_widgets[i]->getSize().y};
+      m_loan_widgets[i]->setPosition(new_pos);
    }
 }
 
@@ -32,7 +32,7 @@ void LoanScreen::setScreenSize(sf::Vector2u screen_size)
 const Widget& LoanScreen::getSubWidget(unsigned index) const 
 { 
    if (index == 0) return m_bank_screen_button;
-   return m_loan_widgets.at(index - 1); 
+   return *(m_loan_widgets.at(index - 1)); 
 }
 
 void LoanScreen::dataSync() 
@@ -42,13 +42,13 @@ void LoanScreen::dataSync()
    {
       if (not listContainsId(loan.getId(), m_loan_widgets))
       {
-         m_loan_widgets.push_back({loan.getId()});
+         m_loan_widgets.push_back(std::make_shared<LoanWidget>(loan.getId()));
          changed = true;
       }
    }
    for (int i = 0; i < m_loan_widgets.size(); i++)
    {
-      if (not listContainsId(m_loan_widgets[i].getId(), OD::Player::loans))
+      if (not listContainsId(m_loan_widgets[i]->getId(), OD::Player::loans))
       {
          m_loan_widgets.erase(m_loan_widgets.begin() + i);
          i--;

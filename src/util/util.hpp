@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <optional>
 #include <iostream>
+#include <memory>
 
 namespace Game
 {
@@ -25,6 +26,33 @@ void clear(std::queue<T>& q)
 
 template <typename T>
 requires hasId<T>
+bool listContainsId(unsigned id, const std::vector<std::shared_ptr<T>>& v)
+{
+   auto it = std::ranges::find_if(v, [id](std::shared_ptr<T> t){ return id == t->getId(); });
+   return it != v.end();
+}
+
+template <typename T>
+requires hasId<T>
+std::optional<std::shared_ptr<T>> findById(unsigned id, std::vector<std::shared_ptr<T>>& v)
+{
+   auto it = std::ranges::find_if(v, [id](std::shared_ptr<T> t){ return id == t->getId(); });
+   if (it == v.end()) return {};
+   return *it;
+}
+
+template <typename T>
+requires hasId<T>
+bool deleteById(unsigned id, std::vector<std::shared_ptr<T>>& v)
+{
+   auto it = std::ranges::find_if(v, [id](std::shared_ptr<T> t){ return id == t->getId(); });
+   if (it == v.end()) return false;
+   v.erase(it);
+   return true;
+}
+
+template <typename T>
+requires hasId<T>
 bool listContainsId(unsigned id, const std::vector<T>& v)
 {
    auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
@@ -33,11 +61,11 @@ bool listContainsId(unsigned id, const std::vector<T>& v)
 
 template <typename T>
 requires hasId<T>
-std::optional<T*> findById(unsigned id, std::vector<T>& v)
+std::optional<std::reference_wrapper<T>> findById(unsigned id, std::vector<T>& v)
 {
    auto it = std::ranges::find_if(v, [id](T t){ return id == t.getId(); });
    if (it == v.end()) return {};
-   return &(*it);
+   return std::ref(*it);
 }
 
 template <typename T>

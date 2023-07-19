@@ -28,7 +28,7 @@ void LoanWidget::dataSync()
 {
    auto opt_loan = findById(m_id, OD::Player::loans);
    if (not opt_loan.has_value()) return;
-   const Loan& loan = *opt_loan.value();
+   const Loan& loan = opt_loan.value().get();
 
    m_principal.setString(std::string("Principal: ") + loan.getPrincipal());
    m_total.setString(std::string("Remaining: ") + loan.getAmount());

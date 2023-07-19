@@ -2,6 +2,7 @@
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
 #include "display/widgets/loanWidget.hpp"
+#include <memory>
 
 #include <iostream>
 
@@ -27,7 +28,7 @@ public:
 private:
 
    CircleButton m_bank_screen_button;
-   std::vector<LoanWidget> m_loan_widgets;
+   std::vector<std::shared_ptr<LoanWidget>> m_loan_widgets;
 };
 
 } // namespace Game

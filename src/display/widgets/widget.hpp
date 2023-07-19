@@ -30,6 +30,10 @@ public:
    Iterator begin() const { return Iterator(this, 0); }
    virtual Iterator end() const = 0;
 
+   // no copying allowed. This makes it VERY difficult for widgets to maintain
+   // a pointer to their parent
+   Widget(const Widget& other) = delete; 
+
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    virtual sf::Cursor::Type getCursorType(sf::Vector2i mouse_pos) const;
    virtual void mouseDown(sf::Vector2i mouse_pos);

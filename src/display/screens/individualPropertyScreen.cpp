@@ -54,7 +54,7 @@ void IndividualPropertyScreen::dataSync()
 {
    m_id = OD::monitored_property_id;
    if (not listContainsId(m_id, OD::Player::properties)) return;
-   const auto& property = *findById(m_id, OD::Player::properties).value();
+   const auto& property = findById(m_id, OD::Player::properties).value().get();
 
    std::string age_string = "Age: ";
    switch (property.getAgeClass())

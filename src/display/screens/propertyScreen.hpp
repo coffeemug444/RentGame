@@ -2,6 +2,7 @@
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
 #include "display/widgets/ownedPropertyWidget.hpp"
+#include <memory>
 
 /*
 
@@ -19,11 +20,11 @@ public:
    PropertyScreen(Ui& ui, sf::Vector2u screen_size);
    void setScreenSize(sf::Vector2u screen_size) override;
    void dataSync() override;
-   const Widget& getSubWidget(unsigned index) const override { return m_owned_property_widgets.at(index); }
+   const Widget& getSubWidget(unsigned index) const override { return *(m_owned_property_widgets.at(index)); }
    Iterator end() const override { return Iterator(this, m_owned_property_widgets.size()); }
 private:
 
-   std::vector<OwnedPropertyWidget> m_owned_property_widgets;
+   std::vector<std::shared_ptr<OwnedPropertyWidget>> m_owned_property_widgets;
 };
 
 } // namespace Game

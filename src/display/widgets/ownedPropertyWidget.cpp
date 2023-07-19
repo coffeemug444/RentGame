@@ -70,10 +70,11 @@ void OwnedPropertyWidget::setScreenSize(const sf::Vector2u& size)
 // TODO: retrieve data for listing with this ID and update the fields
 void OwnedPropertyWidget::dataSync() 
 {
-   auto property = findById(m_id, OD::Player::properties);
-   if (not property.has_value()) return;
+   auto property_candidate = findById(m_id, OD::Player::properties);
+   if (not property_candidate.has_value()) return;
+   auto& property = property_candidate.value().get();
    std::string age_string = "Age: ";
-   switch (property.value()->getAgeClass())
+   switch (property.getAgeClass())
    {
    case Property::AgeClass::NEW:
       age_string += "NEW"; break;
@@ -86,14 +87,14 @@ void OwnedPropertyWidget::dataSync()
       age_string += "VERY OLD"; break;      
    }
    m_age.setString(age_string);
-   m_price.setString(std::string("Price: ") + property.value()->getPrice());
+   m_price.setString(std::string("Price: ") + property.getPrice());
 
-   if (property.value()->isManaged())
+   if (property.isManaged())
       m_background_box.setOutlineThickness(0);
    else
       m_background_box.setOutlineThickness(2);
    
-   if (property.value()->isRented())
+   if (property.isRented())
       m_background_box.setFillColor(sf::Color::Green);
    else
       m_background_box.setFillColor(CC::light_grey);

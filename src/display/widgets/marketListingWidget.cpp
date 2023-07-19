@@ -77,7 +77,7 @@ void MarketListingWidget::dataSync()
    auto listing = findById(m_id, listings);
    if (not listing.has_value()) return;
    std::string age_string = "Age: ";
-   switch (listing.value()->property.getAgeClass())
+   switch (listing.value().get().property.getAgeClass())
    {
    case Property::AgeClass::NEW:
       age_string += "NEW"; break;
@@ -90,7 +90,7 @@ void MarketListingWidget::dataSync()
       age_string += "VERY OLD"; break;      
    }
    m_age.setString(age_string);
-   m_price.setString(std::string("Price: ") + listing.value()->property.getPrice());
+   m_price.setString(std::string("Price: ") + listing.value().get().property.getPrice());
 }
 
 void MarketListingWidget::move(const sf::Vector2f& pos) 

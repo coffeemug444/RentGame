@@ -38,9 +38,9 @@ bool Market::purchaseListing(unsigned id)
 {
    auto listing = findById(id, m_listings);
    if (not listing.has_value()) return false;
-   if (OD::Player::capital < listing.value()->property.getPrice()) return false;
-   OD::Player::capital -= listing.value()->property.getPrice();
-   OD::Player::properties.push_back(listing.value()->property);
+   if (OD::Player::capital < listing.value().get().property.getPrice()) return false;
+   OD::Player::capital -= listing.value().get().property.getPrice();
+   OD::Player::properties.push_back(listing.value().get().property);
    deleteById(id, m_listings);
    return true;
 }
