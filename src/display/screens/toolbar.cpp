@@ -48,6 +48,30 @@ Toolbar::Toolbar(Ui& ui)
 
 }
 
+void Toolbar::dataSync()
+{
+   if (OD::current_speed != m_current_speed)
+   {
+      switch (m_current_speed)
+      {
+      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(sf::Color::Black); break;
+      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(sf::Color::Black); break;
+      };
+      m_current_speed = OD::current_speed;
+      switch (m_current_speed)
+      {
+      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(CC::green_primary, CC::green_secondary); break;
+      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(CC::green_primary, CC::green_secondary); break;
+      }
+   }
+   m_capital_display.setString(std::to_string(OD::Player::capital));
+   m_debt_display.setString(std::to_string(OD::Player::debt));
+   m_net_income_display.setString(std::to_string(OD::Player::net_income));
+}
 
 void Toolbar::move(const sf::Vector2f& pos)
 {
@@ -101,29 +125,6 @@ const Widget& Toolbar::getSubWidget(unsigned index) const
 
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   if (OD::current_speed != m_current_speed)
-   {
-      switch (m_current_speed)
-      {
-      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(sf::Color::Black); break;
-      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(sf::Color::Black); break;
-      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(sf::Color::Black); break;
-      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(sf::Color::Black); break;
-      };
-      m_current_speed = OD::current_speed;
-      switch (m_current_speed)
-      {
-      case GameLogic::GameSpeed::PAUSE: m_speed_pause.setFillColor(CC::green_primary, CC::green_secondary); break;
-      case GameLogic::GameSpeed::NORMAL: m_speed_normal.setFillColor(CC::green_primary, CC::green_secondary); break;
-      case GameLogic::GameSpeed::FAST: m_speed_fast.setFillColor(CC::green_primary, CC::green_secondary); break;
-      case GameLogic::GameSpeed::VERYFAST: m_speed_veryfast.setFillColor(CC::green_primary, CC::green_secondary); break;
-      }
-   }
-   m_capital_display.setString(std::to_string(OD::Player::capital));
-   m_debt_display.setString(std::to_string(OD::Player::debt));
-   m_net_income_display.setString(std::to_string(OD::Player::net_income));
-
-
    target.draw(m_bar);
    target.draw(m_capital_display);
    target.draw(m_debt_display);

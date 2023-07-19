@@ -142,6 +142,7 @@ void Ui::backspace()
 
 void Ui::uiEvents()
 {
+   m_toolbar.uiEvents();
    m_finance_screen.uiEvents();
    m_property_screen.uiEvents();
    m_loan_screen.uiEvents();
@@ -152,6 +153,7 @@ void Ui::uiEvents()
 
 void Ui::dataSync()
 {
+   m_toolbar.dataSync();
    m_finance_screen.dataSync();
    m_property_screen.dataSync();
    m_loan_screen.dataSync();
