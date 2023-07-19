@@ -41,7 +41,11 @@ void Ui::setScreenSize(const sf::Vector2u& screen_size)
    m_market_screen.setSize(size);
    m_bank_screen.setSize(size);
    m_individual_property_screen.setSize(size);
-   m_toolbar.setSize(size);
+
+   auto toolbar_size = size;
+   toolbar_size.y /= 10;
+   m_toolbar.setSize(toolbar_size);
+   m_toolbar.setPosition(size - toolbar_size);
 }
 
 void Ui::selectScreen(MainScreen screen)

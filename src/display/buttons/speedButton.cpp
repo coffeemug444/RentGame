@@ -60,6 +60,21 @@ void SpeedButton::setFillColor(const sf::Color& color)
    setFillColor(color, secondary);
 }
 
+void SpeedButton::move(const sf::Vector2f& pos) 
+{ 
+   CircleButton::move(pos);
+   auto move_vertices = [](sf::VertexArray& va, const sf::Vector2f& pos) {
+      for (int i = 0; i < va.getVertexCount(); i++)
+         va[i].position += pos;
+   };
+   m_pause_rec_1.move(pos);
+   m_pause_rec_2.move(pos);
+   move_vertices(m_play_tri, pos);
+   move_vertices(m_fast_tris, pos);
+   move_vertices(m_veryfast_tri, pos);
+   m_veryfast_rec.move(pos);
+}
+
 void SpeedButton::setFillColor(const sf::Color& primary, const sf::Color& secondary)
 {
    CircleButton::setFillColor(primary);

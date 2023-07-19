@@ -4,6 +4,7 @@
 #include "display/buttons/speedButton.hpp"
 #include "display/widgets/widget.hpp"
 #include "logic/gameLogic.hpp"
+#include "display/widgets/textWidget.hpp"
 
 namespace Game
 {
@@ -18,8 +19,9 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    void setSize(const sf::Vector2f& screen_size) override;
+   void move (const sf::Vector2f& pos) override;
    const Widget& getSubWidget(unsigned index) const override;
-   Iterator end() const override { return Iterator(this, 8); }
+   Iterator end() const override { return Iterator(this, 11); }
 private:
 
    Ui& m_ui;
@@ -33,9 +35,9 @@ private:
    CircleButton m_loans_button;
    CircleButton m_market_button;
    sf::Font m_font;
-   mutable sf::Text m_capital_display;
-   mutable sf::Text m_debt_display;
-   mutable sf::Text m_net_income_display;
+   mutable TextWidget m_capital_display;
+   mutable TextWidget m_debt_display;
+   mutable TextWidget m_net_income_display;
    mutable GameLogic::GameSpeed m_current_speed;
    int m_last_button_id;
 };

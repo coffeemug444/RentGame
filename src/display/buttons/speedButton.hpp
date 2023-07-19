@@ -17,6 +17,7 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void setFillColor(const sf::Color& color) override;
    void setFillColor(const sf::Color& primary, const sf::Color& secondary);
+   void move(const sf::Vector2f& pos) override;
 
 private:
    GameLogic::GameSpeed m_type;

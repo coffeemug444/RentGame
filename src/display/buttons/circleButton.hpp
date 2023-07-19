@@ -21,16 +21,12 @@ public:
       return ((d.x*d.x+d.y*d.y) < getRadius()*getRadius());
    }
    virtual float getRadius() const { return m_button_circle.getRadius(); }
-   virtual sf::Vector2f getSize() const override {
-      float r = getRadius();
-      return {2*r,2*r};
-   }
-   virtual void move(const sf::Vector2f& pos) override { m_button_circle.move(pos); }
+   virtual void move(const sf::Vector2f& pos) override { Widget::move(pos); m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
    virtual void setSize(const sf::Vector2f& container_size) override { 
       Widget::setSize(container_size);
       float r = std::min(container_size.x, container_size.y);
-      setRadius(r);
+      setRadius(r/2);
     }
    virtual void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
 private:
