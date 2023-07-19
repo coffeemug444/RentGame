@@ -10,6 +10,7 @@ GameLogic::GameLogic()
 :m_current_day_ticks(0)
 ,m_current_speed(PAUSE)
 {
+   OD::market.advanceDay();
 }
 
 constexpr int GameLogic::gameSpeedTicks(GameSpeed speed) const

@@ -35,17 +35,20 @@ Ui::Ui(Game& game, const sf::Vector2u& screen_size)
 void Ui::setScreenSize(const sf::Vector2u& screen_size)
 {
    sf::Vector2f size {(float)screen_size.x, (float)screen_size.y};
+
+   auto toolbar_size = size;
+   toolbar_size.y /= 10;
+   m_toolbar.setSize(toolbar_size);
+   m_toolbar.setPosition(size - toolbar_size);
+
+   size.y -= toolbar_size.y;
+
    m_loan_screen.setSize(size);
    m_finance_screen.setSize(size);
    m_property_screen.setSize(size);
    m_market_screen.setSize(size);
    m_bank_screen.setSize(size);
    m_individual_property_screen.setSize(size);
-
-   auto toolbar_size = size;
-   toolbar_size.y /= 10;
-   m_toolbar.setSize(toolbar_size);
-   m_toolbar.setPosition(size - toolbar_size);
 }
 
 void Ui::selectScreen(MainScreen screen)

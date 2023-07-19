@@ -37,7 +37,6 @@ private:
    CircleButton m_properties_button;
    CircleButton m_loans_button;
    CircleButton m_market_button;
-   sf::Font m_font;
    TextWidget m_capital_display;
    TextWidget m_debt_display;
    TextWidget m_net_income_display;

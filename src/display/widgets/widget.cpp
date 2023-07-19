@@ -121,12 +121,12 @@ void Widget::placeSubWidgets()
    float y = this_pos.y;  
 
    auto get_x = [this_pos, this_size, x](sf::Vector2f sub_widget_size, Widget::Alignment alignment){
-      if (alignment.horizontal == H_CENTER) {return this_pos.x + this_size.x/2.f;}
+      if (alignment.horizontal == H_CENTER) {return this_pos.x + (this_size.x - sub_widget_size.x)/2.f;}
       else if (alignment.horizontal == RIGHT) {return this_pos.x + this_size.x - sub_widget_size.x;}
       else {return x;} // do nothing, it's already left aligned
    };
    auto get_y = [this_pos, this_size, y](sf::Vector2f sub_widget_size, Widget::Alignment alignment){
-      if (alignment.vertical == V_CENTER) {return this_pos.y + this_size.y/2.f;}
+      if (alignment.vertical == V_CENTER) {return this_pos.y + (this_size.y - sub_widget_size.y)/2.f;}
       else if (alignment.vertical == BOTTOM) {return this_pos.y + this_size.y - sub_widget_size.y;}
       else {return y;} // do nothing, it's already top aligned
    };

@@ -14,9 +14,9 @@ public:
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override { target.draw(m_button_circle); };
    bool mouseIsOver(sf::Vector2i mouse_pos) const override
    {
-      auto button_center = getPosition() 
-                         + sf::Vector2f{getRadius(),
-                                        getRadius()};
+      auto button_center = m_button_circle.getPosition() 
+                           + sf::Vector2f{getRadius(),
+                                          getRadius()};
       sf::Vector2f d = button_center - mouse_pos;
       return ((d.x*d.x+d.y*d.y) < getRadius()*getRadius());
    }

@@ -13,7 +13,7 @@ class Widget;
 class Screen : public Widget
 {
 public:
-   Screen(std::string title, sf::Color background_color);
+   Screen(std::string title, sf::Color background_color, Widget::PlacementStyle style = ROW);
    
    virtual void setSize(const sf::Vector2f& screen_size) override;
    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -22,6 +22,9 @@ Toolbar::Toolbar()
 ,m_properties_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);}, {V_CENTER, H_CENTER})
 ,m_loans_button([&](){EI::ev_switch_screen.push(Ui::LOANS);}, {V_CENTER, H_CENTER})
 ,m_market_button([&](){EI::ev_switch_screen.push(Ui::MARKET);}, {V_CENTER, H_CENTER})
+,m_capital_display(std::to_string(OD::Player::capital))
+,m_debt_display(std::to_string(OD::Player::debt))
+,m_net_income_display(std::to_string(OD::Player::net_income))
 ,m_current_speed(GameLogic::GameSpeed::PAUSE)
 ,m_last_button_id(0)
 {
@@ -36,12 +39,6 @@ Toolbar::Toolbar()
    m_properties_button.setFillColor(CC::property_color);
    m_loans_button.setFillColor(CC::loan_color);
    m_market_button.setFillColor(CC::market_color);
-
-   m_capital_display.setString(std::to_string(OD::Player::capital));
-   m_debt_display.setString(std::to_string(OD::Player::debt));
-   m_net_income_display.setString(std::to_string(OD::Player::net_income));
-
-   m_font.loadFromFile("font/Rubik-VariableFont_wght.ttf");
 
    m_capital_display.setFillColor(sf::Color::Green);
    m_debt_display.setFillColor(sf::Color::Red);
@@ -118,10 +115,10 @@ const Widget& Toolbar::getSubWidget(unsigned index) const
    case 6:  return m_speed_normal;
    case 7:  return m_speed_fast;
    case 8:  return m_speed_veryfast;
-   case 9:  return m_finance_button;
+   case 9: return m_market_button;
    case 10: return m_properties_button;
    case 11: return m_loans_button;
-   case 12: return m_market_button;
+   case 12:  return m_finance_button;
    default: return Widget::getSubWidget(index);
    }
 }

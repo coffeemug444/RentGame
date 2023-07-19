@@ -2,6 +2,7 @@
 #include "widget.hpp"
 #include "logic/property.hpp"
 #include "display/buttons/circleButton.hpp"
+#include "display/widgets/textWidget.hpp"
 
 namespace Game
 {
@@ -16,7 +17,7 @@ public:
    void move(const sf::Vector2f& pos) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    const Widget& getSubWidget(unsigned index) const override;
-   Iterator end() const override { return Iterator(this, 1); }
+   Iterator end() const override { return Iterator(this, 3); }
 
 private:
    enum ButtonId {
@@ -27,8 +28,8 @@ private:
    unsigned m_id;
 
    CircleButton m_purchase_button;
-   sf::Text m_price;
-   sf::Text m_age;
+   TextWidget m_price;
+   TextWidget m_age;
    sf::RectangleShape m_background_box;
 };
    

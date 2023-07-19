@@ -9,8 +9,9 @@ namespace Game
 class TextWidget : public Widget
 {
 public:
-   TextWidget(const std::string& text = "")
-   :m_text(text, OD::font)
+   TextWidget(const std::string& text = "", Widget::Alignment alignment = {V_CENTER, LEFT})
+   :Widget(ROW,alignment)
+   ,m_text(text, OD::font)
    {
    }
 
@@ -20,10 +21,28 @@ public:
    }
    void setSize(const sf::Vector2f& container_size) override {
       Widget::setSize(container_size);
-      m_text.setCharacterSize(container_size.y);
+      m_text.setPosition(getPosition());
+
+      float text_height = container_size.y * 0.6f;
+      m_text.setCharacterSize(text_height);
+      float text_width = m_text.getGlobalBounds().width;
+
+      float empty_y_space = container_size.y - text_height;
+      float empty_x_space = container_size.x - text_width;
+
+      if (m_alignment.vertical == V_CENTER)
+         m_text.move({0,empty_y_space/2.f});
+      if (m_alignment.vertical == BOTTOM)
+         m_text.move({0,empty_y_space});
+      if (m_alignment.horizontal == H_CENTER)
+         m_text.move({empty_x_space/2.f,0});
+      if (m_alignment.horizontal == RIGHT)
+         m_text.move({empty_x_space,0});
+
    }
    void setString(const std::string& text) {
       m_text.setString(text);
+      setSize(m_container_size); // incase this widget is right aligned
    }
 
    void setFillColor(const sf::Color& color) {

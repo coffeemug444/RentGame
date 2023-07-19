@@ -5,8 +5,8 @@
 namespace Game
 {
 
-Screen::Screen(std::string title, sf::Color background_color)
-:Widget(ROW)
+Screen::Screen(std::string title, sf::Color background_color, Widget::PlacementStyle style)
+:Widget(style)
 ,m_background_color(background_color) 
 ,m_active(false) 
 {
