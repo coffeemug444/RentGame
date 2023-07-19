@@ -6,8 +6,8 @@
 namespace Game
 {
 
-BankScreen::BankScreen(Ui& ui) 
-:Screen(ui, "Bank", CC::bank_color)
+BankScreen::BankScreen() 
+:Screen("Bank", CC::bank_color)
 ,m_loan_screen_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
 ,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
@@ -78,6 +78,7 @@ void BankScreen::resetErrors()
    m_repayment_time_errors.setString("");
 }
 
+// TODO: THIS DOESN'T LOOK RIGHT
 void BankScreen::uiEvents()
 {
    Screen::uiEvents();
@@ -90,12 +91,12 @@ void BankScreen::uiEvents()
          switch (status)
          {
          case SUCCESS:
-            m_ui.selectScreen(Ui::LOANS);
+            EI::ev_switch_screen.push(Ui::LOANS);
             break;
          case FAILED:
             break;
          }
-         EI::ev_take_loan_status.pop();
+         EI::ev_take_loan_status.pop(); // ??? shouldn't this be in gameLogic?
       }
    }
 }

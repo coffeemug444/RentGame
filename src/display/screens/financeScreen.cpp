@@ -4,8 +4,8 @@
 namespace Game
 {
 
-FinanceScreen::FinanceScreen(Ui& ui) 
-:Screen(ui, "Finance", CC::finance_color)
+FinanceScreen::FinanceScreen() 
+:Screen("Finance", CC::finance_color)
 {
 }
 

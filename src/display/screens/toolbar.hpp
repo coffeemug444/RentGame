@@ -16,7 +16,7 @@ class Ui;
 class Toolbar : public Widget
 {
 public:
-   Toolbar(Ui& ui);
+   Toolbar();
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
    void setSize(const sf::Vector2f& screen_size) override;
@@ -26,7 +26,6 @@ public:
    Iterator end() const override { return Iterator(this, 5); }
 private:
 
-   Ui& m_ui;
    sf::RectangleShape m_bar;
    ContainerWidget m_speed_button_container;
    SpeedButton m_speed_pause;

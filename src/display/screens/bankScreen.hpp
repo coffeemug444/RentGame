@@ -19,7 +19,7 @@ class LoanScreen;
 class BankScreen : public Screen
 {
 public:
-   BankScreen(Ui& ui);
+   BankScreen();
    void setSize(const sf::Vector2f& screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void uiEvents() override;

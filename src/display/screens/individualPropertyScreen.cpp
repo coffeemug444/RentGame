@@ -7,8 +7,8 @@
 namespace Game
 {
 
-IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui) 
-:Screen(ui, "Property 2",CC::individual_property_color)
+IndividualPropertyScreen::IndividualPropertyScreen() 
+:Screen("Property 2",CC::individual_property_color)
 ,m_property_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);})
 ,m_manager_button([&](){EI::ev_set_property_managed_status.push({m_id, not m_managed});})
 ,m_save_button([&](){EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});})

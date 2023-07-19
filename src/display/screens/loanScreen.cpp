@@ -7,8 +7,8 @@
 namespace Game
 {
 
-LoanScreen::LoanScreen(Ui& ui) 
-:Screen(ui, "Loans", CC::loan_color) 
+LoanScreen::LoanScreen() 
+:Screen("Loans", CC::loan_color) 
 ,m_bank_screen_button([&](){EI::ev_switch_screen.push(Ui::BANK);})
 {
    m_bank_screen_button.setFillColor(CC::bank_color);

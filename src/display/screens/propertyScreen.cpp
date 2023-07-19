@@ -6,8 +6,8 @@
 namespace Game
 {
 
-PropertyScreen::PropertyScreen(Ui& ui) 
-:Screen(ui, "Property", CC::property_color)
+PropertyScreen::PropertyScreen() 
+:Screen("Property", CC::property_color)
 {
 }
 

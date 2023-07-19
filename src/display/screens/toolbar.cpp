@@ -10,9 +10,8 @@
 namespace Game
 {
 
-Toolbar::Toolbar(Ui& ui)
+Toolbar::Toolbar()
 :Widget(COL)
-,m_ui(ui)
 ,m_speed_button_container(this, {5,6,7,8}, COL)
 ,m_speed_pause(GameLogic::PAUSE)
 ,m_speed_normal(GameLogic::NORMAL)

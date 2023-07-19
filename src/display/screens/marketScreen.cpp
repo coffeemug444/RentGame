@@ -6,8 +6,8 @@ namespace Game
 {
 
 
-MarketScreen::MarketScreen(Ui& ui) 
-:Screen(ui, "Market", CC::market_color) 
+MarketScreen::MarketScreen() 
+:Screen("Market", CC::market_color) 
 {
 }
 

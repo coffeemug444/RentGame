@@ -17,7 +17,7 @@ namespace Game
 class MarketScreen : public Screen
 {
 public:
-   MarketScreen(Ui& ui);
+   MarketScreen();
    void setSize(const sf::Vector2f& screen_size) override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override { return *(m_market_listing_widgets.at(index)); }

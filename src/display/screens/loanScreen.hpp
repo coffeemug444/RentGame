@@ -20,7 +20,7 @@ namespace Game
 class LoanScreen : public Screen
 {
 public:
-   LoanScreen(Ui& ui);
+   LoanScreen();
    void setSize(const sf::Vector2f& size) override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
