@@ -20,7 +20,6 @@ public:
       sf::Vector2f d = button_center - mouse_pos;
       return ((d.x*d.x+d.y*d.y) < getRadius()*getRadius());
    }
-   sf::Vector2f getPosition() const override { return m_button_circle.getPosition(); }
    virtual float getRadius() const { return m_button_circle.getRadius(); }
    virtual sf::Vector2f getSize() const override {
       float r = getRadius();
@@ -28,6 +27,11 @@ public:
    }
    virtual void move(const sf::Vector2f& pos) override { m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
+   virtual void setSize(const sf::Vector2f& container_size) override { 
+      Widget::setSize(container_size);
+      float r = std::min(container_size.x, container_size.y);
+      setRadius(r);
+    }
    virtual void setFillColor(const sf::Color& color) { m_button_circle.setFillColor(color); }
 private:
    sf::CircleShape m_button_circle;

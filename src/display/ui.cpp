@@ -7,17 +7,17 @@
 namespace Game
 {
 
-Ui::Ui(Game& game, sf::Vector2u screen_size)
+Ui::Ui(Game& game, const sf::Vector2u& screen_size)
 :m_game(game)
 ,m_screen_size(screen_size)
 ,m_selected_screen(FINANCE)
-,m_toolbar(*this, screen_size)
-,m_loan_screen(*this, screen_size)
-,m_finance_screen(*this, screen_size)
-,m_property_screen(*this, screen_size)
-,m_market_screen(*this, screen_size)
-,m_bank_screen(*this, screen_size)
-,m_individual_property_screen(*this, screen_size)
+,m_toolbar(*this)
+,m_loan_screen(*this)
+,m_finance_screen(*this)
+,m_property_screen(*this)
+,m_market_screen(*this)
+,m_bank_screen(*this)
+,m_individual_property_screen(*this)
 ,m_current_cursor(sf::Cursor::Arrow)
 ,m_screen_map{
    {FINANCE, &m_finance_screen},
@@ -28,18 +28,20 @@ Ui::Ui(Game& game, sf::Vector2u screen_size)
    {INDIVIDUAL_PROPERTY, &m_individual_property_screen}
 }
 {
+   setScreenSize(screen_size);
    m_finance_screen.setActive(true);
 }
 
-void Ui::setScreenSize(sf::Vector2u screen_size)
+void Ui::setScreenSize(const sf::Vector2u& screen_size)
 {
-   m_loan_screen.setScreenSize(screen_size);
-   m_finance_screen.setScreenSize(screen_size);
-   m_property_screen.setScreenSize(screen_size);
-   m_market_screen.setScreenSize(screen_size);
-   m_bank_screen.setScreenSize(screen_size);
-   m_individual_property_screen.setScreenSize(screen_size);
-   m_toolbar.setScreenSize(screen_size);
+   sf::Vector2f size {(float)screen_size.x, (float)screen_size.y};
+   m_loan_screen.setSize(size);
+   m_finance_screen.setSize(size);
+   m_property_screen.setSize(size);
+   m_market_screen.setSize(size);
+   m_bank_screen.setSize(size);
+   m_individual_property_screen.setSize(size);
+   m_toolbar.setSize(size);
 }
 
 void Ui::selectScreen(MainScreen screen)

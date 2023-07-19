@@ -5,9 +5,9 @@
 namespace Game
 {
 
-Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color)
-:m_ui(ui)
-,m_screen_size(screen_size)
+Screen::Screen(Ui& ui, std::string title, sf::Color background_color)
+:Widget(ROW)
+,m_ui(ui)
 ,m_background_color(background_color) 
 ,m_active(false) 
 {
@@ -16,26 +16,13 @@ Screen::Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color ba
    m_title.setFont(OD::font);
    m_title.setString(title);
 }
-void Screen::setScreenSize(sf::Vector2u screen_size)
+
+void Screen::setSize(const sf::Vector2f& screen_size)
 {
-   float screen_w = static_cast<float>(screen_size.x);
-   float screen_h = static_cast<float>(screen_size.y);
-   m_background.setSize({screen_w,screen_h});
-   for (auto& widget : *this)
-   {
-      widget.setScreenSize(screen_size);
-   }
+   Widget::setSize(screen_size);
+   m_background.setSize(screen_size);
 }
 
-sf::Vector2f Screen::getSize() const
-{
-   return m_background.getSize();
-}
-
-sf::Vector2f Screen::getPosition() const
-{
-   return m_background.getPosition();
-}
 
 void Screen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

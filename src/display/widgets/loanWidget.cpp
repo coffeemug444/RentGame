@@ -35,20 +35,9 @@ void LoanWidget::dataSync()
    m_next_payment.setString(std::string("Next payment: ") + loan.getRepaymentAmount());
 }
 
-sf::Vector2f LoanWidget::getSize() const
+void LoanWidget::setSize(const sf::Vector2f& size)
 {
-   return m_background_box.getSize();
-}
-
-sf::Vector2f LoanWidget::getPosition() const
-{
-   return m_background_box.getPosition();
-}
-
-void LoanWidget::setScreenSize(const sf::Vector2u& size)
-{
-   m_screen_size = size;
-
+   // TODO: MAKE ALL THESE FIELDS INTO WIDGETS
    auto pos = getPosition();
    m_principal.setPosition(pos);
    m_total.setPosition(pos);

@@ -6,22 +6,15 @@
 namespace Game
 {
 
-PropertyScreen::PropertyScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Property", CC::property_color)
+PropertyScreen::PropertyScreen(Ui& ui) 
+:Screen(ui, "Property", CC::property_color)
 {
-   setScreenSize(screen_size);
 }
 
 
-void PropertyScreen::setScreenSize(sf::Vector2u screen_size)
+void PropertyScreen::setSize(const sf::Vector2f& screen_size)
 {
-   Screen::setScreenSize(screen_size);
-   sf::Vector2f market_listing_widget_origin = {10.f,0.1f*screen_size.y};
-   for (int i = 0; i < m_owned_property_widgets.size(); i++)
-   {
-      auto new_pos = market_listing_widget_origin + i*sf::Vector2f{0,20.f+m_owned_property_widgets[i]->getSize().y};
-      m_owned_property_widgets[i]->setPosition(new_pos);
-   }
+   Screen::setSize(screen_size);
 }
 
 void PropertyScreen::dataSync() 
@@ -45,7 +38,7 @@ void PropertyScreen::dataSync()
       }
    }
 
-   if (changed) setScreenSize(m_screen_size);
+   if (changed) Widget::placeSubWidgets();
    Screen::dataSync();
 }
 

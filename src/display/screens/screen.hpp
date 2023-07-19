@@ -13,12 +13,9 @@ class Widget;
 class Screen : public Widget
 {
 public:
-   Screen(Ui& ui, sf::Vector2u screen_size, std::string title, sf::Color background_color);
+   Screen(Ui& ui, std::string title, sf::Color background_color);
    
-   virtual void setScreenSize(sf::Vector2u screen_size);
-   sf::Vector2f getSize() const override;
-   sf::Vector2f getPosition() const override;
-
+   virtual void setSize(const sf::Vector2f& screen_size) override;
    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
    virtual void setActive(bool active) { m_active = active; }

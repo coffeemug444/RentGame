@@ -23,7 +23,7 @@ namespace Game
 class FinanceScreen : public Screen
 {
 public:
-   FinanceScreen(Ui& ui, sf::Vector2u screen_size);
+   FinanceScreen(Ui& ui);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    Iterator end() const override { return Iterator(this, 0); }
 };

@@ -34,20 +34,7 @@ OwnedPropertyWidget::OwnedPropertyWidget(unsigned id)
    m_background_box.setOutlineColor(sf::Color::Red);
 }
 
-// TODO: get the total size from top-left to bottom-right
-sf::Vector2f OwnedPropertyWidget::getSize() const 
-{
-   return m_background_box.getSize();
-}
-
-// TODO: get the position of the lop-left-most element
-sf::Vector2f OwnedPropertyWidget::getPosition() const 
-{
-   return m_background_box.getPosition();
-}
-
-// TODO: move around the elements in this widget based on the screen size
-void OwnedPropertyWidget::setScreenSize(const sf::Vector2u& size) 
+void OwnedPropertyWidget::setSize(const sf::Vector2f& size) 
 {
    auto pos = getPosition();
    m_age.setPosition(pos);
@@ -67,7 +54,6 @@ void OwnedPropertyWidget::setScreenSize(const sf::Vector2u& size)
    m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
 }
 
-// TODO: retrieve data for listing with this ID and update the fields
 void OwnedPropertyWidget::dataSync() 
 {
    auto property_candidate = findById(m_id, OD::Player::properties);

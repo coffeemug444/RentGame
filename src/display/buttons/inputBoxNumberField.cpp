@@ -58,6 +58,11 @@ void InputBoxNumberField::charEntered(char digit)
    setDisplay();
 }
 
+void InputBoxNumberField::setSize(const sf::Vector2f& size)
+{
+   // TODO: GET ALL THE POSITIONS RIGHT BASED OFF THE SIZE
+}
+
 void InputBoxNumberField::setNumber(int number)
 {
    m_number = std::to_string(number);
@@ -122,23 +127,6 @@ void InputBoxNumberField::setEditable(bool editable)
 { 
    m_editable = editable; 
    if (not m_editable) m_active = false;
-}
-
-sf::Vector2f InputBoxNumberField::getSize() const
-{
-   auto label = m_label.getGlobalBounds();
-   auto box = m_background_box.getSize();
-   auto error = m_errors.getGlobalBounds();
-
-   float x = label.width + box.x + error.width + 10.f;
-   float y = std::max(label.height, std::max(box.y, error.height));
-
-   return {x, y};
-}
-
-sf::Vector2f InputBoxNumberField::getPosition() const
-{
-   return m_label.getPosition();
 }
 
 void InputBoxNumberField::setDisplay()

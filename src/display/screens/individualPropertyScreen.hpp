@@ -19,8 +19,8 @@ class PropertyScreen;
 class IndividualPropertyScreen : public Screen
 {
 public:
-   IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size);
-   void setScreenSize(sf::Vector2u screen_size) override;
+   IndividualPropertyScreen(Ui& ui);
+   void setSize(const sf::Vector2f& screen_size) override;
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;

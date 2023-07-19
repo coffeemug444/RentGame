@@ -6,8 +6,8 @@
 namespace Game
 {
 
-BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Bank", CC::bank_color)
+BankScreen::BankScreen(Ui& ui) 
+:Screen(ui, "Bank", CC::bank_color)
 ,m_loan_screen_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
 ,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
@@ -15,7 +15,6 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 {
    m_loan_screen_button.setFillColor(CC::loan_color);
    m_take_loan_button.setFillColor(CC::loan_color);
-   setScreenSize(screen_size);
 
    m_loan_amount_errors.setFont(OD::font);
    m_loan_amount_errors.setCharacterSize(12);
@@ -27,9 +26,9 @@ BankScreen::BankScreen(Ui& ui, sf::Vector2u screen_size)
 
 }
 
-void BankScreen::setScreenSize(sf::Vector2u screen_size)
+void BankScreen::setSize(const sf::Vector2f& screen_size)
 {
-   Screen::setScreenSize(screen_size);
+   Screen::setSize(screen_size);
    m_loan_screen_button.setRadius(0.05f*screen_size.y);
    m_take_loan_button.setRadius(0.05f*screen_size.y);
    m_loan_screen_button.setPosition({screen_size.x-2*m_loan_screen_button.getRadius(),0});

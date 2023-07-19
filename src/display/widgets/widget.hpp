@@ -8,13 +8,18 @@ namespace Game
 class Widget : public sf::Drawable
 {
 public:
-   Widget();
+   enum PlacementStyle {
+      ROW,     // elements are placed top to bottom
+      COL      // elements are placed left to right
+   };
+   Widget(PlacementStyle style = ROW) : m_placement_style(style) {} 
 
    class Iterator {
    public:
       Iterator(const Widget* base, unsigned index): m_base(base), m_index(index) {}
       void operator++() { m_index++; }
       void operator--() { if (m_index > 0) m_index--; }
+      unsigned operator-(const Iterator& other) { return m_index - other.m_index; }
       Widget& operator*() { return m_base->_getSubWidget(m_index); }
       bool operator!=(const Iterator& other) const {
          return m_base != other.m_base || m_index != other.m_index;
@@ -42,11 +47,17 @@ public:
    virtual void dataSync();
    virtual void charEntered(char c);
    virtual void backspace();
-   virtual sf::Vector2f getSize() const = 0;
-   virtual sf::Vector2f getPosition() const = 0;
-   virtual void setScreenSize(const sf::Vector2u& size);
+   virtual sf::Vector2f getSize() const { return m_container_size; }
+   sf::Vector2f getPosition() const { return m_position; }
+   virtual void setSize(const sf::Vector2f& container_size) = 0;
+   virtual void setSubWidgetSize();
+   void placeSubWidgets();
    void setPosition(const sf::Vector2f& pos);
    virtual void move(const sf::Vector2f& pos);
+protected:
+   PlacementStyle m_placement_style;
+   sf::Vector2f m_container_size;
+   sf::Vector2f m_position;
 private:
    Widget& _getSubWidget(unsigned index) const { return const_cast<Widget&>(getSubWidget(index)); }
 };

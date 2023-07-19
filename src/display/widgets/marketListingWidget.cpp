@@ -31,20 +31,7 @@ MarketListingWidget::MarketListingWidget(unsigned id)
    m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
 }
 
-// TODO: get the total size from top-left to bottom-right
-sf::Vector2f MarketListingWidget::getSize() const 
-{
-   return m_background_box.getSize();
-}
-
-// TODO: get the position of the lop-left-most element
-sf::Vector2f MarketListingWidget::getPosition() const 
-{
-   return m_background_box.getPosition();
-}
-
-// TODO: move around the elements in this widget based on the screen size
-void MarketListingWidget::setScreenSize(const sf::Vector2u& size) 
+void MarketListingWidget::setSize(const sf::Vector2f& size)
 {
    auto pos = getPosition();
    m_age.setPosition(pos);
@@ -70,7 +57,6 @@ const Widget& MarketListingWidget::getSubWidget(unsigned index) const
    return Widget::getSubWidget(index);
 }
 
-// TODO: retrieve data for listing with this ID and update the fields
 void MarketListingWidget::dataSync() 
 {
    auto listings = OD::market.getListings();

@@ -14,18 +14,15 @@ class Ui;
 class Toolbar : public Widget
 {
 public:
-   Toolbar(Ui& ui, sf::Vector2u screen_size);
-   void setScreenSize(sf::Vector2u screen_size);
+   Toolbar(Ui& ui);
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    bool mouseIsOver(sf::Vector2i mouse_pos) const;
-   sf::Vector2f getSize() const override;
-   sf::Vector2f getPosition() const override;
+   void setSize(const sf::Vector2f& screen_size) override;
    const Widget& getSubWidget(unsigned index) const override;
    Iterator end() const override { return Iterator(this, 8); }
 private:
 
    Ui& m_ui;
-   sf::Vector2u m_screen_size;
    sf::RectangleShape m_bar;
    mutable SpeedButton m_speed_pause;
    mutable SpeedButton m_speed_normal;

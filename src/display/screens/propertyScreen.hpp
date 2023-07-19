@@ -17,8 +17,8 @@ namespace Game
 class PropertyScreen : public Screen
 {
 public:
-   PropertyScreen(Ui& ui, sf::Vector2u screen_size);
-   void setScreenSize(sf::Vector2u screen_size) override;
+   PropertyScreen(Ui& ui);
+   void setSize(const sf::Vector2f& screen_size) override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override { return *(m_owned_property_widgets.at(index)); }
    Iterator end() const override { return Iterator(this, m_owned_property_widgets.size()); }

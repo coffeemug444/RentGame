@@ -7,8 +7,8 @@
 namespace Game
 {
 
-IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_size) 
-:Screen(ui, screen_size, "Property 2",CC::individual_property_color)
+IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui) 
+:Screen(ui, "Property 2",CC::individual_property_color)
 ,m_property_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);})
 ,m_manager_button([&](){EI::ev_set_property_managed_status.push({m_id, not m_managed});})
 ,m_save_button([&](){EI::ev_update_property_prices.push({m_id, m_price.getNumber(), m_rental_price.getNumber()});})
@@ -28,15 +28,11 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
 ,m_data_synced(false)
 {
    m_property_button.setFillColor(CC::property_color);
-   m_property_button.setRadius(0.05f*screen_size.y);
 
    m_save_button.setFillColor(sf::Color::Green);
-   m_save_button.setRadius(0.05f*screen_size.y);
 
    m_sell_button.setFillColor(sf::Color::Green);
-   m_sell_button.setRadius(0.025f*screen_size.y);
    m_rent_button.setFillColor(sf::Color::Green);
-   m_rent_button.setRadius(0.025f*screen_size.y);
 
    m_age.setString("Age: ");
 
@@ -45,9 +41,6 @@ IndividualPropertyScreen::IndividualPropertyScreen(Ui& ui, sf::Vector2u screen_s
    m_rental_status.setString("Rental status: ");
 
    m_manager_button.setFillColor(sf::Color::Red);
-   m_manager_button.setRadius(0.05f*screen_size.y);
-
-   setScreenSize(screen_size);
 }
 
 void IndividualPropertyScreen::dataSync() 
@@ -121,9 +114,9 @@ const Widget& IndividualPropertyScreen::getSubWidget(unsigned index) const
    }
 }
 
-void IndividualPropertyScreen::setScreenSize(sf::Vector2u screen_size)
+void IndividualPropertyScreen::setSize(const sf::Vector2f& screen_size)
 {
-   Screen::setScreenSize(screen_size);
+   Screen::setSize(screen_size);
    m_property_button.setPosition({screen_size.x-2*m_property_button.getRadius(),0});
    m_save_button.setPosition({300,60});
    m_age.setPosition({10,40});

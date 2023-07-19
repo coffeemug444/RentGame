@@ -10,10 +10,9 @@
 namespace Game
 {
 
-Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
+Toolbar::Toolbar(Ui& ui)
 :Widget()
 ,m_ui(ui)
-,m_screen_size(screen_size)
 ,m_speed_pause(GameLogic::PAUSE)
 ,m_speed_normal(GameLogic::NORMAL)
 ,m_speed_fast(GameLogic::FAST)
@@ -25,10 +24,7 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 ,m_current_speed(GameLogic::GameSpeed::PAUSE)
 ,m_last_button_id(0)
 {
-   setScreenSize(screen_size);
-
    m_bar.setFillColor(CC::toolbar_color);
-
 
    m_speed_pause.setFillColor(CC::green_primary, CC::green_secondary);
    m_speed_normal.setFillColor(sf::Color::Black);
@@ -56,15 +52,15 @@ Toolbar::Toolbar(Ui& ui, sf::Vector2u screen_size)
 
 }
 
-void Toolbar::setScreenSize(sf::Vector2u screen_size)
+void Toolbar::setSize(const sf::Vector2f& screen_size)
 {
-   m_screen_size = screen_size;
-
    float bar_y = screen_size.y*0.9f;
    float bar_height = screen_size.y*0.1f;
 
    m_bar.setSize({static_cast<float>(screen_size.x), bar_height});
    m_bar.setPosition({0,bar_y});
+
+   std::cout << "placing bar at " << m_bar.getPosition() << std::endl;
    
    float button_radius = screen_size.y*0.025f;
    m_finance_button.setRadius(button_radius);  
@@ -115,17 +111,6 @@ bool Toolbar::mouseIsOver(sf::Vector2i mouse_pos) const
 {
    return mouse_pos.y > m_bar.getPosition().y;
 }
-
-sf::Vector2f Toolbar::getSize() const
-{
-   return m_bar.getSize();
-}
-
-sf::Vector2f Toolbar::getPosition() const
-{
-   return m_bar.getPosition();
-}
-
 
 const Widget& Toolbar::getSubWidget(unsigned index) const 
 {
