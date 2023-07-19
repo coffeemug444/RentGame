@@ -5,6 +5,7 @@
 #include "display/widgets/widget.hpp"
 #include "logic/gameLogic.hpp"
 #include "display/widgets/textWidget.hpp"
+#include "display/widgets/containerWidget.hpp"
 
 namespace Game
 {
@@ -22,15 +23,17 @@ public:
    void move (const sf::Vector2f& pos) override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
-   Iterator end() const override { return Iterator(this, 11); }
+   Iterator end() const override { return Iterator(this, 5); }
 private:
 
    Ui& m_ui;
    sf::RectangleShape m_bar;
+   ContainerWidget m_speed_button_container;
    SpeedButton m_speed_pause;
    SpeedButton m_speed_normal;
    SpeedButton m_speed_fast;
    SpeedButton m_speed_veryfast;
+   ContainerWidget m_screen_button_container;
    CircleButton m_finance_button;
    CircleButton m_properties_button;
    CircleButton m_loans_button;

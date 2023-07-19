@@ -13,10 +13,12 @@ namespace Game
 Toolbar::Toolbar(Ui& ui)
 :Widget(COL)
 ,m_ui(ui)
+,m_speed_button_container(this, {5,6,7,8}, COL)
 ,m_speed_pause(GameLogic::PAUSE)
 ,m_speed_normal(GameLogic::NORMAL)
 ,m_speed_fast(GameLogic::FAST)
 ,m_speed_veryfast(GameLogic::VERYFAST)
+,m_screen_button_container(this, {9,10,11,12}, COL)
 ,m_finance_button([&](){EI::ev_switch_screen.push(Ui::FINANCE);})
 ,m_properties_button([&](){EI::ev_switch_screen.push(Ui::PROPERTIES);})
 ,m_loans_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
@@ -108,17 +110,19 @@ const Widget& Toolbar::getSubWidget(unsigned index) const
 {
    switch (index)
    {
-   case 0:  return m_speed_pause;
-   case 1:  return m_speed_normal;
-   case 2:  return m_speed_fast;
-   case 3:  return m_speed_veryfast;
-   case 4:  return m_capital_display;
-   case 5:  return m_debt_display;
-   case 6:  return m_net_income_display;
-   case 7:  return m_finance_button;
-   case 8:  return m_properties_button;
-   case 9:  return m_loans_button;
-   case 10: return m_market_button;
+   case 0:  return m_speed_button_container;
+   case 1:  return m_capital_display;
+   case 2:  return m_debt_display;
+   case 3:  return m_net_income_display;
+   case 4:  return m_screen_button_container;
+   case 5:  return m_speed_pause;
+   case 6:  return m_speed_normal;
+   case 7:  return m_speed_fast;
+   case 8:  return m_speed_veryfast;
+   case 9:  return m_finance_button;
+   case 10: return m_properties_button;
+   case 11: return m_loans_button;
+   case 12: return m_market_button;
    default: return Widget::getSubWidget(index);
    }
 }
