@@ -15,14 +15,18 @@ MarketListingWidget::MarketListingWidget(unsigned id)
 ,m_price("Price: ")
 ,m_age("Age: ")
 {
+   setPadding({20,20,20,20});
    m_purchase_button.setFillColor(sf::Color::Red);
+   m_purchase_button.setPadding({10,10,10,10});
    m_background_box.setFillColor(CC::light_grey);
 }
 
 void MarketListingWidget::setSize(const sf::Vector2f& size)
 {
    Widget::setSize(size);
-   m_background_box.setSize(size);
+   m_background_box.setSize(size - m_padding);
+   m_background_box.setPosition(getPosition());
+   m_background_box.move({m_padding.left, m_padding.top});
 }
 
 const Widget& MarketListingWidget::getSubWidget(unsigned index) const 

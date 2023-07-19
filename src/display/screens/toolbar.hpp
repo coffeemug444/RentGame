@@ -41,7 +41,6 @@ private:
    TextWidget m_debt_display;
    TextWidget m_net_income_display;
    GameLogic::GameSpeed m_current_speed;
-   int m_last_button_id;
 };
 
 } // namespace Game

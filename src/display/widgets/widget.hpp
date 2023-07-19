@@ -80,12 +80,12 @@ public:
    void placeSubWidgets();
    void setPosition(const sf::Vector2f& pos);
    virtual void move(const sf::Vector2f& pos);
-protected:
-   void setPadding(Padding padding) { 
+   virtual void setPadding(Padding padding) { 
       m_padding = padding; 
       setSubWidgetSize();
       placeSubWidgets(); 
    }
+protected:
    PlacementStyle m_placement_style;
    Alignment m_alignment;
    Padding m_padding;
@@ -94,6 +94,8 @@ protected:
 private:
    Widget& _getSubWidget(unsigned index) const { return const_cast<Widget&>(getSubWidget(index)); }
 };
+
+sf::Vector2f operator-(const sf::Vector2f& size, const Widget::Padding& padding);
 
 
 } // namespace Game

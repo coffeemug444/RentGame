@@ -26,7 +26,6 @@ Toolbar::Toolbar()
 ,m_debt_display(std::to_string(OD::Player::debt))
 ,m_net_income_display(std::to_string(OD::Player::net_income))
 ,m_current_speed(GameLogic::GameSpeed::PAUSE)
-,m_last_button_id(0)
 {
    m_bar.setFillColor(CC::toolbar_color);
 
@@ -75,20 +74,6 @@ void Toolbar::move(const sf::Vector2f& pos)
 {
    Widget::move(pos);
    m_bar.move(pos);
-
-   m_finance_button.move(pos);  
-   m_properties_button.move(pos);
-   m_loans_button.move(pos);
-   m_market_button.move(pos);
-
-   m_speed_pause.move(pos);
-   m_speed_normal.move(pos);
-   m_speed_fast.move(pos);
-   m_speed_veryfast.move(pos);
-
-   m_capital_display.move(pos);
-   m_debt_display.move(pos);
-   m_net_income_display.move(pos);
 }
 
 void Toolbar::setSize(const sf::Vector2f& size)
@@ -115,10 +100,10 @@ const Widget& Toolbar::getSubWidget(unsigned index) const
    case 6:  return m_speed_normal;
    case 7:  return m_speed_fast;
    case 8:  return m_speed_veryfast;
-   case 9: return m_market_button;
+   case 9:  return m_market_button;
    case 10: return m_properties_button;
    case 11: return m_loans_button;
-   case 12:  return m_finance_button;
+   case 12: return m_finance_button;
    default: return Widget::getSubWidget(index);
    }
 }
@@ -126,9 +111,6 @@ const Widget& Toolbar::getSubWidget(unsigned index) const
 void Toolbar::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    target.draw(m_bar);
-   target.draw(m_capital_display);
-   target.draw(m_debt_display);
-   target.draw(m_net_income_display);
    Widget::draw(target, states);
 }
 

@@ -1,9 +1,16 @@
 #include "widget.hpp"
 #include "display/buttons/button.hpp"
+#include <algorithm>
 
 namespace Game
 {
    
+sf::Vector2f operator-(const sf::Vector2f& size, const Widget::Padding& padding)
+{
+   float x = size.x - padding.horizontal();
+   float y = size.y - padding.vertical();
+   return {std::max(x,0.f), std::max(y,0.f)};
+}
 
 sf::Cursor::Type Widget::getCursorType(sf::Vector2i mouse_pos) const
 {
@@ -72,9 +79,7 @@ void Widget::setSize(const sf::Vector2f& container_size)
 
 void Widget::setSubWidgetSize()
 {
-   auto sub_widget_size = m_container_size;
-   sub_widget_size.x -= m_padding.horizontal();
-   sub_widget_size.y -= m_padding.vertical();
+   auto sub_widget_size = m_container_size - m_padding;
    unsigned num_sub_widgets = end() - begin();
    if (m_placement_style == ROW) sub_widget_size.y /= num_sub_widgets;
    else                          sub_widget_size.x /= num_sub_widgets;
@@ -117,9 +122,7 @@ void Widget::placeSubWidgets()
       }
    }
 
-   auto this_size = getSize();
-   this_size.x -= m_padding.horizontal();
-   this_size.y -= m_padding.vertical();
+   auto this_size = getSize() - m_padding;
    auto this_pos = getPosition();
    this_pos.x += m_padding.left;
    this_pos.y += m_padding.top;

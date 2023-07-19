@@ -23,22 +23,30 @@ public:
    virtual float getRadius() const { return m_button_circle.getRadius(); }
    virtual void move(const sf::Vector2f& pos) override { Widget::move(pos); m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
+   virtual void setPadding(Padding padding) override {
+      Widget::setPadding(padding);
+      setSize(m_container_size);
+   }
    virtual void setSize(const sf::Vector2f& container_size) override { 
       Widget::setSize(container_size);
-      float r = std::min(container_size.x, container_size.y) / 2.f;
+      auto inner_size = container_size - m_padding;
+      float r = std::min(inner_size.x, inner_size.y) / 2.f;
       m_button_circle.setPosition(getPosition());
+      m_button_circle.move({m_padding.left, m_padding.top});
+      float empty_x = (getSize() - m_padding).x - 2*r;
+      float empty_y = (getSize() - m_padding).y - 2*r;
       switch (m_alignment.horizontal)
       {
       case LEFT: break;
-      case RIGHT: m_button_circle.move({getSize().x-2*r,0}); break;
-      case H_CENTER: m_button_circle.move({(getSize().x/2.f)-r,0}); break;
+      case RIGHT: m_button_circle.move({empty_x,0}); break;
+      case H_CENTER: m_button_circle.move({empty_x/2.f,0}); break;
       default: break;
       }
       switch (m_alignment.vertical)
       {
       case TOP: break;
-      case BOTTOM: m_button_circle.move({0,getSize().y-2*r}); break;
-      case V_CENTER: m_button_circle.move({0,(getSize().y/2.f)-r}); break;
+      case BOTTOM: m_button_circle.move({0,empty_y}); break;
+      case V_CENTER: m_button_circle.move({0,empty_y/2.f}); break;
       default: break;
       }
 
