@@ -6,21 +6,14 @@
 namespace Game
 {
 
-LoanWidget::LoanWidget(unsigned id) : m_id(id) 
+LoanWidget::LoanWidget(unsigned id) 
+:m_id(id) 
+,m_principal("Principal: ")
+,m_total("Remaining: ")
+,m_next_payment("Next payment: ")
 {
-   const int CHAR_SIZE = 15;
-   m_principal.setFont(OD::font);
-   m_principal.setString("Principal: ");
-   m_principal.setCharacterSize(CHAR_SIZE);
-   m_total.setFont(OD::font);
-   m_total.setString("Remaining: ");
-   m_total.setCharacterSize(CHAR_SIZE);
-   m_next_payment.setFont(OD::font);
-   m_next_payment.setString("Next payment: ");
-   m_next_payment.setCharacterSize(CHAR_SIZE);
-
+   setPadding({20,20,20,20});
    m_background_box.setFillColor(CC::light_grey);
-   m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
 }
 
 
@@ -37,38 +30,32 @@ void LoanWidget::dataSync()
 
 void LoanWidget::setSize(const sf::Vector2f& size)
 {
-   // TODO: MAKE ALL THESE FIELDS INTO WIDGETS
-   auto pos = getPosition();
-   m_principal.setPosition(pos);
-   m_total.setPosition(pos);
-   m_next_payment.setPosition(pos);
-
-   float y = size.y;
-   float dy = y * 0.03f;
-   m_principal.move({5,5});
-   m_total.move({5,5+dy});
-   m_next_payment.move({5,5+2*dy});
-
-   float text_height = m_total.getGlobalBounds().height;
-
-   auto box_size = m_background_box.getSize();
-   m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
+   Widget::setSize(size);
+   m_background_box.setSize(size - m_padding);
+   m_background_box.setPosition(getPosition());
+   m_background_box.move({m_padding.left, m_padding.top});
 }
 
 void LoanWidget::move(const sf::Vector2f& pos)
 {
+   Widget::move(pos);
    m_background_box.move(pos);
-   m_principal.move(pos);
-   m_total.move(pos);
-   m_next_payment.move(pos);
+}
+
+const Widget& LoanWidget::getSubWidget(unsigned index) const { 
+   switch (index)
+   {
+   case 0: return m_principal;
+   case 1: return m_total;
+   case 2: return m_next_payment;
+   default: return Widget::getSubWidget(index);
+   }
 }
 
 void LoanWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    target.draw(m_background_box);
-   target.draw(m_principal);
-   target.draw(m_total);
-   target.draw(m_next_payment);
+   Widget::draw(target, states);
 }
 
 

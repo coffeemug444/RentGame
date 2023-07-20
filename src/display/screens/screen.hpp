@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "display/widgets/widget.hpp"
+#include "display/widgets/textWidget.hpp"
 
 namespace Game
 {
@@ -23,7 +24,7 @@ public:
    
 protected:
    sf::RectangleShape m_background;
-   sf::Text m_title;
+   TextWidget m_title;
    sf::Color m_background_color;
    bool m_active;
 };

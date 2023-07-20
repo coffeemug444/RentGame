@@ -48,4 +48,11 @@ void MarketScreen::dataSync()
 }
 
 
+const Widget& MarketScreen::getSubWidget(unsigned index) const 
+{ 
+   if (index == 0) return m_title;
+   return *(m_market_listing_widgets.at(index-1)); 
+}
+
+
 } // namespace Game

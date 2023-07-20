@@ -38,7 +38,11 @@ void PropertyScreen::dataSync()
       }
    }
 
-   if (changed) Widget::placeSubWidgets();
+   if (changed) 
+   {
+      setSubWidgetSize();
+      placeSubWidgets();
+   }
    Screen::dataSync();
 }
 

@@ -23,10 +23,6 @@ public:
    virtual float getRadius() const { return m_button_circle.getRadius(); }
    virtual void move(const sf::Vector2f& pos) override { Widget::move(pos); m_button_circle.move(pos); }
    virtual void setRadius(float radius) { m_button_circle.setRadius(radius); }
-   virtual void setPadding(Padding padding) override {
-      Widget::setPadding(padding);
-      setSize(m_container_size);
-   }
    virtual void setSize(const sf::Vector2f& container_size) override { 
       Widget::setSize(container_size);
       auto inner_size = container_size - m_padding;

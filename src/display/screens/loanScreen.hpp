@@ -2,6 +2,7 @@
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
 #include "display/widgets/loanWidget.hpp"
+#include "display/widgets/containerWidget.hpp"
 #include <memory>
 
 #include <iostream>
@@ -25,8 +26,10 @@ public:
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
    Iterator end() const override { return Iterator(this, 1 + m_loan_widgets.size()); }
+   void setSubWidgetSize() override;
+   void refreshContainerWidgetIndices() override;
 private:
-
+   ContainerWidget m_title_container;
    CircleButton m_bank_screen_button;
    std::vector<std::shared_ptr<LoanWidget>> m_loan_widgets;
 };

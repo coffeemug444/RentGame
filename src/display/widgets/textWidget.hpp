@@ -23,12 +23,14 @@ public:
       Widget::setSize(container_size);
       m_text.setPosition(getPosition());
 
-      float text_height = container_size.y * 0.6f;
+      auto inner_container_size = container_size - m_padding;
+
+      float text_height = inner_container_size.y * 0.6f;
       m_text.setCharacterSize(text_height);
       float text_width = m_text.getGlobalBounds().width;
 
-      float empty_y_space = container_size.y - text_height;
-      float empty_x_space = container_size.x - text_width;
+      float empty_y_space = inner_container_size.y - text_height;
+      float empty_x_space = inner_container_size.x - text_width;
 
       if (m_alignment.vertical == V_CENTER)
          m_text.move({0,empty_y_space/2.f});

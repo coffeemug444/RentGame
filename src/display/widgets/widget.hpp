@@ -77,6 +77,7 @@ public:
    sf::Vector2f getPosition() const { return m_position; }
    virtual void setSize(const sf::Vector2f& container_size) = 0;
    virtual void setSubWidgetSize();
+   virtual void refreshContainerWidgetIndices() {};
    void placeSubWidgets();
    void setPosition(const sf::Vector2f& pos);
    virtual void move(const sf::Vector2f& pos);
@@ -84,6 +85,7 @@ public:
       m_padding = padding; 
       setSubWidgetSize();
       placeSubWidgets(); 
+      setSize(m_container_size);
    }
 protected:
    PlacementStyle m_placement_style;
