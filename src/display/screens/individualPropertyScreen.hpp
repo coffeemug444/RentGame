@@ -2,6 +2,8 @@
 #include "screen.hpp"
 #include "display/buttons/circleButton.hpp"
 #include "display/buttons/inputBoxNumberField.hpp"
+#include "display/widgets/textWidget.hpp"
+#include "display/widgets/containerWidget.hpp"
 
 /*
 
@@ -20,27 +22,39 @@ class IndividualPropertyScreen : public Screen
 {
 public:
    IndividualPropertyScreen();
-   void setSize(const sf::Vector2f& screen_size) override;
-   void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
    Iterator end() const override { return Iterator(this, 7); }
 private:
+   ContainerWidget m_title_container;
    CircleButton m_property_button;
-   CircleButton m_manager_button;
-   CircleButton m_save_button;
-   CircleButton m_sell_button;
+
+   TextWidget m_age;
+
+   ContainerWidget m_rental_status_container;
+   TextWidget m_rental_status;
    CircleButton m_rent_button;
+
+   ContainerWidget m_rental_price_container;
+   InputBoxNumberField m_rental_price;
+
+   ContainerWidget m_sale_price_container;
+   InputBoxNumberField m_price;
+   CircleButton m_sell_button;
+
+   ContainerWidget m_save_prices_container;
+   TextWidget m_save_prices_text;
+   CircleButton m_save_button;
+
+   ContainerWidget m_manager_container;
+   TextWidget m_managed_text;
+   CircleButton m_manager_button;
 
    bool m_managed;
    bool m_looking_for_tenants;
    bool m_rented;
    unsigned m_id;
 
-   InputBoxNumberField m_price;
-   InputBoxNumberField m_rental_price;
-   sf::Text m_age;
-   sf::Text m_rental_status;
 
    bool m_data_synced;
 };
