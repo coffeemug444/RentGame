@@ -6,8 +6,7 @@
 namespace Game
 {
 
-InputBoxNumberField::InputBoxNumberField(std::string label,
-                                         sf::Color active_background_colour, 
+InputBoxNumberField::InputBoxNumberField(sf::Color active_background_colour, 
                                          sf::Color inactive_background_colour, 
                                          sf::Color text_colour, 
                                          int font_size, 
@@ -21,31 +20,9 @@ InputBoxNumberField::InputBoxNumberField(std::string label,
 ,m_active_background_colour(active_background_colour)
 ,m_inactive_background_colour(inactive_background_colour)
 {
-   m_number_display.setFont(OD::font);
    setDisplay();
-
-   m_label.setString(label);
-   m_label.setFont(OD::font);
-   m_label.setCharacterSize(font_size);
-
-   m_errors.setFont(OD::font);
-   m_errors.setCharacterSize(font_size);
-   m_errors.setFillColor(sf::Color::Red);
-
    m_background_box.setFillColor(inactive_background_colour);
    m_number_display.setFillColor(text_colour); 
-
-   m_number_display.setCharacterSize(font_size);
-   float background_box_w = font_size*max_len*0.7f;
-   m_background_box.setSize({background_box_w, font_size*1.4f});
-
-   m_text_offset = sf::Vector2f{0.1f*font_size,0.1f*font_size};
-
-   sf::Vector2f numbers_offset {m_label.getGlobalBounds().width+5.f,0};
-   
-   m_background_box.setPosition(numbers_offset);
-   m_number_display.setPosition(numbers_offset+m_text_offset); 
-   m_errors.setPosition(numbers_offset+sf::Vector2f{background_box_w+5.f,0});
 }
 
 void InputBoxNumberField::charEntered(char digit)
@@ -60,7 +37,10 @@ void InputBoxNumberField::charEntered(char digit)
 
 void InputBoxNumberField::setSize(const sf::Vector2f& size)
 {
-   // TODO: GET ALL THE POSITIONS RIGHT BASED OFF THE SIZE
+   Widget::setSize(size);
+   m_background_box.setSize(size - m_padding);
+   m_background_box.setPosition(getPosition());
+   m_background_box.move({m_padding.left, m_padding.top});
 }
 
 void InputBoxNumberField::setNumber(int number)
@@ -92,10 +72,8 @@ int InputBoxNumberField::getNumber() const
 
 void InputBoxNumberField::move(const sf::Vector2f& pos)
 { 
-   m_label.move(pos);
+   Widget::move(pos);
    m_background_box.move(pos);
-   m_number_display.move(pos);
-   m_errors.move(pos);
 }
 
 bool InputBoxNumberField::mouseIsOver(sf::Vector2i mouse_pos) const
@@ -134,22 +112,10 @@ void InputBoxNumberField::setDisplay()
    m_number_display.setString(m_number);
 }
 
-void InputBoxNumberField::setError(std::string error_message)
-{
-   m_errors.setString(error_message);
-}
-
-void InputBoxNumberField::resetError()
-{
-   m_errors.setString("");
-}
-
 void InputBoxNumberField::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-   target.draw(m_label);
    target.draw(m_background_box);
-   target.draw(m_number_display);
-   target.draw(m_errors);
+   Widget::draw(target, states);
 }
    
 } // namespace Game

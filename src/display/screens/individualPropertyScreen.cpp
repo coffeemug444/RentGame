@@ -23,8 +23,8 @@ IndividualPropertyScreen::IndividualPropertyScreen()
 ,m_looking_for_tenants(false)
 ,m_rented(false)
 ,m_id(0)
-,m_price("Price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
-,m_rental_price("Rental price", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
+,m_price(CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
+,m_rental_price(CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
 ,m_data_synced(false)
 {
    m_property_button.setFillColor(CC::property_color);

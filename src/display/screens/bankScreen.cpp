@@ -8,35 +8,38 @@ namespace Game
 
 BankScreen::BankScreen() 
 :Screen("Bank", CC::bank_color)
-,m_loan_screen_button([&](){EI::ev_switch_screen.push(Ui::LOANS);})
-,m_loan_amount_field("Loan total", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
-,m_repayment_time_field("Repayment time (months)", CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
+,m_title_container(this, {10,11}, COL)
+,m_loan_screen_button([&](){EI::ev_switch_screen.push(Ui::LOANS);}, {V_CENTER,RIGHT})
+,m_loan_amount_container(this, {4,5,6}, COL)
+,m_loan_amount_label("Loan principal")
+,m_loan_amount_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12, 10)
+,m_loan_amount_errors()
+,m_repayment_time_container(this, {7,8,9}, COL)
+,m_repayment_time_label("Repayment time (months)")
+,m_repayment_time_field(CC::light_grey, sf::Color::Black, sf::Color::White, 12, 4)
+,m_repayment_time_errors()
 ,m_take_loan_button([&](){handleTakeLoan();})
 {
    m_loan_screen_button.setFillColor(CC::loan_color);
+   m_title_container.setPadding({20,0,0,0});
+
    m_take_loan_button.setFillColor(CC::loan_color);
 
-   m_loan_amount_errors.setFont(OD::font);
-   m_loan_amount_errors.setCharacterSize(12);
    m_loan_amount_errors.setFillColor(sf::Color::Red);
-   m_repayment_time_errors.setFont(OD::font);
-   m_repayment_time_errors.setCharacterSize(12);
    m_repayment_time_errors.setFillColor(sf::Color::Red);
-
-
 }
 
-void BankScreen::setSize(const sf::Vector2f& screen_size)
+void BankScreen::setSubWidgetSize()
 {
-   Screen::setSize(screen_size);
-   m_loan_screen_button.setRadius(0.05f*screen_size.y);
-   m_take_loan_button.setRadius(0.05f*screen_size.y);
-   m_loan_screen_button.setPosition({screen_size.x-2*m_loan_screen_button.getRadius(),0});
-   m_loan_amount_field.setPosition({0,0.1f*screen_size.y});
-   m_repayment_time_field.setPosition({0,0.15f*screen_size.y});
-   m_take_loan_button.setPosition({0,0.2f*screen_size.y + m_loan_screen_button.getRadius()});
-   m_loan_amount_errors.setPosition({m_loan_amount_field.getSize().x,0.1f*screen_size.y});
-   m_repayment_time_errors.setPosition({m_repayment_time_field.getSize().x,0.15f*screen_size.y});
+   auto inner_container_size = m_container_size - m_padding;
+   float w = inner_container_size.x;
+   float title_height = 60.f;
+   m_title_container.setSize({w, title_height});
+   float fields_height = 20.f;
+   m_loan_amount_container.setSize({w, fields_height});
+   m_repayment_time_container.setSize({w, fields_height});
+
+   m_take_loan_button.setSize({w, 50.f}); // idk is this good???
 }
 
 void BankScreen::handleTakeLoan()
@@ -101,15 +104,22 @@ void BankScreen::uiEvents()
    }
 }
 
-
 const Widget& BankScreen::getSubWidget(unsigned index) const
 {
    switch (index)
    {
-   case 0: return m_loan_amount_field;
-   case 1: return m_repayment_time_field;
-   case 2: return m_loan_screen_button;
-   case 3: return m_take_loan_button;
+   case 0:  return m_title_container;
+   case 1:  return m_loan_amount_container;
+   case 2:  return m_repayment_time_container;
+   case 3:  return m_take_loan_button;
+   case 4:  return m_loan_amount_label;
+   case 5:  return m_loan_amount_field;
+   case 6:  return m_loan_amount_errors;
+   case 7:  return m_repayment_time_label;
+   case 8:  return m_repayment_time_field;
+   case 9:  return m_repayment_time_errors;
+   case 10: return m_title;
+   case 11: return m_loan_screen_button;
    default: return Widget::getSubWidget(index);
    }
 }
@@ -117,8 +127,6 @@ const Widget& BankScreen::getSubWidget(unsigned index) const
 void BankScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    Screen::draw(target, states);
-   target.draw(m_loan_amount_field);
-   target.draw(m_repayment_time_field);
    target.draw(m_loan_amount_errors);
    target.draw(m_repayment_time_errors);
 }

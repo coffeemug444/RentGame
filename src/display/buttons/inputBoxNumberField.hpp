@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "display/widgets/widget.hpp"
+#include "display/widgets/textWidget.hpp"
 #include <string>
 
 namespace Game
@@ -10,8 +11,7 @@ namespace Game
 class InputBoxNumberField : public Widget
 {
 public:
-   InputBoxNumberField(std::string label,
-                       sf::Color active_background_colour, 
+   InputBoxNumberField(sf::Color active_background_colour, 
                        sf::Color inactive_background_colour, 
                        sf::Color text_colour, 
                        int font_size, 
@@ -31,7 +31,11 @@ public:
    void mouseUp(sf::Vector2i mouse_pos) override;
    void setActive(bool active);
    void setEditable(bool editable);
-   Iterator end() const override { return Iterator(this, 0); }
+   const Widget& getSubWidget(unsigned index) const override { 
+      if (index == 0) return m_number_display;
+      return Widget::getSubWidget(index);
+   }
+   Iterator end() const override { return Iterator(this, 1); }
 private:
    void setDisplay();
    bool m_editable;
@@ -39,9 +43,7 @@ private:
    bool m_last_mouse_down;
    std::string m_number;
    int m_font_size;
-   sf::Text m_label;
-   sf::Text m_errors;
-   sf::Text m_number_display;
+   TextWidget m_number_display;
    sf::RectangleShape m_background_box;
    int m_max_len;
    sf::Vector2f m_text_offset;

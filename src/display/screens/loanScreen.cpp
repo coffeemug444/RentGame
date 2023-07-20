@@ -43,8 +43,8 @@ void LoanScreen::setSubWidgetSize()
 void LoanScreen::refreshContainerWidgetIndices()
 {
    m_title_container.setSubWidgetIds({
-      (unsigned)m_loan_widgets.size()+1,  // title
-      (unsigned)m_loan_widgets.size()+2 // bank button
+      (unsigned)m_loan_widgets.size()+1, // title
+      (unsigned)m_loan_widgets.size()+2  // bank button
    });
 }
 
