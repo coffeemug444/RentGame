@@ -13,8 +13,7 @@ class InputBoxNumberField : public Widget
 public:
    InputBoxNumberField(sf::Color active_background_colour, 
                        sf::Color inactive_background_colour, 
-                       sf::Color text_colour, 
-                       int font_size, 
+                       sf::Color text_colour,
                        int max_len = 10); // 1`000`000`000, N billion
    void setError(std::string error_message);
    void resetError();
@@ -42,7 +41,6 @@ private:
    bool m_active;
    bool m_last_mouse_down;
    std::string m_number;
-   int m_font_size;
    TextWidget m_number_display;
    sf::RectangleShape m_background_box;
    int m_max_len;

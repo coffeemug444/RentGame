@@ -9,13 +9,11 @@ namespace Game
 InputBoxNumberField::InputBoxNumberField(sf::Color active_background_colour, 
                                          sf::Color inactive_background_colour, 
                                          sf::Color text_colour, 
-                                         int font_size, 
                                          int max_len)
 :m_editable(true)
 ,m_active(false)
 ,m_last_mouse_down(false)
 ,m_number("0")
-,m_font_size(font_size)
 ,m_max_len(max_len)
 ,m_active_background_colour(active_background_colour)
 ,m_inactive_background_colour(inactive_background_colour)
