@@ -18,10 +18,12 @@ class PropertyScreen : public Screen
 {
 public:
    PropertyScreen();
-   void setSize(const sf::Vector2f& screen_size) override;
    void dataSync() override;
-   const Widget& getSubWidget(unsigned index) const override { return *(m_owned_property_widgets.at(index)); }
-   Iterator end() const override { return Iterator(this, m_owned_property_widgets.size()); }
+   const Widget& getSubWidget(unsigned index) const override { 
+      if (index == 0) return m_title;
+      return *(m_owned_property_widgets.at(index-1)); 
+   }
+   Iterator end() const override { return Iterator(this, 1+m_owned_property_widgets.size()); }
 private:
 
    std::vector<std::shared_ptr<OwnedPropertyWidget>> m_owned_property_widgets;

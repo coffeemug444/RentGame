@@ -11,12 +11,6 @@ PropertyScreen::PropertyScreen()
 {
 }
 
-
-void PropertyScreen::setSize(const sf::Vector2f& screen_size)
-{
-   Screen::setSize(screen_size);
-}
-
 void PropertyScreen::dataSync() 
 {
    bool changed = false;

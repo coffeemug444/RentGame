@@ -9,49 +9,25 @@ namespace Game
 
 
 OwnedPropertyWidget::OwnedPropertyWidget(unsigned id) 
-:m_id(id)
+:Widget(COL)
+,m_id(id)
 ,m_edit_property_button([id](){ 
    EI::ev_switch_screen.push(Ui::INDIVIDUAL_PROPERTY);
    EI::ev_change_monitored_property_id.push(id); })
-,m_price()
-,m_age()
+,m_price("Price: ")
+,m_age("Age: ")
 {
-   const int CHAR_SIZE = 15;
-
    m_edit_property_button.setFillColor(sf::Color::Red);
-   m_edit_property_button.setRadius(20.f);
-
-   m_price.setFont(OD::font);
-   m_price.setString("Price: ");
-   m_price.setCharacterSize(CHAR_SIZE);
-   
-   m_age.setFont(OD::font);
-   m_age.setString("Age: ");
-   m_age.setCharacterSize(CHAR_SIZE);
-
    m_background_box.setFillColor(CC::light_grey);
-   m_background_box.setSize({180.f, 3.f*CHAR_SIZE});
    m_background_box.setOutlineColor(sf::Color::Red);
 }
 
 void OwnedPropertyWidget::setSize(const sf::Vector2f& size) 
 {
-   auto pos = getPosition();
-   m_age.setPosition(pos);
-   m_price.setPosition(pos);
-   m_edit_property_button.setPosition(pos);
-
-   float y = size.y;
-   float dy = y * 0.03f;
-   m_age.move({5,5});
-   m_price.move({5,5 + dy});
-
-   m_edit_property_button.move({100,10});
-
-   float text_height = m_age.getGlobalBounds().height;
-
-   auto box_size = m_background_box.getSize();
-   m_background_box.setSize({box_size.x, text_height*2+2.f*dy});
+   Widget::setSize(size);
+   m_background_box.setSize(size - m_padding);
+   m_background_box.setPosition(getPosition());
+   m_background_box.move({m_padding.left, m_padding.top});
 }
 
 void OwnedPropertyWidget::dataSync() 
@@ -88,23 +64,21 @@ void OwnedPropertyWidget::dataSync()
 
 const Widget& OwnedPropertyWidget::getSubWidget(unsigned index) const
 {
-   if (index == 0) return m_edit_property_button;
+   if (index == 0) return m_age;
+   if (index == 1) return m_price;
+   if (index == 2) return m_edit_property_button;
    return Widget::getSubWidget(index);
 }
 
 void OwnedPropertyWidget::move(const sf::Vector2f& pos) 
 {
+   Widget::move(pos);
    m_background_box.move(pos);
-   m_age.move(pos);
-   m_price.move(pos);
-   m_edit_property_button.move(pos);
 }
 
 void OwnedPropertyWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
    target.draw(m_background_box);
-   target.draw(m_age);
-   target.draw(m_price);
    Widget::draw(target, states);
 }
 
