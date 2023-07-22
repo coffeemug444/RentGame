@@ -15,6 +15,25 @@ MarketScreen::MarketScreen()
 void MarketScreen::setSize(const sf::Vector2f& screen_size)
 {
    Screen::setSize(screen_size);
+   m_title.setPadding({20,0,0,0});
+}
+
+void MarketScreen::setSubWidgetSize()
+{
+   auto inner_container_size = m_container_size - m_padding;
+   float title_height = 60.f;
+   m_title.setSize({inner_container_size.x, title_height});
+   inner_container_size.y -= title_height;
+
+   if (m_market_listing_widgets.size() == 0) return;
+
+   float listing_widget_y = inner_container_size.y / 5.f; // can have 5 on screen at a time (maybe change this)
+
+   sf::Vector2f listing_widget_size{inner_container_size.x, listing_widget_y};
+   for (auto listing_widget_ptr : m_market_listing_widgets)
+   {
+      listing_widget_ptr->setSize(listing_widget_size);
+   }
 }
 
 void MarketScreen::dataSync() 

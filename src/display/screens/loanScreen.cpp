@@ -33,7 +33,9 @@ void LoanScreen::setSubWidgetSize()
 
    if (m_loan_widgets.size() == 0) return;
 
-   sf::Vector2f loan_widget_size{inner_container_size.x, inner_container_size.y/m_loan_widgets.size()};
+   float loan_widget_y = inner_container_size.y / 4.f; // can display 4 widgets at a time
+
+   sf::Vector2f loan_widget_size{inner_container_size.x, loan_widget_y};
    for (auto loan_widget_ptr : m_loan_widgets)
    {
       loan_widget_ptr->setSize(loan_widget_size);

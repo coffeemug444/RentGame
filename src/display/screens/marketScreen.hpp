@@ -22,6 +22,7 @@ public:
    void dataSync() override;
    const Widget& getSubWidget(unsigned index) const override;
    Iterator end() const override { return Iterator(this, 1+m_market_listing_widgets.size()); }
+   void setSubWidgetSize() override;
 private:
 
    std::vector<std::shared_ptr<MarketListingWidget>> m_market_listing_widgets;

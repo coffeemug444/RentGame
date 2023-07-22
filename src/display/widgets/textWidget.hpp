@@ -22,6 +22,7 @@ public:
    void setSize(const sf::Vector2f& container_size) override {
       Widget::setSize(container_size);
       m_text.setPosition(getPosition());
+      m_text.move({m_padding.left, m_padding.top});
 
       auto inner_container_size = container_size - m_padding;
 

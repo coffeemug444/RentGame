@@ -24,6 +24,7 @@ public:
       return *(m_owned_property_widgets.at(index-1)); 
    }
    Iterator end() const override { return Iterator(this, 1+m_owned_property_widgets.size()); }
+   void setSubWidgetSize() override;
 private:
 
    std::vector<std::shared_ptr<OwnedPropertyWidget>> m_owned_property_widgets;
