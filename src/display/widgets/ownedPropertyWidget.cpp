@@ -13,10 +13,13 @@ OwnedPropertyWidget::OwnedPropertyWidget(unsigned id)
 ,m_id(id)
 ,m_edit_property_button([id](){ 
    EI::ev_switch_screen.push(Ui::INDIVIDUAL_PROPERTY);
-   EI::ev_change_monitored_property_id.push(id); })
+   EI::ev_change_monitored_property_id.push(id); }, 
+   { V_CENTER, RIGHT })
 ,m_price("Price: ")
 ,m_age("Age: ")
 {
+   setPadding({20,20,10,10});
+   m_edit_property_button.setPadding({10,10,10,10});
    m_edit_property_button.setFillColor(sf::Color::Red);
    m_background_box.setFillColor(CC::light_grey);
    m_background_box.setOutlineColor(sf::Color::Red);
@@ -35,21 +38,21 @@ void OwnedPropertyWidget::dataSync()
    auto property_candidate = findById(m_id, OD::Player::properties);
    if (not property_candidate.has_value()) return;
    auto& property = property_candidate.value().get();
-   std::string age_string = "Age: ";
+   std::string age_string;
    switch (property.getAgeClass())
    {
    case Property::AgeClass::NEW:
-      age_string += "NEW"; break;
+      age_string = "NEW"; break;
    case Property::AgeClass::MID:
-      age_string += "MID"; break;
+      age_string = "MID"; break;
    case Property::AgeClass::OLD:
-      age_string += "OLD"; break;
+      age_string = "OLD"; break;
    case Property::AgeClass::VERYOLD:
    default:
-      age_string += "VERY OLD"; break;      
+      age_string = "VERY OLD"; break;      
    }
    m_age.setString(age_string);
-   m_price.setString(std::string("Price: ") + property.getPrice());
+   m_price.setString(std::to_string(property.getPrice()));
 
    if (property.isManaged())
       m_background_box.setOutlineThickness(0);
@@ -64,8 +67,8 @@ void OwnedPropertyWidget::dataSync()
 
 const Widget& OwnedPropertyWidget::getSubWidget(unsigned index) const
 {
-   if (index == 0) return m_age;
-   if (index == 1) return m_price;
+   if (index == 0) return m_price;
+   if (index == 1) return m_age;
    if (index == 2) return m_edit_property_button;
    return Widget::getSubWidget(index);
 }

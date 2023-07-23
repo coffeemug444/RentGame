@@ -12,10 +12,10 @@ MarketListingWidget::MarketListingWidget(unsigned id)
 :Widget(COL,{ V_CENTER, LEFT })
 ,m_id(id)
 ,m_purchase_button([id](){EI::ev_purchase_listing_id.push(id);}, { V_CENTER, RIGHT })
-,m_price("Price: ")
-,m_age("Age: ")
+,m_price("")
+,m_age("")
 {
-   setPadding({20,20,20,20});
+   setPadding({20,20,10,10});
    m_purchase_button.setFillColor(sf::Color::Red);
    m_purchase_button.setPadding({10,10,10,10});
    m_background_box.setFillColor(CC::light_grey);
@@ -44,21 +44,22 @@ void MarketListingWidget::dataSync()
    auto listings = OD::market.getListings();
    auto listing = findById(m_id, listings);
    if (not listing.has_value()) return;
-   std::string age_string = "Age: ";
+   std::string age_string;
    switch (listing.value().get().property.getAgeClass())
    {
    case Property::AgeClass::NEW:
-      age_string += "NEW"; break;
+      age_string = "NEW"; break;
    case Property::AgeClass::MID:
-      age_string += "MID"; break;
+      age_string = "MID"; break;
    case Property::AgeClass::OLD:
-      age_string += "OLD"; break;
+      age_string = "OLD"; break;
    case Property::AgeClass::VERYOLD:
    default:
-      age_string += "VERY OLD"; break;      
+      age_string = "VERY OLD"; break;      
    }
    m_age.setString(age_string);
-   m_price.setString(std::string("Price: ") + listing.value().get().property.getPrice());
+   
+   m_price.setString(std::to_string(listing.value().get().property.getPrice()));
 }
 
 void MarketListingWidget::move(const sf::Vector2f& pos) 

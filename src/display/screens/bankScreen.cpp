@@ -35,7 +35,7 @@ void BankScreen::setSubWidgetSize()
    float w = inner_container_size.x;
    float title_height = 60.f;
    m_title_container.setSize({w, title_height});
-   float fields_height = 20.f;
+   float fields_height = 30.f;
    m_loan_amount_container.setSize({w, fields_height});
    m_repayment_time_container.setSize({w, fields_height});
 

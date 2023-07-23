@@ -17,13 +17,6 @@ LoanScreen::LoanScreen()
    refreshContainerWidgetIndices();
 }
 
-void LoanScreen::setSize(const sf::Vector2f& size)
-{
-   Screen::setSize(size);
-
-   // TODO: PUT EVERYTHING WHERE IT SHOULD BE (using containerWidgets??)
-}
-
 void LoanScreen::setSubWidgetSize()
 {
    auto inner_container_size = m_container_size - m_padding;
